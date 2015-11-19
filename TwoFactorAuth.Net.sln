@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwoFactorAuth.Net", "TwoFactorAuth.Net\TwoFactorAuth.Net.csproj", "{1775B5FE-B8A0-44D4-9C8C-CB575578C4B9}"
 EndProject
@@ -16,6 +16,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwoFactorAuth.Net.Tests", "TwoFactorAuth.Net.Tests\TwoFactorAuth.Net.Tests.csproj", "{028BEDA6-4F58-429E-8253-4FE011AC650C}"
 EndProject
 Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "TwoFactorAuth.Net.Documentation", "TwoFactorAuth.Net.Documentation\TwoFactorAuth.Net.Documentation.shfbproj", "{7BA8061F-0BF1-4B16-B32B-92E6CA5EAFE5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{028BEDA6-4F58-429E-8253-4FE011AC650C} = {028BEDA6-4F58-429E-8253-4FE011AC650C}
+		{1775B5FE-B8A0-44D4-9C8C-CB575578C4B9} = {1775B5FE-B8A0-44D4-9C8C-CB575578C4B9}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

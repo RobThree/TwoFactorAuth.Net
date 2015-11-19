@@ -61,6 +61,12 @@
     <KeepLogFile>True</KeepLogFile>
     <DisableCodeBlockComponent>False</DisableCodeBlockComponent>
     <CleanIntermediates>True</CleanIntermediates>
+    <NamespaceSummaries>
+      <NamespaceSummaryItem name="TwoFactorAuth.Net" isDocumented="True">Contains classes and interfaces for (TOTP) Two Factor Authentication.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="TwoFactorAuth.Net.Providers.Qr" isDocumented="True">Contains classes and interfaces for QR code generation.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="TwoFactorAuth.Net.Providers.Rng" isDocumented="True">Contains classes and interfaces for random number sequence generation.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="TwoFactorAuth.Net.Providers (Group)" isGroup="True" isDocumented="True">Contains classes and interfaces for providers that are used and/or invoked by the &amp;lt;see cref="TwoFactorAuth"&amp;gt; class.</NamespaceSummaryItem></NamespaceSummaries>
+    <ProjectSummary>This library provides an easy way to implement TOTP Two Factor Authentication into your projects.</ProjectSummary>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in order for Visual Studio to perform
 			 the build.  The others are optional common platform types that may appear. -->

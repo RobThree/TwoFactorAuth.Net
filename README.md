@@ -11,7 +11,7 @@
 This is a work-in-progress.
 
 **TODO:**
-* Document
-* Create helpfile
+* Helpfile welcome page
 * Create demo (MVC?) project
 * Create NuGet package
+* README

@@ -1,7 +1,7 @@
 ﻿using TwoFactorAuth.Net.Providers.Qr;
 using TwoFactorAuth.Net.Providers.Rng;
 
-namespace TwoFactorAuth.Net.Providers
+namespace TwoFactorAuth.Net
 {
     /// <summary>
     /// Provides default values for providers required by <see cref="TwoFactorAuth"/> instances.
