@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="7fad766e-7156-4ec8-aed1-93303f5fc5bd" revisionNumber="1">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction>
+      <para>
+        The topics in this section describe the various changes made to the TwoFactorAuth.Net library over the life of
+        the project.
+      </para>
+    </introduction>
+
+    <section>
+      <title>Version History</title>
+      <content>
+        <para>Select a version below to see a description of its changes.</para>
+
+        <list class="bullet">
+          <listItem>
+            <para>
+              <link xlink:href="6a5dae71-93b4-4879-b484-819a46d29b18" />
+            </para>
+          </listItem>
+        </list>
+
+      </content>
+    </section>
+
+    <relatedTopics>
+      <link xlink:href="29798514-938e-41be-afcc-06895db657ed" />
+    </relatedTopics>
+
+  </developerConceptualDocument>
+</topic>

@@ -19,6 +19,7 @@ namespace TwoFactorAuth.Net.Providers.Rng
         /// <remarks>
         /// The <see cref="DefaultRngProvider"/> is cryptographically secure.
         /// </remarks>
+        /// <seealso cref="CryptoSecureRequirement"/>
         public bool IsCryptographicallySecure { get { return true; } }
 
         /// <summary>

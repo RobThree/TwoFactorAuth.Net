@@ -40,6 +40,7 @@ namespace TwoFactorAuth.Net.Providers.Rng
         /// <remarks>
         /// The <see cref="HashRngProvider"/> is not cryptographically secure.
         /// </remarks>
+        /// <seealso cref="CryptoSecureRequirement"/>
         public bool IsCryptographicallySecure { get { return false; } }
 
         /// <summary>
