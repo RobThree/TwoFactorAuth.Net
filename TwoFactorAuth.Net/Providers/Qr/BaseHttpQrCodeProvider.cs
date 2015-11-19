@@ -57,6 +57,8 @@ namespace TwoFactorAuth.Net.Providers.Qr
         /// </summary>
         /// <param name="baseUri">The base Uri for the QR code provider.</param>
         /// <param name="sslPolicy">The <see cref="SslPolicy"/> to be used by the QR code provider.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="baseUri"/> is null.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when an invalid <see cref="SslPolicy"/> is specified.</exception>
         protected BaseHttpQrCodeProvider(Uri baseUri, SslPolicy sslPolicy)
         {
             if (baseUri == null)

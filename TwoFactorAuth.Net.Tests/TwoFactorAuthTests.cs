@@ -103,6 +103,13 @@ namespace TwoFactorAuth.Net.Tests
             Assert.IsTrue(target.VerifyCode("VMR466AB62ZBOKHE", "543160", 2, 1426847205 - 65));	    // Test discrepancy
         }
 
+        [TestMethod]
+        public void VerifyCodeAllowsNegativeDiscrepancy()
+        {
+            var target = new TwoFactorAuth(null, 6, 30, Algorithm.SHA1);
+            Assert.IsTrue(target.VerifyCode("VMR466AB62ZBOKHE", "543160", -2, 1426847205 - 65));	    // Test negative discrepancy
+        }
+
 
         [TestMethod]
         public void VerifyTotpUriIsCorrect()

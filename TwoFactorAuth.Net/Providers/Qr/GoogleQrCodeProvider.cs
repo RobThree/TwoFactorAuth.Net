@@ -64,6 +64,9 @@ namespace TwoFactorAuth.Net.Providers.Qr
         /// <param name="errorCorrectionLevel">The <see cref="ErrorCorrectionLevel"/> to use when generating QR codes.</param>
         /// <param name="marginRows">The width of the white border around the data portion of the code.</param>
         /// <param name="sslPolicy">The <see cref="SslPolicy"/> to use when generating QR codes.</param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when an invalid <see cref="ErrorCorrectionLevel"/> is specified or marginRows is less than 0.
+        /// </exception>
         public GoogleQrCodeProvider(ErrorCorrectionLevel errorCorrectionLevel, int marginRows, SslPolicy sslPolicy)
             : base(baseuri, sslPolicy)
         {

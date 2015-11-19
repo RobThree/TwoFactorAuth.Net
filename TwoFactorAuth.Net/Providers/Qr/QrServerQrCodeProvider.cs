@@ -190,6 +190,11 @@ namespace TwoFactorAuth.Net.Providers.Qr
         /// <param name="foregroundColor">The foreground color to be used for the QR code.</param>
         /// <param name="imageFormat">The <see cref="QrServerImageFormat"/> of the QR code.</param>
         /// <param name="sslPolicy">The <see cref="SslPolicy"/> to use when generating QR codes.</param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when an invalid <see cref="ErrorCorrectionLevel"/> or <see cref="QrServerImageFormat"/> is specified,
+        /// <paramref name="margin"/> is less than 0 or more than 50 or <paramref name="quietZone"/> is less than 0 or
+        /// more than 100.
+        /// </exception>
         public QrServerQrCodeProvider(ErrorCorrectionLevel errorCorrectionLevel, int margin, int quietZone, Color backgroundColor, Color foregroundColor, QrServerImageFormat imageFormat, SslPolicy sslPolicy)
             : base(baseuri, sslPolicy)
         {
@@ -219,6 +224,9 @@ namespace TwoFactorAuth.Net.Providers.Qr
         /// </summary>
         /// <returns>Returns the MIME type of the image.</returns>
         /// <seealso cref="IQrCodeProvider"/>
+        /// <exception cref="InvalidOperationException">
+        /// Thrown when an unknown <see cref="QrServerImageFormat"/> is used.
+        /// </exception>
         public string GetMimeType()
         {
             switch (this.ImageFormat)

@@ -119,6 +119,9 @@ namespace TwoFactorAuth.Net.Providers.Qr
         /// <param name="foregroundColor">The foreground color to be used for the QR code.</param>
         /// <param name="imageFormat">The <see cref="QRicketImageFormat"/> of the QR code.</param>
         /// <param name="sslPolicy">The <see cref="SslPolicy"/> to use when generating QR codes.</param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when an invalid <see cref="ErrorCorrectionLevel"/> or <see cref="QRicketImageFormat"/> is specified.
+        /// </exception>
         public QRicketQrCodeProvider(ErrorCorrectionLevel errorCorrectionLevel, Color backgroundColor, Color foregroundColor, QRicketImageFormat imageFormat, SslPolicy sslPolicy)
             : base(baseuri, sslPolicy)
         {
@@ -139,6 +142,9 @@ namespace TwoFactorAuth.Net.Providers.Qr
         /// </summary>
         /// <returns>Returns the MIME type of the image.</returns>
         /// <seealso cref="IQrCodeProvider"/>
+        /// <exception cref="InvalidOperationException">
+        /// Thrown when an unknown <see cref="QRicketImageFormat"/> is used.
+        /// </exception>
         public string GetMimeType()
         {
             switch (this.ImageFormat)

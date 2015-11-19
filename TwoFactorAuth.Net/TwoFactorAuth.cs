@@ -10,25 +10,85 @@ using TwoFactorAuth.Net.Providers.Rng;
 
 namespace TwoFactorAuth.Net
 {
-    // Based on / inspired by: https://github.com/RobThree/TwoFactorAuth and https://github.com/PHPGangsta/GoogleAuthenticator
-    // Algorithms, digits, period etc. explained: https://github.com/google/google-authenticator/wiki/Key-Uri-Format
+    /// <summary>
+    /// Provides methods to enable 2FA (Two Factor Authentication).
+    /// </summary>
+    /// <remarks>
+    /// This library only provides the TOTP (Time-based One-time Password) implementation of 2FA. It does not provide
+    /// a HOTP (HMAC-based One-time Password) implementation.
+    /// </remarks>
+    /// <seealso href="https://github.com/RobThree/TwoFactorAuth.Net"/>
+    /// <seealso href="https://github.com/RobThree/TwoFactorAuth"/>
+    /// <seealso href="https://github.com/google/google-authenticator/wiki/Key-Uri-Format"/>
     public class TwoFactorAuth
     {
-        public string Issuer { get; private set; }
-        public int Digits { get; private set; }
-        public int Period { get; private set; }
-        public Algorithm Algorithm { get; private set; }
-        public IQrCodeProvider QrCodeProvider { get; private set; }
-        public IRngProvider RngProvider { get; private set; }
-
         private readonly Encoding ENCODING = Encoding.ASCII;
         private readonly DateTime EPOCH = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-        private const int DEFAULTDISCREPANCY = 1;
-        private const int DEFAULTSECRETBITS = 80;
-        private const int DEFAULTPERIOD = 30;
-        private const int DEFAULTDIGITS = 6;
-        private const int DEFAULTQRCODESIZE = 200;
-        private const Algorithm DEFAULTALGORITHM = Algorithm.SHA1;
+
+        /// <summary>
+        /// Gets a string value indicating the provider or service this account is associated with.
+        /// </summary>
+        public string Issuer { get; private set; }
+
+        /// <summary>
+        /// Gets the number of digits to display to the user.
+        /// </summary>
+        /// <see cref="DEFAULTDIGITS"/>
+        public int Digits { get; private set; }
+
+        /// <summary>
+        /// Gets the period that a TOTP code will be valid for, in seconds.
+        /// </summary>
+        /// <remarks>The period may be ignored by some 2FA client applications.</remarks>
+        /// <see cref="DEFAULTPERIOD"/>
+        public int Period { get; private set; }
+
+        /// <summary>
+        /// Gets the algorithm used for generating the TOTP codes.
+        /// </summary>
+        /// <remarks>The algorithm may be ignored by some 2FA client applications.</remarks>
+        /// <see cref="DEFAULTALGORITHM"/>
+        public Algorithm Algorithm { get; private set; }
+
+        /// <summary>
+        /// Gets the <see cref="IQrCodeProvider"/> to be used for generating QR codes.
+        /// </summary>
+        public IQrCodeProvider QrCodeProvider { get; private set; }
+
+        /// <summary>
+        /// Gets the <see cref="IRngProvider"/> to be used for generating random values.
+        /// </summary>
+        public IRngProvider RngProvider { get; private set; }
+
+        /// <summary>
+        /// Defines the default number of digits used when this number is unspecified.
+        /// </summary>
+        public const int DEFAULTDIGITS = 6;
+
+        /// <summary>
+        /// Defines the default period used when the period is unspecified.
+        /// </summary>
+        public const int DEFAULTPERIOD = 30;
+
+        /// <summary>
+        /// Defines the default algorithm used when the algorithm is unspecified.
+        /// </summary>
+        public const Algorithm DEFAULTALGORITHM = Algorithm.SHA1;
+
+        /// <summary>
+        /// Defines the default discrepancy used when the discrepancy is unspecified.
+        /// </summary>
+        public const int DEFAULTDISCREPANCY = 1;
+
+        /// <summary>
+        /// Defines the default number of bits for entryp used when the number is unspecified.
+        /// </summary>
+        public const int DEFAULTSECRETBITS = 80;
+
+        /// <summary>
+        /// Defines the default QR code image size, in pixels, when the size is unspecified.
+        /// </summary>
+        public const int DEFAULTQRCODESIZE = 200;
 
         public TwoFactorAuth()
             : this(null)
@@ -107,19 +167,50 @@ namespace TwoFactorAuth.Net
             this.RngProvider = rngprovider;
         }
 
+        /// <summary>
+        /// Creates a 80 bit secret key to be shared with the user on wich the future valid TOTP codes will be based. 
+        /// The <see cref="CryptoSecureRequirement"/> is <see href="CryptoSecureRequirement.RequireSecure"/>.
+        /// </summary>
+        /// <returns>
+        /// Returns a string of random values in 'Base32 alphabet' to be shared with the user / stored with the account.
+        /// </returns>
+        /// <seealso cref="DEFAULTSECRETBITS"/>
         public string CreateSecret()
         {
             return this.CreateSecret(DEFAULTSECRETBITS, CryptoSecureRequirement.RequireSecure);
         }
 
+        /// <summary>
+        /// Creates a secret key with the specified number of bits of entropy to be shared with the user on wich the
+        /// future valid TOTP codes will be based. The <see cref="CryptoSecureRequirement"/> is 
+        /// <see href="CryptoSecureRequirement.RequireSecure"/>.
+        /// </summary>
+        /// <param name="bits">The number of bits of entropy to use.</param>
+        /// <returns>
+        /// Returns a string of random values in 'Base32 alphabet' to be shared with the user / stored with the account.
+        /// </returns>
         public string CreateSecret(int bits)
         {
             return this.CreateSecret(bits, CryptoSecureRequirement.RequireSecure);
         }
 
-        public string CreateSecret(int bits, CryptoSecureRequirement cryptoSecure)
+        /// <summary>
+        /// Creates a secret key with the specified number of bits of entropy and specified 
+        /// <see cref="CryptoSecureRequirement"/> to be shared with the user on wich the future valid TOTP codes will
+        /// be based.
+        /// </summary>
+        /// <param name="bits">The number of bits of entropy to use.</param>
+        /// <param name="cryptoSecure">The <see cref="CryptoSecureRequirement"/> to ensure cryptographically secure RNG's.</param>
+        /// <returns>
+        /// Returns a string of random values in 'Base32 alphabet' to be shared with the user / stored with the account.
+        /// </returns>
+        /// <exception cref="CryptographicException">
+        /// Thrown when the <see cref="IRngProvider"/> of the instance is not cryptographically secure and the
+        /// <see cref="CryptoSecureRequirement"/> requires a cryptographically secure RNG.
+        /// </exception>
+        public string CreateSecret(int bits, CryptoSecureRequirement cryptoSecureRequirement)
         {
-            if (cryptoSecure == CryptoSecureRequirement.RequireSecure && !this.RngProvider.IsCryptographicallySecure)
+            if (cryptoSecureRequirement == CryptoSecureRequirement.RequireSecure && !this.RngProvider.IsCryptographicallySecure)
                 throw new CryptographicException("RNG provider is not cryptographically secure");
 
             int bytes = (int)Math.Ceiling((double)bits / 5);    // We use 5 bits of each byte (since we have a
@@ -130,16 +221,33 @@ namespace TwoFactorAuth.Net
             return string.Concat(this.RngProvider.GetRandomBytes(bytes).Select(v => Base32.Base32Alphabet[v & 31]));
         }
 
+        /// <summary>
+        /// Gets a TOTP code based on the specified secret for the current time.
+        /// </summary>
+        /// <param name="secret">The shared secret.</param>
+        /// <returns>Returns a TOTP code based on the specified secret for the current time.</returns>
         public string GetCode(string secret)
         {
             return this.GetCode(secret, DateTime.UtcNow);
         }
 
+        /// <summary>
+        /// Gets a TOTP code based on the specified secret for the specified <see cref="DateTime"/>.
+        /// </summary>
+        /// <param name="secret">The shared secret.</param>
+        /// <param name="dateTime">The <see cref="DateTime"/> for the TOTP code.</param>
+        /// <returns>Returns a TOTP code based on the specified secret for the specified <see cref="DateTime"/>.</returns>
         public string GetCode(string secret, DateTime dateTime)
         {
             return this.GetCode(secret, this.DateTimeToTimestamp(dateTime));
         }
 
+        /// <summary>
+        /// Gets a TOTP code based on the specified secret for the specified timestamp.
+        /// </summary>
+        /// <param name="secret">The shared secret.</param>
+        /// <param name="timestamp">The timestamp for the TOTP code.</param>
+        /// <returns>Returns a TOTP code based on the specified secret for the specified timestamp.</returns>
         public string GetCode(string secret, long timestamp)
         {
             using (var algo = KeyedHashAlgorithm.Create("HMAC" + Enum.GetName(typeof(Algorithm), this.Algorithm)))
@@ -158,39 +266,63 @@ namespace TwoFactorAuth.Net
             }
         }
 
-        private long GetTimeSlice(long timeslice, int offset)
-        {
-            return (timeslice / this.Period) + (offset * this.Period);
-        }
-
-
-        private long DateTimeToTimestamp(DateTime value)
-        {
-            return (long)(value.ToUniversalTime() - EPOCH).TotalSeconds;
-        }
-
+        /// <summary>
+        /// Verifies a TOTP code with the shared secret for the current time and with a <see cref="DEFAULTDISCREPANCY"/>.
+        /// </summary>
+        /// <param name="secret">The shared secret.</param>
+        /// <param name="code">The TOTP code to verify.</param>
+        /// <returns>Returns true when the TOTP code is valid, false otherwise.</returns>
         public bool VerifyCode(string secret, string code)
         {
             return this.VerifyCode(secret, code, DEFAULTDISCREPANCY);
         }
 
-
+        /// <summary>
+        /// Verifies a TOTP code with the shared secret for the current time and with a specified discrepancy.
+        /// </summary>
+        /// <param name="secret">The shared secret.</param>
+        /// <param name="code">The TOTP code to verify.</param>
+        /// <param name="discrepancy">The allowed time discrepancy (in both directions)  in number of <see cref="Period"/>s.</param>
+        /// <returns>Returns true when the TOTP code is valid, false otherwise.</returns>
         public bool VerifyCode(string secret, string code, int discrepancy)
         {
             return this.VerifyCode(secret, code, discrepancy, DateTime.UtcNow);
         }
 
+        /// <summary>
+        /// Verifies a TOTP code with the shared secret for the specified <see cref="DateTime"/> and with a specified
+        /// discrepancy.
+        /// </summary>
+        /// <param name="secret">The shared secret.</param>
+        /// <param name="code">The TOTP code to verify.</param>
+        /// <param name="discrepancy">The allowed time discrepancy (in both directions)  in number of <see cref="Period"/>s.</param>
+        /// <param name="dateTime">The <see cref="DateTime"/> for wich to verify the TOTP code.</param>
+        /// <returns>Returns true when the TOTP code is valid, false otherwise.</returns>
         public bool VerifyCode(string secret, string code, int discrepancy, DateTime dateTime)
         {
             return this.VerifyCode(secret, code, discrepancy, this.DateTimeToTimestamp(dateTime));
         }
 
+        /// <summary>
+        /// Verifies a TOTP code with the shared secret for the specified timestamp and with a specified discrepancy.
+        /// </summary>
+        /// <param name="secret">The shared secret.</param>
+        /// <param name="code">The TOTP code to verify.</param>
+        /// <param name="discrepancy">The allowed time discrepancy (in both directions) in number of <see cref="Period"/>s.</param>
+        /// <param name="timestamp">The timestamp for wich to verify the TOTP code.</param>
+        /// <returns>Returns true when the TOTP code is valid, false otherwise.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when <paramref name="secret"/> or <paramref name="code"/> is null.
+        /// </exception>
         public bool VerifyCode(string secret, string code, int discrepancy, long timestamp)
         {
             if (secret == null)
                 throw new ArgumentNullException("secret");
             if (code == null)
                 throw new ArgumentNullException("code");
+
+            // Make sure discrepancy is always positive
+            discrepancy = Math.Abs(discrepancy);
 
             var result = false;
 
@@ -200,6 +332,51 @@ namespace TwoFactorAuth.Net
                 result |= CodeEquals(this.GetCode(secret, timestamp + (i * this.Period)), code);
 
             return result;
+        }
+
+        /// <summary>
+        /// Retrieves / generates a QR code to be displayed to the user for sharing the shared secret and easy input
+        /// of this code by scanning with a default size (<see cref="DEFAULTQRCODESIZE"/>).
+        /// </summary>
+        /// <param name="label">The label to identify which account a key is associated with.</param>
+        /// <param name="secret">The shared secret.</param>
+        /// <returns>Returns an image encoded as data uri.</returns>
+        /// <see href="https://en.wikipedia.org/wiki/Data_URI_scheme"/>
+        public string GetQrCodeImageAsDataUri(string label, string secret)
+        {
+            return GetQrCodeImageAsDataUri(label, secret, DEFAULTQRCODESIZE);
+        }
+
+        /// <summary>
+        /// Retrieves / generates a QR code to be displayed to the user for sharing the shared secret and easy input
+        /// of this code by scanning with a specified size.
+        /// </summary>
+        /// <param name="label">The label to identify which account a key is associated with.</param>
+        /// <param name="secret">The shared secret.</param>
+        /// <param name="size">The desired size, in pixels (width and height equal), of the QR code.</param>
+        /// <returns>Returns an image encoded as data uri.</returns>
+        /// <see href="https://en.wikipedia.org/wiki/Data_URI_scheme"/>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="size"/> is less than 0</exception>
+        public string GetQrCodeImageAsDataUri(string label, string secret, int size)
+        {
+            if (size <= 0)
+                throw new ArgumentOutOfRangeException("size");
+
+            return "data:"
+                + this.QrCodeProvider.GetMimeType()
+                + ";base64,"
+                + Convert.ToBase64String(this.QrCodeProvider.GetQrCodeImage(this.GetQrText(label, secret), size));
+        }
+
+        private long GetTimeSlice(long timeslice, int offset)
+        {
+            return (timeslice / this.Period) + (offset * this.Period);
+        }
+
+
+        private long DateTimeToTimestamp(DateTime value)
+        {
+            return (long)(value.ToUniversalTime() - EPOCH).TotalSeconds;
         }
 
         private static bool CodeEquals(string safe, string user)
@@ -214,22 +391,6 @@ namespace TwoFactorAuth.Net
                 return result == 0;
             }
             return false;
-        }
-
-        public string GetQrCodeImageAsDataUri(string label, string secret)
-        {
-            return GetQrCodeImageAsDataUri(label, secret, DEFAULTQRCODESIZE);
-        }
-
-        public string GetQrCodeImageAsDataUri(string label, string secret, int size)
-        {
-            if (size <= 0)
-                throw new ArgumentOutOfRangeException("size");
-
-            return "data:"
-                + this.QrCodeProvider.GetMimeType()
-                + ";base64,"
-                + Convert.ToBase64String(this.QrCodeProvider.GetQrCodeImage(this.GetQrText(label, secret), size));
         }
 
         private string GetQrText(string label, string secret)
