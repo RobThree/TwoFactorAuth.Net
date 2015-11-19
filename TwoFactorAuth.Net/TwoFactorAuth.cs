@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using TwoFactorAuth.Net.Providers;
 using TwoFactorAuth.Net.Providers.Qr;
 using TwoFactorAuth.Net.Providers.Rng;
 
@@ -46,19 +47,19 @@ namespace TwoFactorAuth.Net
         { }
 
         public TwoFactorAuth(string issuer, int digits, int period, Algorithm algorithm)
-            : this(issuer, digits, period, algorithm, new GoogleQrCodeProvider())
+            : this(issuer, digits, period, algorithm, DefaultProviders.DefaultQrCodeProvider)
         { }
 
         public TwoFactorAuth(string issuer, int digits, int period, Algorithm algorithm, IQrCodeProvider qrcodeprovider)
-            : this(issuer, digits, period, algorithm, qrcodeprovider, new DefaultRngProvider())
+            : this(issuer, digits, period, algorithm, qrcodeprovider, DefaultProviders.DefaultRngProvider)
         { }
 
         public TwoFactorAuth(string issuer, IQrCodeProvider qrcodeprovider)
-            : this(issuer, DEFAULTDIGITS, DEFAULTPERIOD, DEFAULTALGORITHM, qrcodeprovider, new DefaultRngProvider())
+            : this(issuer, DEFAULTDIGITS, DEFAULTPERIOD, DEFAULTALGORITHM, qrcodeprovider, DefaultProviders.DefaultRngProvider)
         { }
 
         public TwoFactorAuth(string issuer, IRngProvider rngprovider)
-            : this(issuer, DEFAULTDIGITS, DEFAULTPERIOD, DEFAULTALGORITHM, new GoogleQrCodeProvider(), rngprovider)
+            : this(issuer, DEFAULTDIGITS, DEFAULTPERIOD, DEFAULTALGORITHM, DefaultProviders.DefaultQrCodeProvider, rngprovider)
         { }
 
         public TwoFactorAuth(string issuer, IQrCodeProvider qrcodeprovider, IRngProvider rngprovider)
@@ -66,15 +67,15 @@ namespace TwoFactorAuth.Net
         { }
 
         public TwoFactorAuth(string issuer, Algorithm algorithm)
-            : this(issuer, DEFAULTDIGITS, DEFAULTPERIOD, algorithm, new GoogleQrCodeProvider(), new DefaultRngProvider())
+            : this(issuer, DEFAULTDIGITS, DEFAULTPERIOD, algorithm, DefaultProviders.DefaultQrCodeProvider, DefaultProviders.DefaultRngProvider)
         { }
 
         public TwoFactorAuth(string issuer, Algorithm algorithm, IQrCodeProvider qrcodeprovider)
-            : this(issuer, DEFAULTDIGITS, DEFAULTPERIOD, algorithm, qrcodeprovider, new DefaultRngProvider())
+            : this(issuer, DEFAULTDIGITS, DEFAULTPERIOD, algorithm, qrcodeprovider, DefaultProviders.DefaultRngProvider)
         { }
 
         public TwoFactorAuth(string issuer, Algorithm algorithm, IRngProvider rngprovider)
-            : this(issuer, DEFAULTDIGITS, DEFAULTPERIOD, algorithm, new GoogleQrCodeProvider(), rngprovider)
+            : this(issuer, DEFAULTDIGITS, DEFAULTPERIOD, algorithm, DefaultProviders.DefaultQrCodeProvider, rngprovider)
         { }
 
         public TwoFactorAuth(string issuer, Algorithm algorithm, IQrCodeProvider qrcodeprovider, IRngProvider rngprovider)
@@ -122,7 +123,7 @@ namespace TwoFactorAuth.Net
                 throw new CryptographicException("RNG provider is not cryptographically secure");
 
             int bytes = (int)Math.Ceiling((double)bits / 5);    // We use 5 bits of each byte (since we have a
-                                                                // 32-character 'alphabet' / BASE32)
+            // 32-character 'alphabet' / BASE32)
 
             // Note that we DO NOT actually "base32 encode" the random bytes, we simply grab random letters from the
             // base32 alphabet which doesn't matter for a random secret.

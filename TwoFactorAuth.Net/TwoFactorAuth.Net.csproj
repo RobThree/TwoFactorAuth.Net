@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Enums.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\DefaultProviders.cs" />
     <Compile Include="Providers\Qr\BaseHttpQrCodeProvider.cs" />
     <Compile Include="Providers\Qr\Enums.cs" />
     <Compile Include="Providers\Qr\GoogleQrCodeProvider.cs" />
