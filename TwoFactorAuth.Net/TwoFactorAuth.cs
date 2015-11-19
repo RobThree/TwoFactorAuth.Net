@@ -90,58 +90,194 @@ namespace TwoFactorAuth.Net
         /// </summary>
         public const int DEFAULTQRCODESIZE = 200;
 
+        /// <summary>
+        /// Intializes a new instance of the <see cref="TwoFactorAuth"/> class.
+        /// </summary>
         public TwoFactorAuth()
             : this(null)
         { }
 
+        /// <summary>
+        /// Intializes a new instance of the <see cref="TwoFactorAuth"/> class.
+        /// </summary>
+        /// <param name="issuer">The issuer of the TOTP authentication token.</param>
         public TwoFactorAuth(string issuer)
             : this(issuer, DEFAULTDIGITS)
         { }
 
+        /// <summary>
+        /// Intializes a new instance of the <see cref="TwoFactorAuth"/> class.
+        /// </summary>
+        /// <param name="issuer">The issuer of the TOTP authentication token.</param>
+        /// <param name="digits">The number of digits to be displayed to the user / required for verification.</param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when <paramref name="digits"/> is less than 0.
+        /// </exception>
         public TwoFactorAuth(string issuer, int digits)
             : this(issuer, digits, DEFAULTPERIOD)
         { }
 
+        /// <summary>
+        /// Intializes a new instance of the <see cref="TwoFactorAuth"/> class.
+        /// </summary>
+        /// <param name="issuer">The issuer of the TOTP authentication token.</param>
+        /// <param name="digits">The number of digits to be displayed to the user / required for verification.</param>
+        /// <param name="period">The period, specified in seconds, a TOTP is valid.</param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when <paramref name="digits"/> or <paramref name="period"/> are less than 0.
+        /// </exception>
         public TwoFactorAuth(string issuer, int digits, int period)
             : this(issuer, digits, period, DEFAULTALGORITHM)
         { }
 
+        /// <summary>
+        /// Intializes a new instance of the <see cref="TwoFactorAuth"/> class.
+        /// </summary>
+        /// <param name="issuer">The issuer of the TOTP authentication token.</param>
+        /// <param name="digits">The number of digits to be displayed to the user / required for verification.</param>
+        /// <param name="period">The period, specified in seconds, a TOTP is valid.</param>
+        /// <param name="algorithm">The algorithm to use when generating TOTP codes.</param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when <paramref name="digits"/> or <paramref name="period"/> are less than 0 or the specified 
+        /// <paramref name="algorithm"/> is invalid.
+        /// </exception>
         public TwoFactorAuth(string issuer, int digits, int period, Algorithm algorithm)
             : this(issuer, digits, period, algorithm, DefaultProviders.DefaultQrCodeProvider)
         { }
 
+        /// <summary>
+        /// Intializes a new instance of the <see cref="TwoFactorAuth"/> class.
+        /// </summary>
+        /// <param name="issuer">The issuer of the TOTP authentication token.</param>
+        /// <param name="digits">The number of digits to be displayed to the user / required for verification.</param>
+        /// <param name="period">The period, specified in seconds, a TOTP is valid.</param>
+        /// <param name="algorithm">The algorithm to use when generating TOTP codes.</param>
+        /// <param name="qrcodeprovider">The <see cref="IQrCodeProvider"/> to use for generating QR codes.</param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when <paramref name="digits"/> or <paramref name="period"/> are less than 0 or the specified 
+        /// <paramref name="algorithm"/> is invalid.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when the specified <paramref name="qrcodeprovider"/> is null.
+        /// </exception>
         public TwoFactorAuth(string issuer, int digits, int period, Algorithm algorithm, IQrCodeProvider qrcodeprovider)
             : this(issuer, digits, period, algorithm, qrcodeprovider, DefaultProviders.DefaultRngProvider)
         { }
 
+        /// <summary>
+        /// Intializes a new instance of the <see cref="TwoFactorAuth"/> class.
+        /// </summary>
+        /// <param name="issuer">The issuer of the TOTP authentication token.</param>
+        /// <param name="qrcodeprovider">The <see cref="IQrCodeProvider"/> to use for generating QR codes.</param>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when the specified <paramref name="qrcodeprovider"/> is null.
+        /// </exception>
         public TwoFactorAuth(string issuer, IQrCodeProvider qrcodeprovider)
             : this(issuer, DEFAULTDIGITS, DEFAULTPERIOD, DEFAULTALGORITHM, qrcodeprovider, DefaultProviders.DefaultRngProvider)
         { }
 
+        /// <summary>
+        /// Intializes a new instance of the <see cref="TwoFactorAuth"/> class.
+        /// </summary>
+        /// <param name="issuer">The issuer of the TOTP authentication token.</param>
+        /// <param name="rngprovider">The <see cref="IRngProvider"/> to use for generating sequences of random numbers.</param>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when the specified <paramref name="rngprovider"/> is null.
+        /// </exception>
         public TwoFactorAuth(string issuer, IRngProvider rngprovider)
             : this(issuer, DEFAULTDIGITS, DEFAULTPERIOD, DEFAULTALGORITHM, DefaultProviders.DefaultQrCodeProvider, rngprovider)
         { }
 
+        /// <summary>
+        /// Intializes a new instance of the <see cref="TwoFactorAuth"/> class.
+        /// </summary>
+        /// <param name="issuer">The issuer of the TOTP authentication token.</param>
+        /// <param name="qrcodeprovider">The <see cref="IQrCodeProvider"/> to use for generating QR codes.</param>
+        /// <param name="rngprovider">The <see cref="IRngProvider"/> to use for generating sequences of random numbers.</param>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when the specified <paramref name="rngprovider"/> is null.
+        /// </exception>
         public TwoFactorAuth(string issuer, IQrCodeProvider qrcodeprovider, IRngProvider rngprovider)
             : this(issuer, DEFAULTDIGITS, DEFAULTPERIOD, DEFAULTALGORITHM, qrcodeprovider, rngprovider)
         { }
 
+        /// <summary>
+        /// Intializes a new instance of the <see cref="TwoFactorAuth"/> class.
+        /// </summary>
+        /// <param name="issuer">The issuer of the TOTP authentication token.</param>
+        /// <param name="algorithm">The algorithm to use when generating TOTP codes.</param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when the specified <paramref name="algorithm"/> is invalid.
+        /// </exception>
         public TwoFactorAuth(string issuer, Algorithm algorithm)
             : this(issuer, DEFAULTDIGITS, DEFAULTPERIOD, algorithm, DefaultProviders.DefaultQrCodeProvider, DefaultProviders.DefaultRngProvider)
         { }
 
+        /// <summary>
+        /// Intializes a new instance of the <see cref="TwoFactorAuth"/> class.
+        /// </summary>
+        /// <param name="issuer">The issuer of the TOTP authentication token.</param>
+        /// <param name="algorithm">The algorithm to use when generating TOTP codes.</param>
+        /// <param name="qrcodeprovider">The <see cref="IQrCodeProvider"/> to use for generating QR codes.</param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when the specified <paramref name="algorithm"/> is invalid.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when the specified <paramref name="qrcodeprovider"/> is null.
+        /// </exception>
         public TwoFactorAuth(string issuer, Algorithm algorithm, IQrCodeProvider qrcodeprovider)
             : this(issuer, DEFAULTDIGITS, DEFAULTPERIOD, algorithm, qrcodeprovider, DefaultProviders.DefaultRngProvider)
         { }
 
+        /// <summary>
+        /// Intializes a new instance of the <see cref="TwoFactorAuth"/> class.
+        /// </summary>
+        /// <param name="issuer">The issuer of the TOTP authentication token.</param>
+        /// <param name="algorithm">The algorithm to use when generating TOTP codes.</param>
+        /// <param name="rngprovider">The <see cref="IRngProvider"/> to use for generating sequences of random numbers.</param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when the specified <paramref name="algorithm"/> is invalid.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when the specified <paramref name="rngprovider"/> is null.
+        /// </exception>
         public TwoFactorAuth(string issuer, Algorithm algorithm, IRngProvider rngprovider)
             : this(issuer, DEFAULTDIGITS, DEFAULTPERIOD, algorithm, DefaultProviders.DefaultQrCodeProvider, rngprovider)
         { }
 
+        /// <summary>
+        /// Intializes a new instance of the <see cref="TwoFactorAuth"/> class.
+        /// </summary>
+        /// <param name="issuer">The issuer of the TOTP authentication token.</param>
+        /// <param name="algorithm">The algorithm to use when generating TOTP codes.</param>
+        /// <param name="qrcodeprovider">The <see cref="IQrCodeProvider"/> to use for generating QR codes.</param>
+        /// <param name="rngprovider">The <see cref="IRngProvider"/> to use for generating sequences of random numbers.</param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when the specified <paramref name="algorithm"/> is invalid.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when the specified <paramref name="qrcodeprovider"/> or <paramref name="rngprovider"/> is null.
+        /// </exception>
         public TwoFactorAuth(string issuer, Algorithm algorithm, IQrCodeProvider qrcodeprovider, IRngProvider rngprovider)
             : this(issuer, DEFAULTDIGITS, DEFAULTPERIOD, algorithm, qrcodeprovider, rngprovider)
         { }
 
+        /// <summary>
+        /// Intializes a new instance of the <see cref="TwoFactorAuth"/> class.
+        /// </summary>
+        /// <param name="issuer">The issuer of the TOTP authentication token.</param>
+        /// <param name="digits">The number of digits to be displayed to the user / required for verification.</param>
+        /// <param name="period">The period, specified in seconds, a TOTP is valid.</param>
+        /// <param name="algorithm">The algorithm to use when generating TOTP codes.</param>
+        /// <param name="qrcodeprovider">The <see cref="IQrCodeProvider"/> to use for generating QR codes.</param>
+        /// <param name="rngprovider">The <see cref="IRngProvider"/> to use for generating sequences of random numbers.</param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when <paramref name="digits"/> or <paramref name="period"/> are less than 0 or the specified 
+        /// <paramref name="algorithm"/> is invalid.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when the specified <paramref name="qrcodeprovider"/> or <paramref name="rngprovider"/> is null.
+        /// </exception>
         public TwoFactorAuth(string issuer, int digits, int period, Algorithm algorithm, IQrCodeProvider qrcodeprovider, IRngProvider rngprovider)
         {
             this.Issuer = issuer;
@@ -200,7 +336,7 @@ namespace TwoFactorAuth.Net
         /// be based.
         /// </summary>
         /// <param name="bits">The number of bits of entropy to use.</param>
-        /// <param name="cryptoSecure">The <see cref="CryptoSecureRequirement"/> to ensure cryptographically secure RNG's.</param>
+        /// <param name="cryptoSecureRequirement">The <see cref="CryptoSecureRequirement"/> to ensure cryptographically secure RNG's.</param>
         /// <returns>
         /// Returns a string of random values in 'Base32 alphabet' to be shared with the user / stored with the account.
         /// </returns>
