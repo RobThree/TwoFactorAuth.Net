@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using TwoFactorAuth.Net.Providers.Qr;
@@ -44,7 +45,7 @@ namespace TwoFactorAuth.Net.Tests
 
 
         [TestMethod]
-        [ExpectedException(typeof(TwoFactorAuthException))]
+        [ExpectedException(typeof(CryptographicException))]
         public void CreateSecretThrowsOnInsecureRNGProvider()
         {
             var rng = new TestRNGProvider();

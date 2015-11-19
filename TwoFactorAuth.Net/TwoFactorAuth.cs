@@ -119,7 +119,7 @@ namespace TwoFactorAuth.Net
         public string CreateSecret(int bits, CryptoSecureRequirement cryptoSecure)
         {
             if (cryptoSecure == CryptoSecureRequirement.RequireSecure && !this.RngProvider.IsCryptographicallySecure)
-                throw new TwoFactorAuthException("RNG provider is not cryptographically secure");
+                throw new CryptographicException("RNG provider is not cryptographically secure");
 
             int bytes = (int)Math.Ceiling((double)bits / 5);    // We use 5 bits of each byte (since we have a
                                                                 // 32-character 'alphabet' / BASE32)

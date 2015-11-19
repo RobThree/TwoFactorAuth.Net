@@ -55,7 +55,6 @@
     <Compile Include="Providers\Rng\IRngProvider.cs" />
     <Compile Include="Providers\Rng\PrngProvider.cs" />
     <Compile Include="TwoFactorAuth.cs" />
-    <Compile Include="TwoFactorAuthException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
