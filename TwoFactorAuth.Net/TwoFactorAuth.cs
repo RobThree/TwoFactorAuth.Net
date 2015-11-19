@@ -368,17 +368,34 @@ namespace TwoFactorAuth.Net
                 + Convert.ToBase64String(this.QrCodeProvider.GetQrCodeImage(this.GetQrText(label, secret), size));
         }
 
-        private long GetTimeSlice(long timeslice, int offset)
+        /// <summary>
+        /// Calculates the timeslice (e.g. number of periods since <see cref="EPOCH"/>) for a given timestamp and
+        /// offset (specified in number of periods).
+        /// </summary>
+        /// <param name="timestamp">The timestamp to calculate the timeslice for.</param>
+        /// <param name="offset">The number of periods to offset (positive or negative).</param>
+        /// <returns>Returns the timeslice for a given timestamp and offset</returns>
+        private long GetTimeSlice(long timestamp, int offset)
         {
-            return (timeslice / this.Period) + (offset * this.Period);
+            return (timestamp / this.Period) + (offset * this.Period);
         }
 
-
+        /// <summary>
+        /// Converts a <see cref="DateTime"/> to timestamp (based on UNIX EPOCH, see <see cref="EPOCH"/>).
+        /// </summary>
+        /// <param name="value">The <see cref="DateTime"/> to calculate the timestamp from.</param>
+        /// <returns>Returns the timestamp for the specified <see cref="DateTime"/>.</returns>
         private long DateTimeToTimestamp(DateTime value)
         {
             return (long)(value.ToUniversalTime() - EPOCH).TotalSeconds;
         }
 
+        /// <summary>
+        /// Provides a timing-attack safe method of comparing 2 strings.
+        /// </summary>
+        /// <param name="safe">The safe/trusted string to compare.</param>
+        /// <param name="user">The unsafe/user provided string to compare.</param>
+        /// <returns>Returns when two strings are equal, false otherwise.</returns>
         private static bool CodeEquals(string safe, string user)
         {
             // In general, it's not possible to prevent length leaks. So it's OK to leak the length. The important part
@@ -393,6 +410,12 @@ namespace TwoFactorAuth.Net
             return false;
         }
 
+        /// <summary>
+        /// Generates a TOTP Uri with specified label and secret.
+        /// </summary>
+        /// <param name="label">The label for the TOTP Uri.</param>
+        /// <param name="secret">The secret for the TOTP Uri.</param>
+        /// <returns>Returns a TOTP Uri with specified label and secret.</returns>
         private string GetQrText(string label, string secret)
         {
             var x = "otpauth://totp/" + Uri.EscapeDataString(label)
@@ -404,6 +427,9 @@ namespace TwoFactorAuth.Net
             return x;
         }
 
+        /// <summary>
+        /// Provides a method for decoding a Base32 encoded string and exposes the Base32 "alphabet" for internal uses.
+        /// </summary>
         private static class Base32
         {
             public const string Base32Alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
@@ -412,17 +438,22 @@ namespace TwoFactorAuth.Net
 
             public static byte[] Decode(string value)
             {
+                // Have anything to decode?
                 if (value == null)
                     throw new ArgumentNullException("value");
 
-                value = value.TrimEnd('='); // Remove padding
+                // Remove padding
+                value = value.TrimEnd('=');
 
+                // Quick-exit if nothing to decode
                 if (value == string.Empty)
                     return new byte[0];
 
+                // Make sure string contains only chars from Base32 "alphabet"
                 if (_b32re.IsMatch(value))
                     throw new ArgumentException("Invalid base32 string", "value");
 
+                // Decode Base32 value (not world's most efficient or beatiful code but it gets the job done.
                 var bits = string.Concat(value.Select(c => Convert.ToString(_base32lookup[c], 2).PadLeft(5, '0')));
                 return Enumerable.Range(0, bits.Length / 8).Select(i => Convert.ToByte(bits.Substring(i * 8, 8), 2)).ToArray();
             }
