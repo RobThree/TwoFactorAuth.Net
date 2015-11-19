@@ -4,12 +4,7 @@ namespace TwoFactorAuth.Net.Providers.Rng
 {
     public class DefaultRngProvider : IRngProvider
     {
-        private RNGCryptoServiceProvider _rngcryptoserviceprovider;
-
-        public DefaultRngProvider()
-        {
-            _rngcryptoserviceprovider = new RNGCryptoServiceProvider();
-        }
+        private static readonly RNGCryptoServiceProvider _rngcryptoserviceprovider = new RNGCryptoServiceProvider();
 
         public bool IsCryptographicallySecure
         {
