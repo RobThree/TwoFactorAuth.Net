@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>TwoFactorAuth.Net</id>
+    <title>TwoFactorAuth.Net</title>
+    <version>1.0.0</version>
+    <authors>RobIII</authors>
+    <owners>RobIII</owners>
+    <projectUrl>https://github.com/RobThree/TwoFactorAuth.Net</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/RobThree/TwoFactorAuth.Net/master/logo.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://raw.githubusercontent.com/RobThree/TwoFactorAuth.Net/master/LICENSE</licenseUrl>
+    <description>.Net library for TOTP Two Factor Authentication (TFA / 2FA)</description>
+    <copyright>(C)2015 Devcorner.nl</copyright>
+    <summary>
+      .Net library for two-factor (or multi-factor) authentication using TOTP and QR-codes.
+    </summary>
+    <releaseNotes>
+      * Initial release
+    </releaseNotes>
+    <tags>totp otp multi-factor two-factor 2fa 2factor mfa security oath security protection authentication oath</tags>
+  </metadata>
+  <files>
+    <file src="TwoFactorAuth.Net\bin\Release\TwoFactorAuth.Net.dll" target="lib\net45" />
+    <file src="TwoFactorAuth.Net\bin\Release\TwoFactorAuth.Net.XML" target="lib\net45" />
+    <file src="\TwoFactorAuth.Net.Documentation\Help\TwoFactorAuth.Net.Documentation.chm" target="content" />
+  </files>
+</package>

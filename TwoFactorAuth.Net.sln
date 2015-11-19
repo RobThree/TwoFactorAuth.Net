@@ -11,6 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		logo.png = logo.png
 		multifactorauthforeveryone.png = multifactorauthforeveryone.png
 		README.md = README.md
+		TwoFactorAuth.Net.nuspec = TwoFactorAuth.Net.nuspec
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwoFactorAuth.Net.Tests", "TwoFactorAuth.Net.Tests\TwoFactorAuth.Net.Tests.csproj", "{028BEDA6-4F58-429E-8253-4FE011AC650C}"
@@ -22,6 +23,13 @@ Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "TwoFactorAuth.Net.Documenta
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwoFactorAuth.Net.Demo", "TwoFactorAuth.Net.Demo\TwoFactorAuth.Net.Demo.csproj", "{5AD3B320-3901-417D-8A52-FBC2DC0B598E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{C610556F-7DA9-445E-A4B2-257B3CC09474}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
