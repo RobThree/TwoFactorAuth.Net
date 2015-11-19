@@ -556,7 +556,7 @@ namespace TwoFactorAuth.Net
         {
             var x = "otpauth://totp/" + Uri.EscapeDataString(label)
                 + "?secret=" + Uri.EscapeDataString(secret)
-                + "&issuer=" + Uri.EscapeDataString(this.Issuer)
+                + "&issuer=" + Uri.EscapeDataString(this.Issuer ?? string.Empty)
                 + "&period=" + this.Period
                 + "&algorithm=" + Uri.EscapeDataString(Enum.GetName(typeof(Algorithm), this.Algorithm).ToUpperInvariant())
                 + "&digits=" + this.Digits;

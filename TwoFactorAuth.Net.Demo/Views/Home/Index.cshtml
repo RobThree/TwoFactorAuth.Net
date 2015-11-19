@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>TwoFactorAuth.Net</h1>
+    <p class="lead">Multi-factor authentication for everyone!</p>
+    <p><a href="//github.com/RobThree/TwoFactorAuth.Net" class="btn btn-primary btn-lg">Learn more / source &raquo;</a></p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Getting started</h2>
+        <p>
+            Learn, in three easy steps, how to integrate TwoFactorAuth.Net into your projects. It looks a little longwinded because the entire process is explained but it is very simple. Promised!
+        </p>
+        <p>
+            @Html.ActionLink("Let's get started! »", "Step1", new { controller = "Home" }, new { @class = "btn btn-default" })
+        </p>
+    </div>
+    <div class="col-md-4">
+        <h2>Did you know...</h2>
+        <p>...that this project is also available for PHP? Actually, the PHP version was first! It closely resembles this project to whenever you switch to the <abbr title="/jk">dark side</abbr> you're up and running in a matter of minutes!</p>
+        <p><a class="btn btn-default" href="//github.com/RobThree/TwoFactorAuth">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Actually: TOTP!</h2>
+        <p>TwoFactorAuth.Net is, granted, a bit of a misnomer. This library actually implements a very specific algorithm: TOTP - Time-based One-time Passwords. There are other options like <a href="//en.wikipedia.org/wiki/HMAC-based_One-time_Password_Algorithm">HOTP</a>, <a href="//en.wikipedia.org/wiki/Security_token">Security tokens</a> and <a href="//en.wikipedia.org/wiki/Two-factor_authentication#Mobile_phone_two-factor_authentication">SMS</a> to name a few... but this library doesn't implement those.</p>
+        <p><a class="btn btn-default" href="//en.wikipedia.org/wiki/Time-based_One-time_Password_Algorithm">Learn more &raquo;</a></p>
+    </div>
+</div>

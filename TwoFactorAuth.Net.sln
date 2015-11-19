@@ -21,6 +21,8 @@ Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "TwoFactorAuth.Net.Documenta
 		{1775B5FE-B8A0-44D4-9C8C-CB575578C4B9} = {1775B5FE-B8A0-44D4-9C8C-CB575578C4B9}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwoFactorAuth.Net.Demo", "TwoFactorAuth.Net.Demo\TwoFactorAuth.Net.Demo.csproj", "{5AD3B320-3901-417D-8A52-FBC2DC0B598E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +40,10 @@ Global
 		{7BA8061F-0BF1-4B16-B32B-92E6CA5EAFE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7BA8061F-0BF1-4B16-B32B-92E6CA5EAFE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7BA8061F-0BF1-4B16-B32B-92E6CA5EAFE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AD3B320-3901-417D-8A52-FBC2DC0B598E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AD3B320-3901-417D-8A52-FBC2DC0B598E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AD3B320-3901-417D-8A52-FBC2DC0B598E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AD3B320-3901-417D-8A52-FBC2DC0B598E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

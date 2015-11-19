@@ -1,0 +1,35 @@
+﻿@model VerificationResult
+@{
+    ViewBag.Title = "Step 2";
+}
+
+<h2>Step 2: Verify secret shared key</h2>
+
+<p>When the code is added to the app, the app will be ready to start generating codes which 'expire' each <code>period</code> number of seconds. To make sure the secret was entered, or scanned, correctly you need to verify this by having the user enter a generated code. To check if the generated code is valid you call the <code>VerifyCode()</code> method:</p>
+
+<pre>
+    // Verify code
+    tfa.VerifyCode((string)Session["secret"], code);</pre>
+
+<p>Go ahead! Give it a try!</p>
+
+<form role="form" method="post" action="/Home/Step2">
+    @if (Model != null)
+    {
+        <div class="alert alert-@(@Model.Success ? "success" : "danger")" role="alert">@Model.Message</div>
+    }
+    <div class="form-group">
+        <label for="code">Code:</label>
+        <input name="code" type="text" class="form-control" id="code" placeholder="Enter code">
+    </div>
+    <button type="submit" class="btn btn-default">Verify my code!</button>
+</form>
+<hr />
+<p><code>VerifyCode()</code> will return either <code>true</code> (the code was valid) or <code>false</code> (the code was invalid; no points for you!). You may need to store <code>secret</code> in a session or other persistent storage between requests. The <code>VerifyCode()</code> accepts, aside from <code>secret</code> and <code>code</code>, two more parameters. The first being <code>discrepancy</code>. Since TOTP codes are based on time("slices") it is very important that the server (but also client) have a correct date/time. But because the two may differ a bit we usually allow a certain amount of leeway. Because generated codes are valid for a specific period (remember the <code>period</code> parameter in the <code>TwoFactorAuth</code>'s constructor?) we usually check the period directly before and the period directly after the current time when validating codes. So when the current time is <code>14:34:21</code>, which results in a 'current timeslice' of <code>14:34:00</code> to <code>14:34:30</code> we also calculate/verify the codes for <code>14:33:30</code> to <code>14:34:00</code> and for <code>14:34:30</code> to <code>14:35:00</code>. This gives us a 'window' of <code>14:33:30</code> to <code>14:35:00</code>. The <code>discrepancy</code> parameter specifies how many periods (or: timeslices) we check in either direction of the current time. The default <code>discrepancy</code> of 1 results in (max.) 3 period checks: -1, current and +1 period. A <code>discrepancy</code> of 4 would result in a larger window (or: bigger time difference between client and server) of -4, -3, -2, -1, current, +1, +2, +3 and +4 periods.</p>
+
+<p>The second parameter <code>dateTime</code> or <code>timestamp</code> (depending on which overload you use) allows you to check a code for a specific point in time. This parameter has no real practical use but can be handy for unittesting etc. Unless specified <code>TwoFactorAuth</code> uses the current time.</p>
+
+<p>
+    @Html.ActionLink("« Take me back to step 1!", "Step1", new { controller = "Home" }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Let's proceed to step 3! »", "Step3", new { controller = "Home" }, new { @class = "btn btn-primary" })
+</p>
