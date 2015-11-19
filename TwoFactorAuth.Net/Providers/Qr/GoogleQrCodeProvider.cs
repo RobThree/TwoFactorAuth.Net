@@ -9,6 +9,8 @@ namespace TwoFactorAuth.Net.Providers.Qr
 
         public int MarginRows { get; private set; }
 
+        private static readonly Uri baseuri = new Uri("https://chart.googleapis.com/chart");
+
         public GoogleQrCodeProvider()
             : this(ErrorCorrectionLevel.Low)
         { }
@@ -22,7 +24,7 @@ namespace TwoFactorAuth.Net.Providers.Qr
         { }
 
         public GoogleQrCodeProvider(ErrorCorrectionLevel errorCorrectionLevel, int marginRows, SslPolicy sslPolicy)
-            : base(sslPolicy)
+            : base(baseuri, sslPolicy)
         {
             if (!Enum.IsDefined(typeof(ErrorCorrectionLevel), errorCorrectionLevel))
                 throw new ArgumentOutOfRangeException("errorCorrectionLevel");
@@ -40,7 +42,8 @@ namespace TwoFactorAuth.Net.Providers.Qr
 
         private Uri GetUri(string qrText, int size)
         {
-            return new Uri("https://chart.googleapis.com/chart?cht=qr"
+            return new Uri(this.BaseUri,
+                "?cht=qr"
                 + "&chs=" + size + "x" + size
                 + "&chld=" + (char)this.ErrorCorrectionLevel + "|" + this.MarginRows
                 + "&chl=" + Uri.EscapeDataString(qrText)

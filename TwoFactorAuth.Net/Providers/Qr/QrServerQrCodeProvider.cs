@@ -24,6 +24,8 @@ namespace TwoFactorAuth.Net.Providers.Qr
         public int QuietZone { get; private set; }
         public QrServerImageFormat ImageFormat { get; private set; }
 
+        private static readonly Uri baseuri = new Uri("https://api.qrserver.com/v1/create-qr-code/");
+
         public QrServerQrCodeProvider()
             : this(ErrorCorrectionLevel.Low)
         { }
@@ -53,7 +55,7 @@ namespace TwoFactorAuth.Net.Providers.Qr
         { }
 
         public QrServerQrCodeProvider(ErrorCorrectionLevel errorCorrectionLevel, int margin, int quietZone, Color backgroundColor, Color foregroundColor, QrServerImageFormat imageFormat, SslPolicy sslPolicy)
-            : base(sslPolicy)
+            : base(baseuri, sslPolicy)
         {
             if (!Enum.IsDefined(typeof(ErrorCorrectionLevel), errorCorrectionLevel))
                 throw new ArgumentOutOfRangeException("errorCorrectionLevel");
@@ -101,8 +103,8 @@ namespace TwoFactorAuth.Net.Providers.Qr
 
         private Uri GetUri(string qrText, int size)
         {
-            return new Uri("https://api.qrserver.com/v1/create-qr-code/"
-                + "?size=" + size + "x" + size
+            return new Uri(this.BaseUri,
+                "?size=" + size + "x" + size
                 + "&ecc=" + Char.ToUpperInvariant(((char)this.ErrorCorrectionLevel))
                 + "&margin=" + this.Margin
                 + "&qzone=" + this.QuietZone

@@ -18,6 +18,8 @@ namespace TwoFactorAuth.Net.Providers.Qr
         public Color ForegroundColor { get; private set; }
         public QRicketImageFormat ImageFormat { get; private set; }
 
+        private static readonly Uri baseuri = new Uri("http://qrickit.com/api/qr");
+
         public QRicketQrCodeProvider()
             : this(ErrorCorrectionLevel.Low)
         { }
@@ -42,7 +44,7 @@ namespace TwoFactorAuth.Net.Providers.Qr
         { }
 
         public QRicketQrCodeProvider(ErrorCorrectionLevel errorCorrectionLevel, Color backgroundColor, Color foregroundColor, QRicketImageFormat imageFormat, SslPolicy sslPolicy)
-            : base(sslPolicy)
+            : base(baseuri, sslPolicy)
         {
             if (!Enum.IsDefined(typeof(ErrorCorrectionLevel), errorCorrectionLevel))
                 throw new ArgumentOutOfRangeException("errorCorrectionLevel");
@@ -77,8 +79,8 @@ namespace TwoFactorAuth.Net.Providers.Qr
 
         private Uri GetUri(string qrText, int size)
         {
-            return new Uri("http://qrickit.com/api/qr"
-                + "?qrsize=" + size
+            return new Uri(this.BaseUri,
+                "?qrsize=" + size
                 + "&e=" + Char.ToLowerInvariant(((char)this.ErrorCorrectionLevel))
                 + "&bgdcolor=" + Color2Hex(this.BackgroundColor)
                 + "&fgdcolor=" + Color2Hex(this.ForegroundColor)
