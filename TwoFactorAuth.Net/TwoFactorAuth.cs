@@ -127,7 +127,7 @@ namespace TwoFactorAuth.Net
 
             // Note that we DO NOT actually "base32 encode" the random bytes, we simply grab random letters from the
             // base32 alphabet which doesn't matter for a random secret.
-            return string.Concat(this.RngProvider.GetRandomBytes(bytes).Select(v => _base32dict[v & 31]));
+            return string.Concat(this.RngProvider.GetRandomBytes(bytes).Select(v => Base32.Base32Alphabet[v & 31]));
         }
 
         public string GetCode(string secret)
@@ -145,7 +145,7 @@ namespace TwoFactorAuth.Net
             using (var algo = KeyedHashAlgorithm.Create("HMAC" + Enum.GetName(typeof(Algorithm), this.Algorithm)))
             {
 
-                algo.Key = Base32Decode(secret);
+                algo.Key = Base32.Decode(secret);
                 var ts = BitConverter.GetBytes(this.GetTimeSlice(timestamp, 0));
                 var hashhmac = algo.ComputeHash(new byte[] { 0, 0, 0, 0, ts[3], ts[2], ts[1], ts[0] });
                 var offset = hashhmac[hashhmac.Length - 1] & 0x0F;
@@ -243,27 +243,28 @@ namespace TwoFactorAuth.Net
             return x;
         }
 
-        #region base32
-        private static string _base32dict = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567=";
-        private static readonly Regex _b32re = new Regex("[^" + _base32dict + "]", RegexOptions.Compiled);
-        private static readonly Dictionary<char, byte> _base32lookup = _base32dict.Select((c, i) => new { c, i }).ToDictionary(v => v.c, v => (byte)v.i);
-
-        //TODO: This should be internal/private; for now for unittesting against known vectors we'll leave it public...
-        public static byte[] Base32Decode(string value)
+        private static class Base32
         {
-            if (value == null)
-                throw new ArgumentNullException("value");
+            public const string Base32Alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
+            private static readonly Regex _b32re = new Regex("[^" + Base32Alphabet + "]", RegexOptions.Compiled);
+            private static readonly Dictionary<char, byte> _base32lookup = Base32Alphabet.Select((c, i) => new { c, i }).ToDictionary(v => v.c, v => (byte)v.i);
 
-            if (_b32re.IsMatch(value))
-                throw new ArgumentException("Invalid base32 string", "value");
+            public static byte[] Decode(string value)
+            {
+                if (value == null)
+                    throw new ArgumentNullException("value");
 
-            //TODO: Use a decent implementation instead of the ugly "to binary string to bytes" method
-            var binstr = string.Concat(value.TrimEnd('=').Select(c => Convert.ToString(_base32lookup[c], 2).PadLeft(5, '0')));
-            var result = new byte[binstr.Length / 8];
-            for (int i = 0; i < result.Length; i++)
-                result[i] = Convert.ToByte(binstr.Substring(i * 8, 8), 2);
-            return result;
+                value = value.TrimEnd('='); // Remove padding
+
+                if (value == string.Empty)
+                    return new byte[0];
+
+                if (_b32re.IsMatch(value))
+                    throw new ArgumentException("Invalid base32 string", "value");
+
+                var bits = string.Concat(value.Select(c => Convert.ToString(_base32lookup[c], 2).PadLeft(5, '0')));
+                return Enumerable.Range(0, bits.Length / 8).Select(i => Convert.ToByte(bits.Substring(i * 8, 8), 2)).ToArray();
+            }
         }
-        #endregion
     }
 }
