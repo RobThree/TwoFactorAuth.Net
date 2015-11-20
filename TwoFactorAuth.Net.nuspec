@@ -23,6 +23,8 @@
   <files>
     <file src="TwoFactorAuth.Net\bin\Release\TwoFactorAuth.Net.dll" target="lib\net45" />
     <file src="TwoFactorAuth.Net\bin\Release\TwoFactorAuth.Net.XML" target="lib\net45" />
-    <file src="\TwoFactorAuth.Net.Documentation\Help\TwoFactorAuth.Net.Documentation.chm" target="content" />
+    <file src="\TwoFactorAuth.Net.Documentation\Help\TwoFactorAuth.Net.Documentation.chm" target="" />
+    <file src="install.ps1" target="tools\install.ps1" />
+    <file src="uninstall.ps1" target="tools\uninstall.ps1" />
   </files>
 </package>
