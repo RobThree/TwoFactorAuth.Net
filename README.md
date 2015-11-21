@@ -10,8 +10,7 @@
 
 
 ##TODO:
-* Helpfile welcome page
-* Update README; for now: please refer to [the PHP implentation](https://github.com/RobThree/TwoFactorAuth)
+* Update README; for now: please refer to the [Documentation project](https://github.com/RobThree/TwoFactorAuth.Net/tree/master/TwoFactorAuth.Net.Documentation), the included documentation with the [NuGet package](https://www.nuget.org/packages/TwoFactorAuth.Net/) or [the PHP implentation](https://github.com/RobThree/TwoFactorAuth) which is very much alike.
 
 ## License
 
