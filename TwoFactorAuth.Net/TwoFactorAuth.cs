@@ -4,11 +4,11 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
-using TwoFactorAuth.Net.Providers;
-using TwoFactorAuth.Net.Providers.Qr;
-using TwoFactorAuth.Net.Providers.Rng;
+using TwoFactorAuthNet.Providers;
+using TwoFactorAuthNet.Providers.Qr;
+using TwoFactorAuthNet.Providers.Rng;
 
-namespace TwoFactorAuth.Net
+namespace TwoFactorAuthNet
 {
     /// <summary>
     /// Provides methods to enable 2FA (Two Factor Authentication).
@@ -350,10 +350,10 @@ namespace TwoFactorAuth.Net
                 throw new CryptographicException("RNG provider is not cryptographically secure");
 
             int bytes = (int)Math.Ceiling((double)bits / 5);    // We use 5 bits of each byte (since we have a
-            // 32-character 'alphabet' / BASE32)
+                                                                // 32-character 'alphabet' / base32)
 
-            // Note that we DO NOT actually "base32 encode" the random bytes, we simply grab random letters from the
-            // base32 alphabet which doesn't matter for a random secret.
+            // Note that we DO NOT actually "base32 encode" the random bytes, we simply take 5 bits from each random 
+            // byte and map these directly to letters from the base32 alphabet (effectively 'base32 encoding on the fly').
             return string.Concat(this.RngProvider.GetRandomBytes(bytes).Select(v => Base32.Base32Alphabet[v & 31]));
         }
 

@@ -1,4 +1,4 @@
-﻿namespace TwoFactorAuth.Net.Providers.Qr
+﻿namespace TwoFactorAuthNet.Providers.Qr
 {
     /// <summary>
     /// Specifies the desired Error Correction Level for the QR code.

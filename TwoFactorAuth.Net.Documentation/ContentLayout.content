@@ -1,17 +1,65 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Topics>
-  <Topic id="29798514-938e-41be-afcc-06895db657ed" visible="True" isDefault="true" isSelected="true" title="Welcome to the TwoFactorAuth.Net library">
+  <Topic id="29798514-938e-41be-afcc-06895db657ed" visible="True" isDefault="true" title="Welcome to the TwoFactorAuth.Net library">
     <HelpKeywords>
       <HelpKeyword index="K" term="Welcome" />
+      <HelpKeyword index="K" term="Requirements" />
+      <HelpKeyword index="K" term="Installation" />
+      <HelpKeyword index="K" term="Quickstart / Demo" />
     </HelpKeywords>
+  </Topic>
+  <Topic id="8b1fc896-5a74-4c20-9e5b-82212edf4c96" visible="True" title="License">
+    <HelpKeywords>
+      <HelpKeyword index="K" term="License" />
+    </HelpKeywords>
+  </Topic>
+  <Topic id="a4765494-6f27-4ea9-a119-603d39e7a578" visible="True" noFile="true" isExpanded="true" title="Getting started">
+    <HelpKeywords>
+      <HelpKeyword index="K" term="Getting started" />
+    </HelpKeywords>
+    <Topic id="0c0aed71-4f77-4478-977c-fe153aaa1f7b" visible="True" title="Step 1: Set up secret shared key">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="Step 1: Set up secret shared key" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="6660dddc-7aca-4a55-a83d-ea78cb5f6dfe" visible="True" title="Step 2: Verify secret shared key">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="Step 2: Verify secret shared key" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="e8ad5bb8-6473-40ff-b873-78c80d046733" visible="True" title="Step 3: Store secret with user">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="Step 3: Store secret with user" />
+      </HelpKeywords>
+    </Topic>
+  </Topic>
+  <Topic id="f76cb98e-f1ca-4cd9-af1c-d1a804c0a97a" visible="True" noFile="true" isExpanded="true" title="How To">
+    <HelpKeywords>
+      <HelpKeyword index="K" term="How To" />
+    </HelpKeywords>
+    <Topic id="15845c65-a9f7-4948-86ff-f0ea3ff48b2d" visible="True" title="HowTo: Implement your own RNG provider">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="RNG provider" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="d44a172a-9093-4738-81b9-c6a2ae26760b" visible="True" title="HowTo: Implement your own QR Code provider">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="QR Code provider" />
+      </HelpKeywords>
+    </Topic>
   </Topic>
   <Topic id="7fad766e-7156-4ec8-aed1-93303f5fc5bd" visible="True" isExpanded="true" title="Version History">
     <HelpKeywords>
       <HelpKeyword index="K" term="version, history" />
     </HelpKeywords>
-    <Topic id="6a5dae71-93b4-4879-b484-819a46d29b18" visible="True" title="Version 1.0.0.0">
+    <Topic id="6a5dae71-93b4-4879-b484-819a46d29b18" visible="True" title="Version 1.0.0">
       <HelpKeywords>
-        <HelpKeyword index="K" term="version, 1.0.0.0" />
+        <HelpKeyword index="K" term="version, 1.0.0" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="99a0d810-799c-4683-8c29-543b346a330e" visible="True" isSelected="true" title="Version 1.0.1">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="version, 1.0.1" />
       </HelpKeywords>
     </Topic>
   </Topic>

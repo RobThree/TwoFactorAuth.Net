@@ -1,4 +1,4 @@
-﻿namespace TwoFactorAuth.Net.Providers.Qr
+﻿namespace TwoFactorAuthNet.Providers.Qr
 {
     /// <summary>
     /// Provides the interface for QR Code providers.

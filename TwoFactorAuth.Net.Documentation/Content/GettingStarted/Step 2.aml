@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="6660dddc-7aca-4a55-a83d-ea78cb5f6dfe" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <introduction>
+      <para>
+        When the shared secret is added to the app, the app will be ready to start generating codes which 'expire' each
+        <literal>period</literal> number of seconds. To make sure the secret was entered, or scanned, correctly you
+        need to verify this by having the user enter a generated code. To check if the generated code is valid you call
+        the <codeEntityReference>Overload:TwoFactorAuthNet.TwoFactorAuth.VerifyCode</codeEntityReference> method:
+      </para>
+      <code language="c#">
+        <![CDATA[
+// Verify code
+tfa.VerifyCode((string)Session["secret"], code);
+              ]]>
+      </code>
+      <para>
+        <codeEntityReference>Overload:TwoFactorAuthNet.TwoFactorAuth.VerifyCode</codeEntityReference> will
+        return either <literal>true</literal> (the code was valid) or <literal>false</literal> (the code was
+        invalid; no points for you!). You may need to store <literal>secret</literal> in a session or other
+        persistent storage between requests. The
+        <codeEntityReference>Overload:TwoFactorAuthNet.TwoFactorAuth.VerifyCode</codeEntityReference> accepts,
+        aside from <literal>secret</literal> and <literal>code</literal>, two more arguments. The first being
+        <literal>discrepancy</literal>. Since TOTP codes are based on time("slices") it is very important that
+        the server (but also client) have a correct date/time. But because the two may differ a bit we usually
+        allow a certain amount of leeway. Because generated codes are valid for a specific
+        <literal>period</literal> (remember the <literal>period</literal> argument in the TwoFactorAuth's constructor?)
+        we usually check the <literal>period</literal> directly before and the period directly after the current
+        time when validating codes. So when the current time is <literal>14:34:21</literal>, which results in a
+        'current timeslice' of <literal>14:34:00</literal> to <literal>14:34:30</literal> we also calculate /
+        verify the codes for <literal>14:33:30</literal> to <literal>14:34:00</literal> and for
+        <literal>14:34:30</literal> to <literal>14:35:00</literal>. This gives us a 'window' of
+        <literal>14:33:30</literal> to <literal>14:35:00</literal>. The <literal>discrepancy</literal> argument
+        specifies how many periods (or: timeslices) we check in either direction of the current time. The default
+        <literal>discrepancy</literal> of 1 results in (max.) 3 period checks: -1, current and +1 period. A
+        <literal>discrepancy</literal> of 4 would result in a larger window (or: bigger time difference between
+        client and server) of -4, -3, -2, -1, current, +1, +2, +3 and +4 periods.
+      </para>
+      <para>
+        The second argument <literal>dateTime</literal> or <literal>timestamp</literal> (depending on which
+        overload you use) allows you to check a code for a specific point in time. This argument has no real
+        practical use but can be handy for unittesting etc. Unless specified <literal>TwoFactorAuth</literal>
+        uses the current time.
+      </para>
+    </introduction>
+
+    <relatedTopics>
+      <link xlink:href="0c0aed71-4f77-4478-977c-fe153aaa1f7b" />
+      <link xlink:href="e8ad5bb8-6473-40ff-b873-78c80d046733" />
+    </relatedTopics>
+  </developerConceptualDocument>
+</topic>

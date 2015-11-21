@@ -6,7 +6,7 @@
     <ProjectGuid>{028BEDA6-4F58-429E-8253-4FE011AC650C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TwoFactorAuth.Net.Tests</RootNamespace>
+    <RootNamespace>TwoFactorAuthNet.Tests</RootNamespace>
     <AssemblyName>TwoFactorAuth.Net.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

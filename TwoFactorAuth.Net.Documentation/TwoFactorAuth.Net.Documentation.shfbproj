@@ -62,10 +62,10 @@
     <DisableCodeBlockComponent>False</DisableCodeBlockComponent>
     <CleanIntermediates>True</CleanIntermediates>
     <NamespaceSummaries>
-      <NamespaceSummaryItem name="TwoFactorAuth.Net" isDocumented="True">Contains classes and interfaces for (TOTP) Two Factor Authentication.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="TwoFactorAuth.Net.Providers.Qr" isDocumented="True">Contains classes and interfaces for QR code generation.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="TwoFactorAuth.Net.Providers.Rng" isDocumented="True">Contains classes and interfaces for random number sequence generation.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="TwoFactorAuth.Net.Providers (Group)" isGroup="True" isDocumented="True">Contains classes and interfaces for providers that are used and/or invoked by the &amp;lt;see cref="TwoFactorAuth"&amp;gt; class.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="TwoFactorAuthNet" isDocumented="True">Contains classes and interfaces for (TOTP) Two Factor Authentication.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="TwoFactorAuthNet.Providers.Qr" isDocumented="True">Contains classes and interfaces for QR code generation.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="TwoFactorAuthNet.Providers.Rng" isDocumented="True">Contains classes and interfaces for random number sequence generation.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="TwoFactorAuthNet.Providers (Group)" isGroup="True" isDocumented="True">Contains classes and interfaces for providers that are used and/or invoked by the &amp;lt;see cref="TwoFactorAuth"&amp;gt; class.</NamespaceSummaryItem>
     </NamespaceSummaries>
     <ProjectSummary>This library provides an easy way to implement TOTP Two Factor Authentication into your projects.</ProjectSummary>
   </PropertyGroup>
@@ -89,12 +89,21 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Content" />
+    <Folder Include="Content\HowTo" />
+    <Folder Include="Content\GettingStarted" />
     <Folder Include="Content\VersionHistory" />
     <Folder Include="icons" />
     <Folder Include="media" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\GettingStarted\Step 1.aml" />
+    <None Include="Content\GettingStarted\Step 2.aml" />
+    <None Include="Content\GettingStarted\Step 3.aml" />
+    <None Include="Content\HowTo\How To Qr.aml" />
+    <None Include="Content\HowTo\How To Rng.aml" />
+    <None Include="Content\License.aml" />
     <None Include="Content\VersionHistory\v1.0.0.0.aml" />
+    <None Include="Content\VersionHistory\v1.0.1.0.aml" />
     <None Include="Content\VersionHistory\VersionHistory.aml" />
     <None Include="Content\Welcome.aml" />
   </ItemGroup>
@@ -108,6 +117,10 @@
     <Image Include="media\multifactorauthforeveryone.png">
       <ImageId>multifactorauthforeveryone</ImageId>
       <AlternateText>multifactorauthforeveryone</AlternateText>
+    </Image>
+    <Image Include="media\qr.png">
+      <ImageId>qr</ImageId>
+      <AlternateText>qr</AlternateText>
     </Image>
   </ItemGroup>
   <!-- Import the SHFB build targets -->

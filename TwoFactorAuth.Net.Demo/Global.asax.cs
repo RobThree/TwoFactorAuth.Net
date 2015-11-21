@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
-namespace TwoFactorAuth.Net.Demo
+namespace TwoFactorAuthNet.Demo
 {
     public class MvcApplication : System.Web.HttpApplication
     {

@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="d44a172a-9093-4738-81b9-c6a2ae26760b" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <introduction>
+      <para>
+        This library comes with three 'built-in' QR-code providers. Some
+        <codeEntityReference linkText="TwoFactorAuth constructor overloads">Overload:TwoFactorAuthNet.TwoFactorAuth.#ctor</codeEntityReference>
+        accept a <codeEntityReference>T:TwoFactorAuthNet.Providers.Qr.IQrCodeProvider</codeEntityReference> argument
+        which lets you specify a built-in or custom QR-code provider. All three built-in providers do a simple HTTP
+        request to retrieve an image using a <codeEntityReference>T:System.Net.WebClient</codeEntityReference> and
+        implement the <codeEntityReference>T:TwoFactorAuthNet.Providers.Qr.IQrCodeProvider</codeEntityReference>
+        interface which is all you need to implement to write your own QR-code provider.
+      </para>
+      <para>
+        The default provider is the
+        <codeEntityReference>T:TwoFactorAuthNet.Providers.Qr.GoogleQrCodeProvider</codeEntityReference> which uses the
+        <externalLink>
+          <linkText>Google Chart Tools</linkText>
+          <linkUri>https://developers.google.com/chart/infographics/docs/qr_codes</linkUri>
+        </externalLink> to render QR-codes. Then we have the
+        <codeEntityReference>T:TwoFactorAuthNet.Providers.Qr.QrServerQrCodeProvider</codeEntityReference> which uses the
+        <externalLink>
+          <linkText>goqr.me API</linkText>
+          <linkUri>http://goqr.me/api/doc/create-qr-code/</linkUri>
+        </externalLink> and finally we have the
+        <codeEntityReference>T:TwoFactorAuthNet.Providers.Qr.QRicketQrCodeProvider</codeEntityReference> which uses the
+        <externalLink>
+          <linkText>QRickit API</linkText>
+          <linkUri>http://qrickit.com/qrickit_apps/qrickit_api.php</linkUri>
+        </externalLink>. All three inherit from a common (abstract) baseclass
+        <codeEntityReference>T:TwoFactorAuthNet.Providers.Qr.BaseHttpQrCodeProvider</codeEntityReference> because all
+        three share the same functionality: retrieve an image from a 3rd party over HTTP. All three classes have
+        constructors that allow you to tweak some settings and most, if not all, arguments should speak for themselves.
+        If you're not sure which values are supported, click the links in this paragraph for documentation on the API's
+        that are utilized by these classes.
+      </para>
+      <para>
+        If you don't like any of the built-in classes, because you don't want to, or can't, rely on external resources
+        for example, or because you're paranoid about sending the TOTP secret to these 3rd parties (which is useless to
+        them since they miss at least one other factor in the <externalLink>
+          <linkText>MFA process</linkText>
+          <linkUri>https://en.wikipedia.org/wiki/Multi-factor_authentication</linkUri>
+        </externalLink>), feel tree to implement your own. The
+        <codeEntityReference>T:TwoFactorAuthNet.Providers.Qr.IQrCodeProvider</codeEntityReference> interface couldn't
+        be any simpler. All you need to do is implement 2 methods:
+      </para>
+      <code language="c#">
+        <![CDATA[
+byte[] GetQrCodeImage(string text, int size);
+string GetMimeType();
+        ]]>
+      </code>
+      <para>
+        The <literal>GetMimeType()</literal> method should return the <externalLink>
+          <linkText>MIME type</linkText>
+          <linkUri>https://en.wikipedia.org/wiki/Internet_media_type</linkUri>
+        </externalLink> of the image that is returned by our implementation of <literal>
+          GetQrCodeImage(string text, int
+          size)
+        </literal>. In this example it's simply <literal>image/png</literal>. The <literal>GetQrCodeImage()</literal>
+        method is passed two arguments: <literal>text</literal> and <literal>size</literal>. The latter,
+        <literal>size</literal>, is simply the width/height in pixels of the image desired by the caller. The first,
+        <literal>text</literal> is the text that should be encoded in the QR code. An example of such a text would be:
+      </para>
+      <para>
+        <computerOutputInline>otpauth://totp/LABEL:alice@google.com?secret=XANIK3POC23RCRYN&amp;issuer=ISSUER</computerOutputInline>
+      </para>
+      <para>
+        All you need to do is return the QR code as binary image data and you're done. All parts of the
+        <literal>text</literal> have been escaped for you (but note: you may need to escape the entire
+        <literal>text</literal> just once more when passing the data to another server as GET-parameter).
+      </para>
+    </introduction>
+
+    <section>
+      <title>Demonstration</title>
+      <content>
+        <procedure>
+          <title>Let's try implementing our own!</title>
+          <steps class="ordered">
+            <step>
+              <content>
+                <para>
+                  Create a class <literal>MyQRProvider.cs</literal>
+                </para>
+                <code language="c#">
+                  <![CDATA[
+using System;
+
+namespace MyNameSpace
+{
+    public class MyQRProvider
+    {
+    }
+}
+
+                  ]]>
+                </code>
+              </content>
+            </step>
+            <step>
+              <content>
+                <para>
+                  Implement the <codeEntityReference>T:TwoFactorAuthNet.Providers.Qr.IQrCodeProvider</codeEntityReference>
+                  interface:
+                </para>
+                <code language="c#">
+                  <![CDATA[
+using System;
+using TwoFactorAuthNet.Providers.Qr;
+
+namespace MyNameSpace
+{
+    public class MyQRProvider : IQrCodeProvider
+    {
+    }
+}                  
+                  ]]>
+                </code>
+              </content>
+            </step>
+            <step>
+              <content>
+                <para>
+                  To install QrCode.Net, run the following command in the <externalLink>
+                    <linkText>Package Manager Console</linkText>
+                    <linkUri>https://docs.nuget.org/docs/start-here/using-the-package-manager-console</linkUri>
+                  </externalLink>
+                </para>
+                <code language="powershell">
+                  PM> Install-Package QrCode.Net
+                </code>
+                <alert class="note">
+                  <para>
+                    Explaining the actual process of generating a QR code is far beyond the scope of this document, so
+                    for that we'll use <externalLink>
+                      <linkText>QrCode.Net</linkText>
+                      <linkUri>https://www.nuget.org/packages/QrCode.Net/</linkUri>
+                    </externalLink> in this example. However, it is up to you to <externalLink>
+                      <linkText>find a library</linkText>
+                      <linkUri>https://www.nuget.org/packages?q=qrcode</linkUri>
+                    </externalLink> that suits your needs and demands (or write your own QR code generator if you're up
+                    for it!) if you don't like QrCode.Net.
+                  </para>
+                </alert>
+              </content>
+            </step>
+            <step>
+              <content>
+                <para>
+                  Implement the <codeEntityReference>T:TwoFactorAuthNet.Providers.Qr.IQrCodeProvider</codeEntityReference>
+                  interface members:
+                </para>
+                <code language="c#">
+                  <![CDATA[
+using Gma.QrCodeNet.Encoding;
+using Gma.QrCodeNet.Encoding.Windows.Render;
+using System.Drawing.Imaging;
+using System.IO;
+using TwoFactorAuthNet.Providers.Qr;
+
+namespace MyNameSpace
+{
+    public class MyQRProvider : IQrCodeProvider
+    {
+        public string GetMimeType()
+        {
+            return "image/png";
+        }
+
+        public byte[] GetQrCodeImage(string text, int size)
+        {
+            var encoder = new QrEncoder();
+            var qrCode = encoder.Encode(text);
+
+            var renderer = new GraphicsRenderer(new FixedCodeSize(size, QuietZoneModules.Two));
+            byte[] result;
+            using (var stream = new MemoryStream())
+            {
+                renderer.WriteToStream(qrCode.Matrix, ImageFormat.Png, stream);
+                result = stream.ToArray();
+            }
+
+            return result;
+        }
+    }
+}                  
+                  ]]>
+                </code>
+                <alert class="note">
+                  <para>
+                    Note that this library does not require an external 3rd party and the QR code generation is
+                    handled by the QrCode.Net library. This way we don't need (outgoing) internet access and the shared
+                    secret is only known by you. No more external dependencies, no more unnecessary latencies.
+                  </para>
+                </alert>
+              </content>
+            </step>
+            <step>
+              <content>
+                <para>
+                  Pass your newly created QR code provider to a
+                  <codeEntityReference linkText="TwoFactorAuth constructor overload">Overload:TwoFactorAuthNet.TwoFactorAuth.#ctor</codeEntityReference>
+                  that accepts an
+                  <codeEntityReference>T:TwoFactorAuthNet.Providers.Qr.IQrCodeProvider</codeEntityReference> argument.
+                </para>
+                <code language="c#">
+                  <![CDATA[
+var tfa = new TwoFactorAuth("MyCompany", new MyQRProvider());
+                  ]]>
+                </code>
+                <para>
+                  From here on the <literal>tfa</literal> instance will use your QR code provider.
+                </para>
+              </content>
+            </step>
+          </steps>
+        </procedure>
+      </content>
+    </section>
+
+    <relatedTopics>
+      <link xlink:href="15845c65-a9f7-4948-86ff-f0ea3ff48b2d" />
+    </relatedTopics>
+  </developerConceptualDocument>
+</topic>

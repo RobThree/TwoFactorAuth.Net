@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TwoFactorAuth.Net.Providers.Qr
+namespace TwoFactorAuthNet.Providers.Qr
 {
     
     /// <summary>

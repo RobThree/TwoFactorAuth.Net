@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="99a0d810-799c-4683-8c29-543b346a330e" revisionNumber="1">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction>
+      <para>
+        Version 1.0.1 was released on 2015-11-21.
+      </para>
+    </introduction>
+
+    <section>
+      <title>Changes in This Release</title>
+      <content>
+
+        <list class="bullet">
+          <listItem>
+            <para>Completed included helpfile</para>
+          </listItem>
+          <listItem>
+            <para>
+              Renamed root namespace <literal>TwoFactorAuth.Net</literal> to <literal>TwoFactorAuthNet</literal> because
+              the dot in the name messed up the namespace and clashed with the 
+              <codeEntityReference>T:TwoFactorAuthNet.TwoFactorAuth</codeEntityReference> class.
+          </para>
+          </listItem>
+        </list>
+
+      </content>
+    </section>
+
+    <relatedTopics>
+      <link xlink:href="7fad766e-7156-4ec8-aed1-93303f5fc5bd" />
+    </relatedTopics>
+
+  </developerConceptualDocument>
+</topic>

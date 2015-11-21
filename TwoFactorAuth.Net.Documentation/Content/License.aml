@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="8b1fc896-5a74-4c20-9e5b-82212edf4c96" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <introduction>
+      <para>
+        Licensed under MIT license. See <externalLink>
+          <linkText>LICENSE</linkText>
+          <linkUri>https://raw.githubusercontent.com/RobThree/TwoFactorAuth/master/LICENSE</linkUri>
+        </externalLink> for details.
+      </para>
+    </introduction>
+
+    <section>
+      <title>Other licensing information</title>
+      <content>
+        <para>
+          <externalLink>
+            <linkText>Logo / icon</linkText>
+            <linkUri>http://www.iconmay.com/Simple/Travel_and_Tourism_Part_2/luggage_lock_safety_baggage_keys_cylinder_lock_hotel_travel_tourism_luggage_lock_icon_465</linkUri>
+          </externalLink> under CC0 1.0 Universal (CC0 1.0) Public Domain Dedication (<externalLink>
+            <linkText>Archived page</linkText>
+            <linkUri>http://riii.nl/tm7ap</linkUri>
+          </externalLink>)
+        </para>
+      </content>
+    </section>
+    <relatedTopics>
+      <link xlink:href="29798514-938e-41be-afcc-06895db657ed" />
+      <link xlink:href="7fad766e-7156-4ec8-aed1-93303f5fc5bd" />
+    </relatedTopics>
+    
+  </developerConceptualDocument>
+</topic>

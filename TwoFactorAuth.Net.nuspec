@@ -3,7 +3,7 @@
   <metadata>
     <id>TwoFactorAuth.Net</id>
     <title>TwoFactorAuth.Net</title>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <authors>RobIII</authors>
     <owners>RobIII</owners>
     <projectUrl>https://github.com/RobThree/TwoFactorAuth.Net</projectUrl>
@@ -16,7 +16,7 @@
       .Net library for two-factor (or multi-factor) authentication using TOTP and QR-codes.
     </summary>
     <releaseNotes>
-      * Initial release
+      * Completed documentation
     </releaseNotes>
     <tags>totp otp multi-factor two-factor 2fa 2factor mfa security oath security protection authentication oath</tags>
   </metadata>

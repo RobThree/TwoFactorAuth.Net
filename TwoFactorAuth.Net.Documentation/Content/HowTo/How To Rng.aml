@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="15845c65-a9f7-4948-86ff-f0ea3ff48b2d" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <introduction>
+      <para>
+        This library also comes with three 'built-in' RNG providers (<externalLink>
+          <linkText>Random Number Generator</linkText>
+          <linkUri>https://en.wikipedia.org/wiki/Random_number_generation</linkUri>
+        </externalLink>). The RNG provider generates a number of random bytes and returns these bytes as a string.
+        These values are then used to create the secret. By default (no RNG provider specified) TwoFactorAuth.Net
+        will use the <codeEntityReference>T:TwoFactorAuthNet.Providers.Rng.DefaultRngProvider</codeEntityReference>.
+        Each of the providers use their own method of generating a random sequence of bytes. The
+        <codeEntityReference>T:TwoFactorAuthNet.Providers.Rng.DefaultRngProvider</codeEntityReference> returns a
+        cryptographically secure sequence of random bytes whereas the
+        <codeEntityReference>T:TwoFactorAuthNet.Providers.Rng.HashRngProvider</codeEntityReference> and
+        <codeEntityReference>T:TwoFactorAuthNet.Providers.Rng.PrngProvider</codeEntityReference> return
+        non-cryptographically secure sequences.
+      </para>
+      <para>
+        You can easily implement your own RNGProvider by simply implementing the
+        <codeEntityReference>T:TwoFactorAuthNet.Providers.Rng.IRngProvider</codeEntityReference> interface. Some of
+        the 'built-in' RNG providers have some constructor arguments that allow you to 'tweak' some of the settings
+        to use when creating the random bytes such as which hashing algorithm to use. I encourage you to have a look
+        at some of the 'built-in' RNG providers for details and the
+        <codeEntityReference>T:TwoFactorAuthNet.Providers.Rng.IRngProvider</codeEntityReference> interface.
+      </para>
+    </introduction>
+
+    <section>
+      <title>Demonstration</title>
+      <content>
+        <procedure>
+          <title>Let's try implementing our own!</title>
+          <steps class="ordered">
+            <step>
+              <content>
+                <para>
+                  Create a class <literal>MyLCGProvider.cs</literal>
+                </para>
+                <code language="c#">
+                  <![CDATA[
+using System;
+
+namespace MyNameSpace
+{
+    public class MyLCGProvider
+    {
+    }
+}
+
+                  ]]>
+                </code>
+              </content>
+            </step>
+            <step>
+              <content>
+                <para>
+                  Implement the <codeEntityReference>T:TwoFactorAuthNet.Providers.Rng.IRngProvider</codeEntityReference>
+                  interface:
+                </para>
+                <code language="c#">
+                  <![CDATA[
+using System;
+using TwoFactorAuthNet.Providers.Rng;
+
+namespace MyNameSpace
+{
+    public class MyLCGProvider : IRngProvider
+    {
+    }
+}                  
+                  ]]>
+                </code>
+              </content>
+            </step>
+            <step>
+              <content>
+                <para>
+                  Implement the <codeEntityReference>T:TwoFactorAuthNet.Providers.Rng.IRngProvider</codeEntityReference>
+                  interface members:
+                </para>
+                <code language="c#">
+                  <![CDATA[
+using System;
+using TwoFactorAuthNet.Providers.Rng;
+
+namespace MyNameSpace
+{
+    public class MyLCGProvider : IRngProvider
+    {
+        public bool IsCryptographicallySecure { 
+            get { 
+                return false;
+            } 
+        }
+
+        public byte[] GetRandomBytes(int bytes)
+        {
+            // https://en.wikipedia.org/wiki/Linear_congruential_generator
+            var result = new byte[bytes];
+
+            int m = int.MaxValue, a = 2147483629, c = 2147483587;
+            unchecked
+            {
+                int seed = (int)(DateTime.Now.Ticks & 0xFFFFFFFF);
+                for (int i = 0; i < bytes; i++)
+                {
+                    seed = (a * seed + c) % m;
+                    result[i] = (byte)(seed & 0xFF);
+                }
+            }
+        }
+    }
+}                  
+                  ]]>
+                </code>
+                <alert class="security">
+                  <para>
+                    Please note that this RNG is intended as an example. It is <legacyBold>not</legacyBold>
+                    cryptographically secure (altough this implementation has a fairly uniform distribution).
+                  </para>
+                </alert>
+              </content>
+            </step>
+            <step>
+              <content>
+                <para>
+                  Pass your newly created RNG provider to a
+                  <codeEntityReference linkText="TwoFactorAuth constructor overload">Overload:TwoFactorAuthNet.TwoFactorAuth.#ctor</codeEntityReference>
+                  that accepts an
+                  <codeEntityReference>T:TwoFactorAuthNet.Providers.Rng.IRngProvider</codeEntityReference> argument.
+                </para>
+                <code language="c#">
+                  <![CDATA[
+var tfa = new TwoFactorAuth("MyCompany", new MyLCGProvider());
+                  ]]>
+                </code>
+                <para>
+                  From here on the <literal>tfa</literal> instance will use your RNG provider.
+                </para>
+              </content>
+            </step>
+          </steps>
+        </procedure>
+      </content>
+    </section>
+    <relatedTopics>
+      <link xlink:href="d44a172a-9093-4738-81b9-c6a2ae26760b" />
+    </relatedTopics>
+  </developerConceptualDocument>
+</topic>

@@ -5,10 +5,10 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
-using TwoFactorAuth.Net.Providers.Qr;
-using TwoFactorAuth.Net.Providers.Rng;
+using TwoFactorAuthNet.Providers.Qr;
+using TwoFactorAuthNet.Providers.Rng;
 
-namespace TwoFactorAuth.Net.Tests
+namespace TwoFactorAuthNet.Tests
 {
     [TestClass]
     public class TwoFactorAuthTests
@@ -256,7 +256,7 @@ namespace TwoFactorAuth.Net.Tests
             // public methods."
             //                                                     Dave Thomas and Andy Hunt -- "Pragmatic Unit Testing
 
-            var target = typeof(TwoFactorAuth).Assembly.GetType("TwoFactorAuth.Net.TwoFactorAuth+Base32");
+            var target = typeof(TwoFactorAuth).Assembly.GetType("TwoFactorAuthNet.TwoFactorAuth+Base32");
             var method = target.GetMethod("Decode");
             
             // Test vectors from: https://tools.ietf.org/html/rfc4648#page-12
@@ -277,7 +277,7 @@ namespace TwoFactorAuth.Net.Tests
             // https://tools.ietf.org/html/rfc4648#page-4: 
             //   "In some circumstances, the use of padding ("=") in base-encoded data is not required or used."
 
-            var target = typeof(TwoFactorAuth).Assembly.GetType("TwoFactorAuth.Net.TwoFactorAuth+Base32");
+            var target = typeof(TwoFactorAuth).Assembly.GetType("TwoFactorAuthNet.TwoFactorAuth+Base32");
             var method = target.GetMethod("Decode");
 
             // Test vectors from: https://tools.ietf.org/html/rfc4648#page-12

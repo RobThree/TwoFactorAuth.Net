@@ -1,4 +1,4 @@
-﻿namespace TwoFactorAuth.Net
+﻿namespace TwoFactorAuthNet
 {
     /// <summary>
     /// Specifies if a cryptographically secure RNG is required.

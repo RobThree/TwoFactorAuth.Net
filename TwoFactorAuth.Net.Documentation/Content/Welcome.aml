@@ -38,7 +38,7 @@
           <listItem>
             <para>
               Access to internet may be required if you use a
-              <codeEntityReference linkText="QRProvider">T:TwoFactorAuth.Net.Providers.Qr.IQrCodeProvider</codeEntityReference>
+              <codeEntityReference linkText="QRProvider">T:TwoFactorAuthNet.Providers.Qr.IQrCodeProvider</codeEntityReference>
               that retrieves data/images from the web.
             </para>
           </listItem>
@@ -51,7 +51,7 @@
         <para>
           To install TwoFactorAuth.Net, run the following command in the <externalLink>
             <linkText>Package Manager Console</linkText>
-            <linkUri>http://docs.nuget.org/docs/start-here/using-the-package-manager-console</linkUri>
+            <linkUri>https://docs.nuget.org/docs/start-here/using-the-package-manager-console</linkUri>
           </externalLink>
         </para>
         <code language="powershell">
@@ -61,7 +61,7 @@
     </section>
 
     <section>
-      <title>Getting Started</title>
+      <title>Quickstart / Demo</title>
       <content>
         <para>
           If you want to hit the ground running then have a look at the <externalLink>
@@ -75,102 +75,8 @@
         </para>
       </content>
     </section>
-
-    <section>
-      <title>Usage</title>
-      <content>
-        <para>
-          Lorem ipsum dolor sit amet.
-        </para>
-      </content>
-
-      <sections>
-        <section>
-          <title>Step 1</title>
-          <content>
-            <para>
-              Lorem ipsum dolor sit amet.
-            </para>
-          </content>
-        </section>
-        <section>
-          <title>Step 2</title>
-          <content>
-            <para>
-              Lorem ipsum dolor sit amet.
-            </para>
-          </content>
-        </section>
-        <section>
-          <title>Step 3</title>
-          <content>
-            <para>
-              Lorem ipsum dolor sit amet.
-            </para>
-          </content>
-        </section>
-      </sections>
-    </section>
-
-    <section>
-      <title>QR-code providers</title>
-      <content>
-        <para>
-          Lorem ipsum dolor sit amet.
-        </para>
-      </content>
-    </section>
-
-    <section>
-      <title>RNG providers</title>
-      <content>
-        <para>
-          This library also comes with three 'built-in' RNG providers (<externalLink>
-            <linkText>Random Number Generator</linkText>
-            <linkUri>https://en.wikipedia.org/wiki/Random_number_generation</linkUri>
-          </externalLink>). The RNG provider generates a number of random bytes and returns these bytes as a string.
-          These values are then used to create the secret. By default (no RNG provider specified) TwoFactorAuth.Net
-          will use the <codeEntityReference>T:TwoFactorAuth.Net.Providers.Rng.DefaultRngProvider</codeEntityReference>.
-          Each of the providers use their own method of generating a random sequence of bytes. The
-          <codeEntityReference>T:TwoFactorAuth.Net.Providers.Rng.DefaultRngProvider</codeEntityReference> returns a
-          cryptographically secure sequence of random bytes whereas the
-          <codeEntityReference>T:TwoFactorAuth.Net.Providers.Rng.HashRngProvider</codeEntityReference> and
-          <codeEntityReference>T:TwoFactorAuth.Net.Providers.Rng.PrngProvider</codeEntityReference> return
-          non-cryptographically secure sequences.
-        </para>
-        <para>
-          You can easily implement your own RNGProvider by simply implementing the
-          <codeEntityReference>T:TwoFactorAuth.Net.Providers.Rng.IRngProvider</codeEntityReference> interface. Some of
-          the 'built-in' RNG providers have some constructor parameters that allow you to 'tweak' some of the settings
-          to use when creating the random bytes such as which hashing algorithm to use. I encourage you to have a look
-          at some of the 'built-in' RNG providers for details and the
-          <codeEntityReference>T:TwoFactorAuth.Net.Providers.Rng.IRngProvider</codeEntityReference> interface.
-        </para>
-      </content>
-    </section>
-
-    <section>
-      <title>License</title>
-      <content>
-        <para>
-          Licensed under MIT license. See <externalLink>
-            <linkText>LICENSE</linkText>
-            <linkUri>https://raw.githubusercontent.com/RobThree/TwoFactorAuth/master/LICENSE</linkUri>
-          </externalLink> for details.
-        </para>
-        <para>
-          <externalLink>
-            <linkText>Logo / icon</linkText>
-            <linkUri>http://www.iconmay.com/Simple/Travel_and_Tourism_Part_2/luggage_lock_safety_baggage_keys_cylinder_lock_hotel_travel_tourism_luggage_lock_icon_465</linkUri>
-          </externalLink> under CC0 1.0 Universal (CC0 1.0) Public Domain Dedication (<externalLink>
-            <linkText>Archived page</linkText>
-            <linkUri>http://riii.nl/tm7ap</linkUri>
-          </externalLink>)
-        </para>
-      </content>
-    </section>
-
     <relatedTopics>
+      <link xlink:href="8b1fc896-5a74-4c20-9e5b-82212edf4c96" />
       <link xlink:href="7fad766e-7156-4ec8-aed1-93303f5fc5bd" />
     </relatedTopics>
   </developerConceptualDocument>

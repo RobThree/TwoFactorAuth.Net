@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="TwoFactorAuth.Net.Demo.MvcApplication" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="TwoFactorAuthNet.Demo.MvcApplication" Language="C#" %>

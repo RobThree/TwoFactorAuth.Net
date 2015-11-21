@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using TwoFactorAuth.Net;
-using TwoFactorAuth.Net.Demo.Models;
+using TwoFactorAuthNet;
+using TwoFactorAuthNet.Demo.Models;
 
-namespace TwoFactorAuth.Net.Demo.Controllers
+namespace TwoFactorAuthNet.Demo.Controllers
 {
     public class HomeController : Controller
     {

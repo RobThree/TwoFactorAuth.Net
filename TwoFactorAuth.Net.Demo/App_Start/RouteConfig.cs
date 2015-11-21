@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace TwoFactorAuth.Net.Demo
+namespace TwoFactorAuthNet.Demo
 {
     public class RouteConfig
     {

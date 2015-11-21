@@ -1,6 +1,6 @@
 ﻿using System.Security.Cryptography;
 
-namespace TwoFactorAuth.Net.Providers.Rng
+namespace TwoFactorAuthNet.Providers.Rng
 {
     /// <summary>
     /// Provides a cryptographically secure RNG provider.

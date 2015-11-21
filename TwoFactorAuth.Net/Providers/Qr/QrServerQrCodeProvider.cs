@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-namespace TwoFactorAuth.Net.Providers.Qr
+namespace TwoFactorAuthNet.Providers.Qr
 {
     //TODO: implement charset-source / charset-target?
 

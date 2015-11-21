@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Net;
 using System.Net.Cache;
 
-namespace TwoFactorAuth.Net.Providers.Qr
+namespace TwoFactorAuthNet.Providers.Qr
 {
     /// <summary>
     /// Provides a base implementation for QR code providers.
