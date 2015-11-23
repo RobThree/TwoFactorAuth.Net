@@ -16,9 +16,11 @@
       .Net library for two-factor (or multi-factor) authentication using TOTP and QR-codes.
     </summary>
     <releaseNotes>
-      * SslPolicy dropped in favor of RemoteCertificateValidationCallback
-      * Added a RequireSsl property on the BaseHttpQrCodeProvider class to allow you to force HTTPS for IQrCodeProviders that are derived from BaseHttpQrCodeProvider
-      * Because of RemoteCertificateValidationCallback switched to .Net 4.5 minimum requirement
+      <![CDATA[
+* SslPolicy dropped in favor of RemoteCertificateValidationCallback
+* Added a RequireSsl property on the BaseHttpQrCodeProvider class to allow you to force HTTPS for IQrCodeProviders that are derived from BaseHttpQrCodeProvider
+* Because of RemoteCertificateValidationCallback switched to .Net 4.5 minimum requirement
+      ]]>
     </releaseNotes>
     <tags>totp otp multi-factor two-factor 2fa 2factor mfa security oath security protection authentication oath</tags>
   </metadata>
