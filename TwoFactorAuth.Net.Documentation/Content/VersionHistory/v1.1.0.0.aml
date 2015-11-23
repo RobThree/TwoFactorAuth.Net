@@ -23,6 +23,18 @@
           </listItem>
           <listItem>
             <para>
+              Added a 
+              <codeEntityReference>P:TwoFactorAuthNet.Providers.Qr.BaseHttpQrCodeProvider.RequireSsl</codeEntityReference>
+              property on the 
+              <codeEntityReference>T:TwoFactorAuthNet.Providers.Qr.BaseHttpQrCodeProvider</codeEntityReference> class
+              to allow you to force HTTPS for
+              <codeEntityReference>T:TwoFactorAuthNet.Providers.Qr.IQrCodeProvider</codeEntityReference>s that are
+              derived from
+              <codeEntityReference>T:TwoFactorAuthNet.Providers.Qr.BaseHttpQrCodeProvider</codeEntityReference>.
+            </para>
+          </listItem>
+          <listItem>
+            <para>
               Because a
               <codeEntityReference>T:System.Net.Security.RemoteCertificateValidationCallback</codeEntityReference>
               could not be specified on a per-request basis before .Net 4.5 (workarounds for anything lower than .Net 
