@@ -42,6 +42,11 @@ namespace TwoFactorAuthNet.Providers.Qr
         public TimeSpan TimeOut { get; set; }
 
         /// <summary>
+        /// Gets/sets whether an SSL connection is required.
+        /// </summary>
+        public bool RequireSsl { get; set; }
+
+        /// <summary>
         /// Gets the useragent string used to identify when downloading QR codes.
         /// </summary>
         public static readonly string USERAGENT = string.Format("{0} v{1}", typeof(BaseHttpQrCodeProvider).Assembly.GetName().Name, typeof(BaseHttpQrCodeProvider).Assembly.GetName().Version.ToString());
@@ -76,6 +81,9 @@ namespace TwoFactorAuthNet.Providers.Qr
         /// <returns>A <see cref="byte"/> array containing the downloaded resource.</returns>
         protected virtual byte[] DownloadData(Uri address)
         {
+            if (this.RequireSsl && string.Compare(address.Scheme, Uri.UriSchemeHttps, StringComparison.OrdinalIgnoreCase) != 0)
+                throw new ProtocolViolationException("An SSL connection is required");
+
             using (var wc = this.GetWebClient())
                 return wc.DownloadData(address);
         }
