@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="e49d84b5-1eee-48ac-a244-3e153fb0099b" revisionNumber="1">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction>
+      <para>
+        Version 1.1.0 was released on 2015-11-23.
+      </para>
+    </introduction>
+
+    <section>
+      <title>Changes in This Release</title>
+      <content>
+
+        <list class="bullet">
+          <listItem>
+            <para>
+              You can now specify a
+              <codeEntityReference>T:System.Net.Security.RemoteCertificateValidationCallback</codeEntityReference>
+              for QR code providers that do HTTP requests. The <legacyBold>SslPolicy</legacyBold> enum has been dropped
+              since it wasn't implemented and has now been deprecated for
+              <codeEntityReference>T:System.Net.Security.RemoteCertificateValidationCallback</codeEntityReference>.
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              Because a
+              <codeEntityReference>T:System.Net.Security.RemoteCertificateValidationCallback</codeEntityReference>
+              could not be specified on a per-request basis before .Net 4.5 (workarounds for anything lower than .Net 
+              4.5 involved very nasty code or even changing a <legacyItalic>global</legacyItalic> setting (which a
+              library like this one shouldn't ever do) I decided that the best way to go was simply require .Net 4.5 or
+              higher.
+            </para>
+          </listItem>
+        </list>
+
+      </content>
+    </section>
+
+    <relatedTopics>
+      <link xlink:href="7fad766e-7156-4ec8-aed1-93303f5fc5bd" />
+    </relatedTopics>
+
+  </developerConceptualDocument>
+</topic>

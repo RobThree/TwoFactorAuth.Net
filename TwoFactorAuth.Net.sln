@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		LICENSE = LICENSE
 		logo.png = logo.png
 		README.md = README.md
-		TwoFactorAuth.Net.nuspec = TwoFactorAuth.Net.nuspec
+		TwoFactorAuth.Net.NuGet\TwoFactorAuth.Net.nuspec = TwoFactorAuth.Net.NuGet\TwoFactorAuth.Net.nuspec
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwoFactorAuth.Net.Tests", "TwoFactorAuth.Net.Tests\TwoFactorAuth.Net.Tests.csproj", "{028BEDA6-4F58-429E-8253-4FE011AC650C}"

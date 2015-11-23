@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Net;
 using System.Net.Cache;
+using System.Net.Security;
 
 namespace TwoFactorAuthNet.Providers.Qr
 {
@@ -10,12 +11,10 @@ namespace TwoFactorAuthNet.Providers.Qr
     /// </summary>
     public abstract class BaseHttpQrCodeProvider
     {
-        //TODO: Use VerifySSL
-
         /// <summary>
-        /// Gets the <see cref="SslPolicy"/> to use when downloading files.
+        /// Gets a callback function to validate the server certificate.
         /// </summary>
-        protected SslPolicy SslPolicy { get; set; }
+        protected RemoteCertificateValidationCallback RemoteCertificateValidationCallback { get; private set; }
 
         /// <summary>
         /// Gets the base URI to use when downloading files.
@@ -56,19 +55,17 @@ namespace TwoFactorAuthNet.Providers.Qr
         /// Initializes a new instance of a <see cref="BaseHttpQrCodeProvider"/>.
         /// </summary>
         /// <param name="baseUri">The base Uri for the QR code provider.</param>
-        /// <param name="sslPolicy">The <see cref="SslPolicy"/> to be used by the QR code provider.</param>
+        /// <param name="remoteCertificateValidationCallback">
+        /// The <see cref="RemoteCertificateValidationCallback"/> to be used by the QR code provider.
+        /// </param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="baseUri"/> is null.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when an invalid <see cref="SslPolicy"/> is specified.</exception>
-        protected BaseHttpQrCodeProvider(Uri baseUri, SslPolicy sslPolicy)
+        protected BaseHttpQrCodeProvider(Uri baseUri, RemoteCertificateValidationCallback remoteCertificateValidationCallback)
         {
             if (baseUri == null)
                 throw new ArgumentNullException("baseUri");
             this.BaseUri = baseUri;
 
-            if (!Enum.IsDefined(typeof(SslPolicy), sslPolicy))
-                throw new ArgumentOutOfRangeException("sslPolicy");
-            this.SslPolicy = sslPolicy;
-            
+            this.RemoteCertificateValidationCallback = remoteCertificateValidationCallback;
             this.TimeOut = DEFAULTTIMEOUT;
         }
 
@@ -89,7 +86,7 @@ namespace TwoFactorAuthNet.Providers.Qr
         /// <returns>Returns an initialized <see cref="WebClient"/>.</returns>
         protected virtual WebClient GetWebClient()
         {
-            var wc = new ExtendedWebClient(this.TimeOut);
+            var wc = new ExtendedWebClient(this.TimeOut, this.RemoteCertificateValidationCallback);
             wc.CachePolicy = this.CachePolicy;
             wc.Credentials = this.Credentials;
             wc.Proxy = this.Proxy;
@@ -113,16 +110,19 @@ namespace TwoFactorAuthNet.Providers.Qr
         private class ExtendedWebClient : WebClient
         {
             private TimeSpan _timeout;
+            private RemoteCertificateValidationCallback _remotecertificatevalidationcallback;
 
-            public ExtendedWebClient(TimeSpan timeOut)
+            public ExtendedWebClient(TimeSpan timeOut, RemoteCertificateValidationCallback remoteCertificateValidationCallback)
             {
-                this._timeout = timeOut;
+                _timeout = timeOut;
+                _remotecertificatevalidationcallback = remoteCertificateValidationCallback;
             }
 
             protected override WebRequest GetWebRequest(Uri address)
             {
-                var wr = base.GetWebRequest(address);
+                var wr = (HttpWebRequest)base.GetWebRequest(address);
                 wr.Timeout = (int)_timeout.TotalMilliseconds;
+                wr.ServerCertificateValidationCallback = _remotecertificatevalidationcallback;
                 return wr;
             }
         }

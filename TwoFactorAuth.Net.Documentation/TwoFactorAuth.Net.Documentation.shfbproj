@@ -13,7 +13,7 @@
     <RootNamespace>TwoFactorAuth.Net.Documentation</RootNamespace>
     <Name>TwoFactorAuth.Net.Documentation</Name>
     <!-- SHFB properties -->
-    <FrameworkVersion>.NET Framework 4.0</FrameworkVersion>
+    <FrameworkVersion>.NET Framework 4.5</FrameworkVersion>
     <OutputPath>.\Help\</OutputPath>
     <HtmlHelpName>TwoFactorAuth.Net.Documentation</HtmlHelpName>
     <Language>en-US</Language>
@@ -104,6 +104,7 @@
     <None Include="Content\License.aml" />
     <None Include="Content\VersionHistory\v1.0.0.0.aml" />
     <None Include="Content\VersionHistory\v1.0.1.0.aml" />
+    <None Include="Content\VersionHistory\v1.1.0.0.aml" />
     <None Include="Content\VersionHistory\VersionHistory.aml" />
     <None Include="Content\Welcome.aml" />
   </ItemGroup>

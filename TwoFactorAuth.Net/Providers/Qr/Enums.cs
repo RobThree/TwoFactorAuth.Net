@@ -15,15 +15,4 @@
         /// <summary>High, 30% of codewords can be restored.</summary>
         High = 'H'
     }
-
-    /// <summary>
-    /// Specifies the policy for connecting to SSL enabled hosts.
-    /// </summary>
-    public enum SslPolicy
-    {
-        /// <summary>Verify the SSQL certificate, throw on errors.</summary>
-        Verify,
-        /// <summary>Do not verify the SSQL certificate, ignore errors.</summary>
-        IgnoreErrors
-    }
 }

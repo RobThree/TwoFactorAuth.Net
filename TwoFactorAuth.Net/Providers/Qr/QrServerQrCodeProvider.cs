@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Net.Security;
 
 namespace TwoFactorAuthNet.Providers.Qr
 {
@@ -83,7 +84,7 @@ namespace TwoFactorAuthNet.Providers.Qr
         /// <see cref="ErrorCorrectionLevel"/> (<see cref="ErrorCorrectionLevel.Low"/>), <see cref="Margin"/> (4), 
         /// <see cref="QuietZone"/> (1), <see cref="BackgroundColor"/> (<see cref="Color.White"/>), 
         /// <see cref="ForegroundColor"/> (<see cref="Color.Black"/>), <see cref="QrServerImageFormat">ImageFormat</see> 
-        /// (<see cref="QrServerImageFormat.Png"/>) and  <see cref="SslPolicy"/>  (<see cref="SslPolicy.Verify"/>).
+        /// (<see cref="QrServerImageFormat.Png"/>) and  <see cref="RemoteCertificateValidationCallback"/>.
         /// </summary>
         public QrServerQrCodeProvider()
             : this(ErrorCorrectionLevel.Low)
@@ -94,7 +95,7 @@ namespace TwoFactorAuthNet.Providers.Qr
         /// <see cref="ErrorCorrectionLevel"/> and default <see cref="Margin"/> (4), <see cref="QuietZone"/> (1),
         /// <see cref="BackgroundColor"/> (<see cref="Color.White"/>), <see cref="ForegroundColor"/> 
         /// (<see cref="Color.Black"/>), <see cref="QrServerImageFormat">ImageFormat</see> 
-        /// (<see cref="QrServerImageFormat.Png"/>) and  <see cref="SslPolicy"/>  (<see cref="SslPolicy.Verify"/>).
+        /// (<see cref="QrServerImageFormat.Png"/>) and  <see cref="RemoteCertificateValidationCallback"/>.
         /// </summary>
         /// <param name="errorCorrectionLevel">The <see cref="ErrorCorrectionLevel"/> to use when generating QR codes.</param>
         public QrServerQrCodeProvider(ErrorCorrectionLevel errorCorrectionLevel)
@@ -106,7 +107,7 @@ namespace TwoFactorAuthNet.Providers.Qr
         /// <see cref="ErrorCorrectionLevel"/> and <see cref="Margin"/> and default <see cref="QuietZone"/> (1),
         /// <see cref="BackgroundColor"/> (<see cref="Color.White"/>), <see cref="ForegroundColor"/> 
         /// (<see cref="Color.Black"/>), <see cref="QrServerImageFormat">ImageFormat</see> 
-        /// (<see cref="QrServerImageFormat.Png"/>) and  <see cref="SslPolicy"/>  (<see cref="SslPolicy.Verify"/>).
+        /// (<see cref="QrServerImageFormat.Png"/>) and  <see cref="RemoteCertificateValidationCallback"/>.
         /// </summary>
         /// <param name="errorCorrectionLevel">The <see cref="ErrorCorrectionLevel"/> to use when generating QR codes.</param>
         /// <param name="margin">The <see cref="Margin"/> to be used for the QR code.</param>
@@ -119,7 +120,7 @@ namespace TwoFactorAuthNet.Providers.Qr
         /// <see cref="ErrorCorrectionLevel"/>, <see cref="Margin"/> and <see cref="QuietZone"/> and default
         /// <see cref="BackgroundColor"/> (<see cref="Color.White"/>), <see cref="ForegroundColor"/> 
         /// (<see cref="Color.Black"/>), <see cref="QrServerImageFormat">ImageFormat</see> 
-        /// (<see cref="QrServerImageFormat.Png"/>) and  <see cref="SslPolicy"/>  (<see cref="SslPolicy.Verify"/>).
+        /// (<see cref="QrServerImageFormat.Png"/>) and  <see cref="RemoteCertificateValidationCallback"/>.
         /// </summary>
         /// <param name="errorCorrectionLevel">The <see cref="ErrorCorrectionLevel"/> to use when generating QR codes.</param>
         /// <param name="margin">The <see cref="Margin"/> to be used for the QR code.</param>
@@ -133,7 +134,7 @@ namespace TwoFactorAuthNet.Providers.Qr
         /// <see cref="ErrorCorrectionLevel"/>, <see cref="Margin"/>, <see cref="QuietZone"/> and 
         /// <see cref="BackgroundColor"/> and default <see cref="ForegroundColor"/> (<see cref="Color.Black"/>),
         /// <see cref="QrServerImageFormat">ImageFormat</see> (<see cref="QrServerImageFormat.Png"/>) and 
-        /// <see cref="SslPolicy"/>  (<see cref="SslPolicy.Verify"/>).
+        /// <see cref="RemoteCertificateValidationCallback"/>.
         /// </summary>
         /// <param name="errorCorrectionLevel">The <see cref="ErrorCorrectionLevel"/> to use when generating QR codes.</param>
         /// <param name="margin">The <see cref="Margin"/> to be used for the QR code.</param>
@@ -148,7 +149,7 @@ namespace TwoFactorAuthNet.Providers.Qr
         /// <see cref="ErrorCorrectionLevel"/>, <see cref="Margin"/>, <see cref="QuietZone"/>, 
         /// <see cref="BackgroundColor"/> and <see cref="ForegroundColor"/> and default
         /// <see cref="QrServerImageFormat">ImageFormat</see> (<see cref="QrServerImageFormat.Png"/>) and 
-        /// <see cref="SslPolicy"/>  (<see cref="SslPolicy.Verify"/>).
+        /// <see cref="RemoteCertificateValidationCallback"/>.
         /// </summary>
         /// <param name="errorCorrectionLevel">The <see cref="ErrorCorrectionLevel"/> to use when generating QR codes.</param>
         /// <param name="margin">The <see cref="Margin"/> to be used for the QR code.</param>
@@ -163,8 +164,8 @@ namespace TwoFactorAuthNet.Providers.Qr
         /// Initializes a new instance of a <see cref="QrServerQrCodeProvider"/> with the specified
         /// <see cref="ErrorCorrectionLevel"/>, <see cref="Margin"/>, <see cref="QuietZone"/>, 
         /// <see cref="BackgroundColor"/>, <see cref="ForegroundColor"/>,
-        /// <see cref="QrServerImageFormat">ImageFormat</see> and default <see cref="SslPolicy"/> 
-        /// (<see cref="SslPolicy.Verify"/>).
+        /// <see cref="QrServerImageFormat">ImageFormat</see> and default 
+        /// <see cref="RemoteCertificateValidationCallback"/>.
         /// </summary>
         /// <param name="errorCorrectionLevel">The <see cref="ErrorCorrectionLevel"/> to use when generating QR codes.</param>
         /// <param name="margin">The <see cref="Margin"/> to be used for the QR code.</param>
@@ -173,7 +174,7 @@ namespace TwoFactorAuthNet.Providers.Qr
         /// <param name="foregroundColor">The foreground color to be used for the QR code.</param>
         /// <param name="imageFormat">The <see cref="QrServerImageFormat"/> of the QR code.</param>
         public QrServerQrCodeProvider(ErrorCorrectionLevel errorCorrectionLevel, int margin, int quietZone, Color backgroundColor, Color foregroundColor, QrServerImageFormat imageFormat)
-            :this(errorCorrectionLevel, margin, quietZone, backgroundColor, foregroundColor, imageFormat, SslPolicy.Verify)
+            :this(errorCorrectionLevel, margin, quietZone, backgroundColor, foregroundColor, imageFormat, null)
         { }
 
 
@@ -181,7 +182,7 @@ namespace TwoFactorAuthNet.Providers.Qr
         /// Initializes a new instance of a <see cref="QrServerQrCodeProvider"/> with the specified
         /// <see cref="ErrorCorrectionLevel"/>, <see cref="Margin"/>, <see cref="QuietZone"/>, 
         /// <see cref="BackgroundColor"/>, <see cref="ForegroundColor"/>,
-        /// <see cref="QrServerImageFormat">ImageFormat</see> and <see cref="SslPolicy"/>.
+        /// <see cref="QrServerImageFormat">ImageFormat</see> and <see cref="RemoteCertificateValidationCallback"/>.
         /// </summary>
         /// <param name="errorCorrectionLevel">The <see cref="ErrorCorrectionLevel"/> to use when generating QR codes.</param>
         /// <param name="margin">The <see cref="Margin"/> to be used for the QR code.</param>
@@ -189,14 +190,16 @@ namespace TwoFactorAuthNet.Providers.Qr
         /// <param name="backgroundColor">The background color to be used for the QR code.</param>
         /// <param name="foregroundColor">The foreground color to be used for the QR code.</param>
         /// <param name="imageFormat">The <see cref="QrServerImageFormat"/> of the QR code.</param>
-        /// <param name="sslPolicy">The <see cref="SslPolicy"/> to use when generating QR codes.</param>
+        /// <param name="remoteCertificateValidationCallback">
+        /// The <see cref="RemoteCertificateValidationCallback"/> to use when generating QR codes.
+        /// </param>
         /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when an invalid <see cref="ErrorCorrectionLevel"/> or <see cref="QrServerImageFormat"/> is specified,
         /// <paramref name="margin"/> is less than 0 or more than 50 or <paramref name="quietZone"/> is less than 0 or
         /// more than 100.
         /// </exception>
-        public QrServerQrCodeProvider(ErrorCorrectionLevel errorCorrectionLevel, int margin, int quietZone, Color backgroundColor, Color foregroundColor, QrServerImageFormat imageFormat, SslPolicy sslPolicy)
-            : base(baseuri, sslPolicy)
+        public QrServerQrCodeProvider(ErrorCorrectionLevel errorCorrectionLevel, int margin, int quietZone, Color backgroundColor, Color foregroundColor, QrServerImageFormat imageFormat, RemoteCertificateValidationCallback remoteCertificateValidationCallback)
+            : base(baseuri, remoteCertificateValidationCallback)
         {
             if (!Enum.IsDefined(typeof(ErrorCorrectionLevel), errorCorrectionLevel))
                 throw new ArgumentOutOfRangeException("errorCorrectionLevel");

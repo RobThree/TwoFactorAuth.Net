@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Net.Security;
 
 namespace TwoFactorAuthNet.Providers.Qr
 {
@@ -52,7 +53,7 @@ namespace TwoFactorAuthNet.Providers.Qr
         /// <see cref="ErrorCorrectionLevel"/> (<see cref="ErrorCorrectionLevel.Low"/>), <see cref="BackgroundColor"/> 
         /// (<see cref="Color.White"/>), <see cref="ForegroundColor"/> (<see cref="Color.Black"/>), 
         /// <see cref="QRicketImageFormat">ImageFormat</see> (<see cref="QRicketImageFormat.Png"/>) and 
-        /// <see cref="SslPolicy"/> (<see cref="SslPolicy.Verify"/>).
+        /// <see cref="RemoteCertificateValidationCallback"/>.
         /// </summary>
         public QRicketQrCodeProvider()
             : this(ErrorCorrectionLevel.Low)
@@ -62,7 +63,7 @@ namespace TwoFactorAuthNet.Providers.Qr
         /// Initializes a new instance of a <see cref="QRicketQrCodeProvider"/> with the specified
         /// <see cref="ErrorCorrectionLevel"/> and default <see cref="BackgroundColor"/> (<see cref="Color.White"/>),
         /// <see cref="ForegroundColor"/> (<see cref="Color.Black"/>), <see cref="QRicketImageFormat">ImageFormat</see> 
-        /// (<see cref="QRicketImageFormat.Png"/>) and <see cref="SslPolicy"/> (<see cref="SslPolicy.Verify"/>).
+        /// (<see cref="QRicketImageFormat.Png"/>) and <see cref="RemoteCertificateValidationCallback"/>.
         /// </summary>
         /// <param name="errorCorrectionLevel">The <see cref="ErrorCorrectionLevel"/> to use when generating QR codes.</param>
         public QRicketQrCodeProvider(ErrorCorrectionLevel errorCorrectionLevel)
@@ -74,7 +75,7 @@ namespace TwoFactorAuthNet.Providers.Qr
         /// Initializes a new instance of a <see cref="QRicketQrCodeProvider"/> with the specified
         /// <see cref="ErrorCorrectionLevel"/>, <see cref="BackgroundColor"/> and default <see cref="ForegroundColor"/> 
         /// (<see cref="Color.Black"/>), <see cref="QRicketImageFormat">ImageFormat</see> 
-        /// (<see cref="QRicketImageFormat.Png"/>) and <see cref="SslPolicy"/> (<see cref="SslPolicy.Verify"/>).
+        /// (<see cref="QRicketImageFormat.Png"/>) and <see cref="RemoteCertificateValidationCallback"/>.
         /// </summary>
         /// <param name="errorCorrectionLevel">The <see cref="ErrorCorrectionLevel"/> to use when generating QR codes.</param>
         /// <param name="backgroundColor">The background color to be used for the QR code.</param>
@@ -86,7 +87,7 @@ namespace TwoFactorAuthNet.Providers.Qr
         /// Initializes a new instance of a <see cref="QRicketQrCodeProvider"/> with the specified
         /// <see cref="ErrorCorrectionLevel"/>, <see cref="BackgroundColor"/>, <see cref="ForegroundColor"/> and
         /// default <see cref="QRicketImageFormat">ImageFormat</see> (<see cref="QRicketImageFormat.Png"/>) and 
-        /// <see cref="SslPolicy"/> (<see cref="SslPolicy.Verify"/>).
+        /// <see cref="RemoteCertificateValidationCallback"/>.
         /// </summary>
         /// <param name="errorCorrectionLevel">The <see cref="ErrorCorrectionLevel"/> to use when generating QR codes.</param>
         /// <param name="backgroundColor">The background color to be used for the QR code.</param>
@@ -98,32 +99,34 @@ namespace TwoFactorAuthNet.Providers.Qr
         /// <summary>
         /// Initializes a new instance of a <see cref="QRicketQrCodeProvider"/> with the specified
         /// <see cref="ErrorCorrectionLevel"/>, <see cref="BackgroundColor"/>, <see cref="ForegroundColor"/>, 
-        /// <see cref="QRicketImageFormat">ImageFormat</see> and default <see cref="SslPolicy"/>
-        /// (<see cref="SslPolicy.Verify"/>).
+        /// <see cref="QRicketImageFormat">ImageFormat</see> and default
+        /// <see cref="RemoteCertificateValidationCallback"/>.
         /// </summary>
         /// <param name="errorCorrectionLevel">The <see cref="ErrorCorrectionLevel"/> to use when generating QR codes.</param>
         /// <param name="backgroundColor">The background color to be used for the QR code.</param>
         /// <param name="foregroundColor">The foreground color to be used for the QR code.</param>
         /// <param name="imageFormat">The <see cref="QRicketImageFormat"/> of the QR code.</param>
         public QRicketQrCodeProvider(ErrorCorrectionLevel errorCorrectionLevel, Color backgroundColor, Color foregroundColor, QRicketImageFormat imageFormat)
-            : this(errorCorrectionLevel, backgroundColor, foregroundColor, imageFormat, SslPolicy.Verify)
+            : this(errorCorrectionLevel, backgroundColor, foregroundColor, imageFormat, null)
         { }
 
         /// <summary>
         /// Initializes a new instance of a <see cref="QRicketQrCodeProvider"/> with the specified
         /// <see cref="ErrorCorrectionLevel"/>, <see cref="BackgroundColor"/>, <see cref="ForegroundColor"/>, 
-        /// <see cref="QRicketImageFormat">ImageFormat</see> and <see cref="SslPolicy"/>.
+        /// <see cref="QRicketImageFormat">ImageFormat</see> and <see cref="RemoteCertificateValidationCallback"/>.
         /// </summary>
         /// <param name="errorCorrectionLevel">The <see cref="ErrorCorrectionLevel"/> to use when generating QR codes.</param>
         /// <param name="backgroundColor">The background color to be used for the QR code.</param>
         /// <param name="foregroundColor">The foreground color to be used for the QR code.</param>
         /// <param name="imageFormat">The <see cref="QRicketImageFormat"/> of the QR code.</param>
-        /// <param name="sslPolicy">The <see cref="SslPolicy"/> to use when generating QR codes.</param>
+        /// <param name="remoteCertificateValidationCallback">
+        /// The <see cref="RemoteCertificateValidationCallback"/> to use when generating QR codes.
+        /// </param>
         /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when an invalid <see cref="ErrorCorrectionLevel"/> or <see cref="QRicketImageFormat"/> is specified.
         /// </exception>
-        public QRicketQrCodeProvider(ErrorCorrectionLevel errorCorrectionLevel, Color backgroundColor, Color foregroundColor, QRicketImageFormat imageFormat, SslPolicy sslPolicy)
-            : base(baseuri, sslPolicy)
+        public QRicketQrCodeProvider(ErrorCorrectionLevel errorCorrectionLevel, Color backgroundColor, Color foregroundColor, QRicketImageFormat imageFormat, RemoteCertificateValidationCallback remoteCertificateValidationCallback)
+            : base(baseuri, remoteCertificateValidationCallback)
         {
             if (!Enum.IsDefined(typeof(ErrorCorrectionLevel), errorCorrectionLevel))
                 throw new ArgumentOutOfRangeException("errorCorrectionLevel");

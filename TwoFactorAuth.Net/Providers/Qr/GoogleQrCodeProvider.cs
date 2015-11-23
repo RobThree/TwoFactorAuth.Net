@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Security;
 
 namespace TwoFactorAuthNet.Providers.Qr
 {
@@ -30,7 +31,7 @@ namespace TwoFactorAuthNet.Providers.Qr
         /// <summary>
         /// Initializes a new instance of a <see cref="GoogleQrCodeProvider"/> with the default
         /// <see cref="ErrorCorrectionLevel"/> (<see cref="ErrorCorrectionLevel.Low"/>), 1 
-        /// <see cref="MarginRows">MarginRow</see> and <see cref="SslPolicy"/> (<see cref="SslPolicy.Verify"/>).
+        /// <see cref="MarginRows">MarginRow</see> and <see cref="RemoteCertificateValidationCallback"/>.
         /// </summary>
         public GoogleQrCodeProvider()
             : this(ErrorCorrectionLevel.Low)
@@ -39,7 +40,7 @@ namespace TwoFactorAuthNet.Providers.Qr
         /// <summary>
         /// Initializes a new instance of a <see cref="GoogleQrCodeProvider"/> with the specified
         /// <see cref="ErrorCorrectionLevel"/> and default <see cref="MarginRows">MarginRow</see> (1) and 
-        /// <see cref="SslPolicy"/> (<see cref="SslPolicy.Verify"/>).
+        /// <see cref="RemoteCertificateValidationCallback"/>.
         /// </summary>
         /// <param name="errorCorrectionLevel">The <see cref="ErrorCorrectionLevel"/> to use when generating QR codes.</param>
         public GoogleQrCodeProvider(ErrorCorrectionLevel errorCorrectionLevel)
@@ -48,27 +49,30 @@ namespace TwoFactorAuthNet.Providers.Qr
 
         /// <summary>
         /// Initializes a new instance of a <see cref="GoogleQrCodeProvider"/> with the specified
-        /// <see cref="ErrorCorrectionLevel"/>, <see cref="MarginRows"/> and default <see cref="SslPolicy"/>
-        /// (<see cref="SslPolicy.Verify"/>).
+        /// <see cref="ErrorCorrectionLevel"/>, <see cref="MarginRows"/> and default 
+        /// <see cref="RemoteCertificateValidationCallback"/>.
         /// </summary>
         /// <param name="errorCorrectionLevel">The <see cref="ErrorCorrectionLevel"/> to use when generating QR codes.</param>
         /// <param name="marginRows">The width of the white border around the data portion of the code.</param>
         public GoogleQrCodeProvider(ErrorCorrectionLevel errorCorrectionLevel, int marginRows)
-            : this(errorCorrectionLevel, marginRows, SslPolicy.Verify)
+            : this(errorCorrectionLevel, marginRows, null)
         { }
 
         /// <summary>
         /// Initializes a new instance of a <see cref="GoogleQrCodeProvider"/> with the specified
-        /// <see cref="ErrorCorrectionLevel"/>, <see cref="MarginRows"/> and <see cref="SslPolicy"/>.
+        /// <see cref="ErrorCorrectionLevel"/>, <see cref="MarginRows"/> and 
+        /// <see cref="RemoteCertificateValidationCallback"/>.
         /// </summary>
         /// <param name="errorCorrectionLevel">The <see cref="ErrorCorrectionLevel"/> to use when generating QR codes.</param>
         /// <param name="marginRows">The width of the white border around the data portion of the code.</param>
-        /// <param name="sslPolicy">The <see cref="SslPolicy"/> to use when generating QR codes.</param>
+        /// <param name="remoteCertificateValidationCallback">
+        /// The <see cref="RemoteCertificateValidationCallback"/> to use when generating QR codes.
+        /// </param>
         /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when an invalid <see cref="ErrorCorrectionLevel"/> is specified or marginRows is less than 0.
         /// </exception>
-        public GoogleQrCodeProvider(ErrorCorrectionLevel errorCorrectionLevel, int marginRows, SslPolicy sslPolicy)
-            : base(baseuri, sslPolicy)
+        public GoogleQrCodeProvider(ErrorCorrectionLevel errorCorrectionLevel, int marginRows, RemoteCertificateValidationCallback remoteCertificateValidationCallback)
+            : base(baseuri, remoteCertificateValidationCallback)
         {
             if (!Enum.IsDefined(typeof(ErrorCorrectionLevel), errorCorrectionLevel))
                 throw new ArgumentOutOfRangeException("errorCorrectionLevel");
