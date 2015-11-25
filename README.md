@@ -90,6 +90,12 @@ Ok, so now the code has been verified and found to be correct. Now we can store 
 
 Simple as 1-2-3!
 
+## See also
+
+* [How to implement your own QR Code provider](https://github.com/RobThree/TwoFactorAuth.Net/wiki/How-to-implement-your-own-QR-Code-provider)
+* [How to implement your own RNG provider](https://github.com/RobThree/TwoFactorAuth.Net/wiki/How-to-implement-your-own-RNG-provider)
+* [PHP version of this library](https://github.com/RobThree/TwoFactorAuth)
+
 ## License
 
 Licensed under MIT license. See [LICENSE](https://raw.githubusercontent.com/RobThree/TwoFactorAuth.Net/master/LICENSE) for details.
