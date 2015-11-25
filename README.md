@@ -8,6 +8,20 @@
     <img src="https://raw.githubusercontent.com/RobThree/TwoFactorAuth.Net/master/TwoFactorAuth.Net.Documentation/media/multifactorauthforeveryone.png">
 </p>
 
+## Requirements
+* [.NET Framework 4.5](https://www.microsoft.com/en-us/download/details.aspx?id=17851)
+* Access to internet may be required if you use a [QrCodeProvider](https://github.com/RobThree/TwoFactorAuth.Net/tree/master/TwoFactorAuth.Net/Providers/Qr) that retrieves data/images from the web. 
+
+## Installation
+To install TwoFactorAuth.Net, run the following command in the [Package Manager Console](https://docs.nuget.org/docs/start-here/using-the-package-manager-console)
+
+```powershell
+PM> Install-Package TwoFactorAuth.Net
+```
+
+## Quickstart / Demo
+If you want to hit the ground running then have a look at the [demo project](TwoFactorAuth.Net/tree/master/TwoFactorAuth.Net.Demo). It's very simple and easy! Also, if you're already familiar with the well known [TwoFactorAuth](https://github.com/RobThree/TwoFactorAuth) library for PHP then you should have no problem switching / using this .Net port. 
+
 ## Getting started
 
 ### Step 1: Set up secret shared key
