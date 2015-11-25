@@ -8,7 +8,7 @@
       <para>
         This library comes with three 'built-in' QR-code providers. Some
         <codeEntityReference linkText="TwoFactorAuth constructor overloads">Overload:TwoFactorAuthNet.TwoFactorAuth.#ctor</codeEntityReference>
-        accept a <codeEntityReference>T:TwoFactorAuthNet.Providers.Qr.IQrCodeProvider</codeEntityReference> argument
+        accept an <codeEntityReference>T:TwoFactorAuthNet.Providers.Qr.IQrCodeProvider</codeEntityReference> argument
         which lets you specify a built-in or custom QR-code provider. All three built-in providers do a simple HTTP
         request to retrieve an image using a <codeEntityReference>T:System.Net.WebClient</codeEntityReference> and
         implement the <codeEntityReference>T:TwoFactorAuthNet.Providers.Qr.IQrCodeProvider</codeEntityReference>
