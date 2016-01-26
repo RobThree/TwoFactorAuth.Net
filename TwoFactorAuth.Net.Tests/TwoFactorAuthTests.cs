@@ -139,14 +139,14 @@ namespace TwoFactorAuthNet.Tests
         {
             var target = new TwoFactorAuth();
 
-            target.GetCode("FOO1BAR8BAZ9");
+            target.GetCode("FOO1BAR8BAZ9"); // 1, 8 & 9 are invalid chars
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void GetCodeThrowsOnInvalidBase32String2()
         {
-            var target = new TwoFactorAuth(); // 1, 8 & 9 are invalid chars
+            var target = new TwoFactorAuth(); 
 
             target.GetCode("mzxw6==="); // Lowercase
         }
