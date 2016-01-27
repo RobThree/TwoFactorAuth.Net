@@ -138,7 +138,7 @@ namespace TwoFactorAuthNet.Tests
         public void GetCodeThrowsOnInvalidBase32String1()
         {
             var target = new TwoFactorAuth();
-
+            
             target.GetCode("FOO1BAR8BAZ9"); // 1, 8 & 9 are invalid chars
         }
 
@@ -245,7 +245,7 @@ namespace TwoFactorAuthNet.Tests
             // We usually don't test internals (e.g. privates) but since we rely heavily on base32 decoding and don't
             // want to expose this method nor do we want to give people the possibility of implementing / providing
             // their own base32 decoding/decoder (as we do with Rng/QR providers for example) we simply test the
-            // private Base32.Decode() method with some known testvectors **only** to ensure base32 decoding works
+            // internal Base32.Decode() method with some known testvectors **only** to ensure base32 decoding works
             // correctly following RFC's so there won't be any bugs hiding in there. We **could** 'fool' ourselves by
             // calling the public GetCode() method (which uses Base32.Decode() internally) and then make sure GetCode's
             // output (in digits) equals expected output since that would mean the Base32.Decode() works as expected
@@ -256,17 +256,14 @@ namespace TwoFactorAuthNet.Tests
             // public methods."
             //                                                     Dave Thomas and Andy Hunt -- "Pragmatic Unit Testing
 
-            var target = typeof(TwoFactorAuth).Assembly.GetType("TwoFactorAuthNet.TwoFactorAuth+Base32");
-            var method = target.GetMethod("Decode");
-            
             // Test vectors from: https://tools.ietf.org/html/rfc4648#page-12
-            Assert.AreEqual("", Encoding.ASCII.GetString((byte[])method.Invoke(target, new[] { "" })));
-            Assert.AreEqual("f", Encoding.ASCII.GetString((byte[])method.Invoke(target, new [] { "MY======" })));
-            Assert.AreEqual("fo", Encoding.ASCII.GetString((byte[])method.Invoke(target, new [] { "MZXQ====" })));
-            Assert.AreEqual("foo", Encoding.ASCII.GetString((byte[])method.Invoke(target, new [] { "MZXW6===" })));
-            Assert.AreEqual("foob", Encoding.ASCII.GetString((byte[])method.Invoke(target, new [] { "MZXW6YQ=" })));
-            Assert.AreEqual("fooba", Encoding.ASCII.GetString((byte[])method.Invoke(target, new [] { "MZXW6YTB" })));
-            Assert.AreEqual("foobar", Encoding.ASCII.GetString((byte[])method.Invoke(target, new [] { "MZXW6YTBOI======" })));
+            Assert.AreEqual("", Encoding.ASCII.GetString(TwoFactorAuth.Base32.Decode("")));
+            Assert.AreEqual("f", Encoding.ASCII.GetString(TwoFactorAuth.Base32.Decode("MY======")));
+            Assert.AreEqual("fo", Encoding.ASCII.GetString(TwoFactorAuth.Base32.Decode("MZXQ====")));
+            Assert.AreEqual("foo", Encoding.ASCII.GetString(TwoFactorAuth.Base32.Decode("MZXW6===")));
+            Assert.AreEqual("foob", Encoding.ASCII.GetString(TwoFactorAuth.Base32.Decode("MZXW6YQ=")));
+            Assert.AreEqual("fooba", Encoding.ASCII.GetString(TwoFactorAuth.Base32.Decode("MZXW6YTB")));
+            Assert.AreEqual("foobar", Encoding.ASCII.GetString(TwoFactorAuth.Base32.Decode("MZXW6YTBOI======")));
         }
 
         [TestMethod]
@@ -277,17 +274,14 @@ namespace TwoFactorAuthNet.Tests
             // https://tools.ietf.org/html/rfc4648#page-4: 
             //   "In some circumstances, the use of padding ("=") in base-encoded data is not required or used."
 
-            var target = typeof(TwoFactorAuth).Assembly.GetType("TwoFactorAuthNet.TwoFactorAuth+Base32");
-            var method = target.GetMethod("Decode");
-
             // Test vectors from: https://tools.ietf.org/html/rfc4648#page-12
-            Assert.AreEqual("", Encoding.ASCII.GetString((byte[])method.Invoke(target, new[] { "" })));
-            Assert.AreEqual("f", Encoding.ASCII.GetString((byte[])method.Invoke(target, new[] { "MY" })));
-            Assert.AreEqual("fo", Encoding.ASCII.GetString((byte[])method.Invoke(target, new[] { "MZXQ" })));
-            Assert.AreEqual("foo", Encoding.ASCII.GetString((byte[])method.Invoke(target, new[] { "MZXW6" })));
-            Assert.AreEqual("foob", Encoding.ASCII.GetString((byte[])method.Invoke(target, new[] { "MZXW6YQ" })));
-            Assert.AreEqual("fooba", Encoding.ASCII.GetString((byte[])method.Invoke(target, new[] { "MZXW6YTB" })));
-            Assert.AreEqual("foobar", Encoding.ASCII.GetString((byte[])method.Invoke(target, new[] { "MZXW6YTBOI" })));
+            Assert.AreEqual("", Encoding.ASCII.GetString(TwoFactorAuth.Base32.Decode("")));
+            Assert.AreEqual("f", Encoding.ASCII.GetString(TwoFactorAuth.Base32.Decode("MY")));
+            Assert.AreEqual("fo", Encoding.ASCII.GetString(TwoFactorAuth.Base32.Decode("MZXQ")));
+            Assert.AreEqual("foo", Encoding.ASCII.GetString(TwoFactorAuth.Base32.Decode("MZXW6")));
+            Assert.AreEqual("foob", Encoding.ASCII.GetString(TwoFactorAuth.Base32.Decode("MZXW6YQ")));
+            Assert.AreEqual("fooba", Encoding.ASCII.GetString(TwoFactorAuth.Base32.Decode("MZXW6YTB")));
+            Assert.AreEqual("foobar", Encoding.ASCII.GetString(TwoFactorAuth.Base32.Decode("MZXW6YTBOI")));
         }
     }
 

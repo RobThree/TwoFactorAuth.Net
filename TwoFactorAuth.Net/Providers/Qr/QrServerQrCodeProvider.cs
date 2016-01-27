@@ -81,10 +81,11 @@ namespace TwoFactorAuthNet.Providers.Qr
 
         /// <summary>
         /// Initializes a new instance of a <see cref="QrServerQrCodeProvider"/> with the default
-        /// <see cref="ErrorCorrectionLevel"/> (<see cref="ErrorCorrectionLevel.Low"/>), <see cref="Margin"/> (4), 
-        /// <see cref="QuietZone"/> (1), <see cref="BackgroundColor"/> (<see cref="Color.White"/>), 
-        /// <see cref="ForegroundColor"/> (<see cref="Color.Black"/>), <see cref="QrServerImageFormat">ImageFormat</see> 
-        /// (<see cref="QrServerImageFormat.Png"/>) and  <see cref="RemoteCertificateValidationCallback"/>.
+        /// <see cref="ErrorCorrectionLevel"/> (<see cref="F:TwoFactorAuthNet.Providers.Qr.ErrorCorrectionLevel.Low"/>),
+        /// <see cref="Margin"/> (4), <see cref="QuietZone"/> (1), <see cref="BackgroundColor"/>
+        /// (<see cref="Color.White"/>), <see cref="ForegroundColor"/> (<see cref="Color.Black"/>),
+        /// <see cref="QrServerImageFormat">ImageFormat</see> (<see cref="QrServerImageFormat.Png"/>) and
+        /// <see cref="RemoteCertificateValidationCallback"/>.
         /// </summary>
         public QrServerQrCodeProvider()
             : this(ErrorCorrectionLevel.Low)

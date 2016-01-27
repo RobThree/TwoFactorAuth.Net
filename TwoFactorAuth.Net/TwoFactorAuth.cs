@@ -566,7 +566,7 @@ namespace TwoFactorAuthNet
         /// <summary>
         /// Provides a method for decoding a Base32 encoded string and exposes the Base32 "alphabet" for internal uses.
         /// </summary>
-        private static class Base32
+        internal static class Base32
         {
             public const string Base32Alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
             private static readonly Regex _b32re = new Regex("[^" + Base32Alphabet + "]", RegexOptions.Compiled);

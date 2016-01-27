@@ -30,8 +30,8 @@ namespace TwoFactorAuthNet.Providers.Qr
 
         /// <summary>
         /// Initializes a new instance of a <see cref="GoogleQrCodeProvider"/> with the default
-        /// <see cref="ErrorCorrectionLevel"/> (<see cref="ErrorCorrectionLevel.Low"/>), 1 
-        /// <see cref="MarginRows">MarginRow</see> and <see cref="RemoteCertificateValidationCallback"/>.
+        /// <see cref="ErrorCorrectionLevel"/> (<see cref="F:TwoFactorAuthNet.Providers.Qr.ErrorCorrectionLevel.Low"/>),
+        /// 1 <see cref="MarginRows">MarginRow</see> and <see cref="RemoteCertificateValidationCallback"/>.
         /// </summary>
         public GoogleQrCodeProvider()
             : this(ErrorCorrectionLevel.Low)

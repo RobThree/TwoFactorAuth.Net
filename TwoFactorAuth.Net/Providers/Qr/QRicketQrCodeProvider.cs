@@ -50,10 +50,10 @@ namespace TwoFactorAuthNet.Providers.Qr
 
         /// <summary>
         /// Initializes a new instance of a <see cref="QRicketQrCodeProvider"/> with the default
-        /// <see cref="ErrorCorrectionLevel"/> (<see cref="ErrorCorrectionLevel.Low"/>), <see cref="BackgroundColor"/> 
-        /// (<see cref="Color.White"/>), <see cref="ForegroundColor"/> (<see cref="Color.Black"/>), 
-        /// <see cref="QRicketImageFormat">ImageFormat</see> (<see cref="QRicketImageFormat.Png"/>) and 
-        /// <see cref="RemoteCertificateValidationCallback"/>.
+        /// <see cref="ErrorCorrectionLevel"/> (<see cref="F:TwoFactorAuthNet.Providers.Qr.ErrorCorrectionLevel.Low"/>),
+        /// <see cref="BackgroundColor"/> (<see cref="Color.White"/>), <see cref="ForegroundColor"/>
+        /// (<see cref="Color.Black"/>), <see cref="QRicketImageFormat">ImageFormat</see>
+        /// (<see cref="QRicketImageFormat.Png"/>) and <see cref="RemoteCertificateValidationCallback"/>.
         /// </summary>
         public QRicketQrCodeProvider()
             : this(ErrorCorrectionLevel.Low)
