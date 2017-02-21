@@ -19,7 +19,7 @@
       <![CDATA[
 * Implemented ITimeProviders
 * Got rid of constructor madness
-* This is a bugfix release of 1.2.0 where an sync call could result in a deadlock
+* This is a bugfix release of 1.2.0 where an async call could result in a deadlock
       ]]>
     </releaseNotes>
     <tags>totp otp multi-factor two-factor 2fa 2factor mfa security oath security protection authentication oath</tags>
