@@ -43,7 +43,7 @@ namespace TwoFactorAuthNet.Providers.Time
                     AllowAutoRedirect = false
                 }))
                 {
-                    var m = jsontimestamp.Match(await c.GetStringAsync(BASEURI));
+                    var m = jsontimestamp.Match(await c.GetStringAsync(BASEURI).ConfigureAwait(false));
                     return EPOCH.AddSeconds(int.Parse(m.Groups[1].Value));
                 }
             }

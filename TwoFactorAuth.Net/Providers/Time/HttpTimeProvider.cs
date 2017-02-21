@@ -67,7 +67,7 @@ namespace TwoFactorAuthNet.Providers.Time
                 {
                     using (var req = new HttpRequestMessage(HttpMethod.Head, this.Uri))
                     {
-                        var response = await c.SendAsync(req);
+                        var response = await c.SendAsync(req).ConfigureAwait(false);
 
                         if (response.Headers.Date.HasValue)
                             return response.Headers.Date.Value.UtcDateTime;

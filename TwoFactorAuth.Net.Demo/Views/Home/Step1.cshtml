@@ -1,4 +1,6 @@
-﻿@{
+﻿@model TwoFactorAuth
+
+@{
     ViewBag.Title = "Step 1";
 }
 
@@ -50,4 +52,23 @@
 
 <p>
     @Html.ActionLink("Let's proceed to step 2! »", "Step2", new { controller = "Home" }, new { @class = "btn btn-success" })
+</p>
+
+<p>Incidentally, you may want to ensure your host has the correct time; you can use the <code>EnsureCorrectTime()</code> method for that.</p>
+<p>
+        @{
+            try
+            {
+                Model.EnsureCorrectTime();
+                <div class="alert alert-success" role="alert">
+                    Your time seems to be correct!
+                </div>
+            }
+            catch (Exception ex)
+            {
+                <div class="alert alert-danger" role="alert">
+                    Your time seems to be off! (@ex.Message)
+                </div>
+            }
+        }
 </p>

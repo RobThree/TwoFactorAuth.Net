@@ -3,7 +3,7 @@
   <metadata>
     <id>TwoFactorAuth.Net</id>
     <title>TwoFactorAuth.Net</title>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
     <authors>RobIII</authors>
     <owners>RobIII</owners>
     <projectUrl>https://github.com/RobThree/TwoFactorAuth.Net</projectUrl>
@@ -19,6 +19,7 @@
       <![CDATA[
 * Implemented ITimeProviders
 * Got rid of constructor madness
+* This is a bugfix release of 1.2.0 where an sync call could result in a deadlock
       ]]>
     </releaseNotes>
     <tags>totp otp multi-factor two-factor 2fa 2factor mfa security oath security protection authentication oath</tags>
