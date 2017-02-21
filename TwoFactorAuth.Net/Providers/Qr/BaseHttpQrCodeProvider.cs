@@ -67,7 +67,7 @@ namespace TwoFactorAuthNet.Providers.Qr
         protected BaseHttpQrCodeProvider(Uri baseUri, RemoteCertificateValidationCallback remoteCertificateValidationCallback)
         {
             if (baseUri == null)
-                throw new ArgumentNullException("baseUri");
+                throw new ArgumentNullException(nameof(baseUri));
             this.BaseUri = baseUri;
 
             this.RemoteCertificateValidationCallback = remoteCertificateValidationCallback;

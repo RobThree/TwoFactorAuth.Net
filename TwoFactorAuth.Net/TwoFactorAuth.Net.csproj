@@ -39,8 +39,10 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.WebRequest" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums.cs" />
@@ -56,6 +58,11 @@
     <Compile Include="Providers\Rng\HashRngProvider.cs" />
     <Compile Include="Providers\Rng\IRngProvider.cs" />
     <Compile Include="Providers\Rng\PrngProvider.cs" />
+    <Compile Include="Providers\Time\ConvertUnixTimeDotComTimeProvider.cs" />
+    <Compile Include="Providers\Time\HttpTimeProvider.cs" />
+    <Compile Include="Providers\Time\ITimeProvider.cs" />
+    <Compile Include="Providers\Time\LocalMachineTimeProvider.cs" />
+    <Compile Include="Providers\Time\TimeProviderException.cs" />
     <Compile Include="TwoFactorAuth.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -96,6 +96,10 @@ Simple as 1-2-3!
 * [How to implement your own RNG provider](https://github.com/RobThree/TwoFactorAuth.Net/wiki/How-to-implement-your-own-RNG-provider)
 * [PHP version of this library](https://github.com/RobThree/TwoFactorAuth)
 
+## Building TwoFactorAuth.Net
+
+You'll need to have [Sandcastle Help File Builder (SHFB)](https://github.com/EWSoftware/SHFB/releases) installed if you want to build the helpfile. Other than that you only need Visual Studio 2015 (or higher).
+
 ## License
 
 Licensed under MIT license. See [LICENSE](https://raw.githubusercontent.com/RobThree/TwoFactorAuth.Net/master/LICENSE) for details.

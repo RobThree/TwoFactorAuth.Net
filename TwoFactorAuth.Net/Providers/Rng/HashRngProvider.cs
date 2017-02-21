@@ -15,24 +15,12 @@ namespace TwoFactorAuthNet.Providers.Rng
         private HashAlgorithm _algorithm;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="HashRngProvider"/>.
-        /// </summary>
-        /// <remarks>Uses SHA256 by default to generate random values.</remarks>
-        public HashRngProvider()
-            : this(HashAlgorithm.Create("HMACSHA256"))
-        { }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="HashRngProvider"/> with a specified <see cref="HashAlgorithm"/>.
         /// </summary>
         /// <param name="algorithm">The <see cref="HashAlgorithm"/> to use when generating random number sequences.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="algorithm"/> is null.</exception>
-        public HashRngProvider(HashAlgorithm algorithm)
+        public HashRngProvider(HashAlgorithm algorithm = null)
         {
-            if (algorithm == null)
-                throw new ArgumentNullException("algorithm");
-
-            _algorithm = algorithm;
+            _algorithm = algorithm ?? HashAlgorithm.Create("HMACSHA256");
         }
 
         /// <summary>

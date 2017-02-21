@@ -49,68 +49,6 @@ namespace TwoFactorAuthNet.Providers.Qr
         private static readonly Uri baseuri = new Uri("http://qrickit.com/api/qr");
 
         /// <summary>
-        /// Initializes a new instance of a <see cref="QRicketQrCodeProvider"/> with the default
-        /// <see cref="ErrorCorrectionLevel"/> (<see cref="F:TwoFactorAuthNet.Providers.Qr.ErrorCorrectionLevel.Low"/>),
-        /// <see cref="BackgroundColor"/> (<see cref="Color.White"/>), <see cref="ForegroundColor"/>
-        /// (<see cref="Color.Black"/>), <see cref="QRicketImageFormat">ImageFormat</see>
-        /// (<see cref="QRicketImageFormat.Png"/>) and <see cref="RemoteCertificateValidationCallback"/>.
-        /// </summary>
-        public QRicketQrCodeProvider()
-            : this(ErrorCorrectionLevel.Low)
-        { }
-
-        /// <summary>
-        /// Initializes a new instance of a <see cref="QRicketQrCodeProvider"/> with the specified
-        /// <see cref="ErrorCorrectionLevel"/> and default <see cref="BackgroundColor"/> (<see cref="Color.White"/>),
-        /// <see cref="ForegroundColor"/> (<see cref="Color.Black"/>), <see cref="QRicketImageFormat">ImageFormat</see> 
-        /// (<see cref="QRicketImageFormat.Png"/>) and <see cref="RemoteCertificateValidationCallback"/>.
-        /// </summary>
-        /// <param name="errorCorrectionLevel">The <see cref="ErrorCorrectionLevel"/> to use when generating QR codes.</param>
-        public QRicketQrCodeProvider(ErrorCorrectionLevel errorCorrectionLevel)
-            : this(errorCorrectionLevel, Color.White)
-        { }
-
-
-        /// <summary>
-        /// Initializes a new instance of a <see cref="QRicketQrCodeProvider"/> with the specified
-        /// <see cref="ErrorCorrectionLevel"/>, <see cref="BackgroundColor"/> and default <see cref="ForegroundColor"/> 
-        /// (<see cref="Color.Black"/>), <see cref="QRicketImageFormat">ImageFormat</see> 
-        /// (<see cref="QRicketImageFormat.Png"/>) and <see cref="RemoteCertificateValidationCallback"/>.
-        /// </summary>
-        /// <param name="errorCorrectionLevel">The <see cref="ErrorCorrectionLevel"/> to use when generating QR codes.</param>
-        /// <param name="backgroundColor">The background color to be used for the QR code.</param>
-        public QRicketQrCodeProvider(ErrorCorrectionLevel errorCorrectionLevel, Color backgroundColor)
-            : this(errorCorrectionLevel, backgroundColor, Color.Black)
-        { }
-
-        /// <summary>
-        /// Initializes a new instance of a <see cref="QRicketQrCodeProvider"/> with the specified
-        /// <see cref="ErrorCorrectionLevel"/>, <see cref="BackgroundColor"/>, <see cref="ForegroundColor"/> and
-        /// default <see cref="QRicketImageFormat">ImageFormat</see> (<see cref="QRicketImageFormat.Png"/>) and 
-        /// <see cref="RemoteCertificateValidationCallback"/>.
-        /// </summary>
-        /// <param name="errorCorrectionLevel">The <see cref="ErrorCorrectionLevel"/> to use when generating QR codes.</param>
-        /// <param name="backgroundColor">The background color to be used for the QR code.</param>
-        /// <param name="foregroundColor">The foreground color to be used for the QR code.</param>
-        public QRicketQrCodeProvider(ErrorCorrectionLevel errorCorrectionLevel, Color backgroundColor, Color foregroundColor)
-            : this(errorCorrectionLevel, backgroundColor, foregroundColor, QRicketImageFormat.Png)
-        { }
-
-        /// <summary>
-        /// Initializes a new instance of a <see cref="QRicketQrCodeProvider"/> with the specified
-        /// <see cref="ErrorCorrectionLevel"/>, <see cref="BackgroundColor"/>, <see cref="ForegroundColor"/>, 
-        /// <see cref="QRicketImageFormat">ImageFormat</see> and default
-        /// <see cref="RemoteCertificateValidationCallback"/>.
-        /// </summary>
-        /// <param name="errorCorrectionLevel">The <see cref="ErrorCorrectionLevel"/> to use when generating QR codes.</param>
-        /// <param name="backgroundColor">The background color to be used for the QR code.</param>
-        /// <param name="foregroundColor">The foreground color to be used for the QR code.</param>
-        /// <param name="imageFormat">The <see cref="QRicketImageFormat"/> of the QR code.</param>
-        public QRicketQrCodeProvider(ErrorCorrectionLevel errorCorrectionLevel, Color backgroundColor, Color foregroundColor, QRicketImageFormat imageFormat)
-            : this(errorCorrectionLevel, backgroundColor, foregroundColor, imageFormat, null)
-        { }
-
-        /// <summary>
         /// Initializes a new instance of a <see cref="QRicketQrCodeProvider"/> with the specified
         /// <see cref="ErrorCorrectionLevel"/>, <see cref="BackgroundColor"/>, <see cref="ForegroundColor"/>, 
         /// <see cref="QRicketImageFormat">ImageFormat</see> and <see cref="RemoteCertificateValidationCallback"/>.
@@ -125,18 +63,24 @@ namespace TwoFactorAuthNet.Providers.Qr
         /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when an invalid <see cref="ErrorCorrectionLevel"/> or <see cref="QRicketImageFormat"/> is specified.
         /// </exception>
-        public QRicketQrCodeProvider(ErrorCorrectionLevel errorCorrectionLevel, Color backgroundColor, Color foregroundColor, QRicketImageFormat imageFormat, RemoteCertificateValidationCallback remoteCertificateValidationCallback)
+        public QRicketQrCodeProvider(
+            ErrorCorrectionLevel errorCorrectionLevel = ErrorCorrectionLevel.Low, 
+            Color? backgroundColor = null, 
+            Color? foregroundColor = null, 
+            QRicketImageFormat imageFormat = QRicketImageFormat.Png, 
+            RemoteCertificateValidationCallback remoteCertificateValidationCallback = null
+        )
             : base(baseuri, remoteCertificateValidationCallback)
         {
             if (!Enum.IsDefined(typeof(ErrorCorrectionLevel), errorCorrectionLevel))
-                throw new ArgumentOutOfRangeException("errorCorrectionLevel");
+                throw new ArgumentOutOfRangeException(nameof(errorCorrectionLevel));
             this.ErrorCorrectionLevel = errorCorrectionLevel;
 
-            this.BackgroundColor = backgroundColor;
-            this.ForegroundColor = foregroundColor;
+            this.BackgroundColor = backgroundColor ?? Color.White;
+            this.ForegroundColor = foregroundColor ?? Color.Black;
 
             if (!Enum.IsDefined(typeof(QRicketImageFormat), imageFormat))
-                throw new ArgumentOutOfRangeException("imageFormat");
+                throw new ArgumentOutOfRangeException(nameof(imageFormat));
             this.ImageFormat = imageFormat;
         }
 

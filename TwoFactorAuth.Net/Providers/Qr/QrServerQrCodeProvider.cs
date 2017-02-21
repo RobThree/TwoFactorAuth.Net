@@ -80,106 +80,6 @@ namespace TwoFactorAuthNet.Providers.Qr
         private static readonly Uri baseuri = new Uri("https://api.qrserver.com/v1/create-qr-code/");
 
         /// <summary>
-        /// Initializes a new instance of a <see cref="QrServerQrCodeProvider"/> with the default
-        /// <see cref="ErrorCorrectionLevel"/> (<see cref="F:TwoFactorAuthNet.Providers.Qr.ErrorCorrectionLevel.Low"/>),
-        /// <see cref="Margin"/> (4), <see cref="QuietZone"/> (1), <see cref="BackgroundColor"/>
-        /// (<see cref="Color.White"/>), <see cref="ForegroundColor"/> (<see cref="Color.Black"/>),
-        /// <see cref="QrServerImageFormat">ImageFormat</see> (<see cref="QrServerImageFormat.Png"/>) and
-        /// <see cref="RemoteCertificateValidationCallback"/>.
-        /// </summary>
-        public QrServerQrCodeProvider()
-            : this(ErrorCorrectionLevel.Low)
-        { }
-
-        /// <summary>
-        /// Initializes a new instance of a <see cref="QrServerQrCodeProvider"/> with the specified
-        /// <see cref="ErrorCorrectionLevel"/> and default <see cref="Margin"/> (4), <see cref="QuietZone"/> (1),
-        /// <see cref="BackgroundColor"/> (<see cref="Color.White"/>), <see cref="ForegroundColor"/> 
-        /// (<see cref="Color.Black"/>), <see cref="QrServerImageFormat">ImageFormat</see> 
-        /// (<see cref="QrServerImageFormat.Png"/>) and  <see cref="RemoteCertificateValidationCallback"/>.
-        /// </summary>
-        /// <param name="errorCorrectionLevel">The <see cref="ErrorCorrectionLevel"/> to use when generating QR codes.</param>
-        public QrServerQrCodeProvider(ErrorCorrectionLevel errorCorrectionLevel)
-            : this(errorCorrectionLevel, 4)
-        { }
-
-        /// <summary>
-        /// Initializes a new instance of a <see cref="QrServerQrCodeProvider"/> with the specified
-        /// <see cref="ErrorCorrectionLevel"/> and <see cref="Margin"/> and default <see cref="QuietZone"/> (1),
-        /// <see cref="BackgroundColor"/> (<see cref="Color.White"/>), <see cref="ForegroundColor"/> 
-        /// (<see cref="Color.Black"/>), <see cref="QrServerImageFormat">ImageFormat</see> 
-        /// (<see cref="QrServerImageFormat.Png"/>) and  <see cref="RemoteCertificateValidationCallback"/>.
-        /// </summary>
-        /// <param name="errorCorrectionLevel">The <see cref="ErrorCorrectionLevel"/> to use when generating QR codes.</param>
-        /// <param name="margin">The <see cref="Margin"/> to be used for the QR code.</param>
-        public QrServerQrCodeProvider(ErrorCorrectionLevel errorCorrectionLevel, int margin)
-            : this(errorCorrectionLevel, margin, 1)
-        { }
-
-        /// <summary>
-        /// Initializes a new instance of a <see cref="QrServerQrCodeProvider"/> with the specified
-        /// <see cref="ErrorCorrectionLevel"/>, <see cref="Margin"/> and <see cref="QuietZone"/> and default
-        /// <see cref="BackgroundColor"/> (<see cref="Color.White"/>), <see cref="ForegroundColor"/> 
-        /// (<see cref="Color.Black"/>), <see cref="QrServerImageFormat">ImageFormat</see> 
-        /// (<see cref="QrServerImageFormat.Png"/>) and  <see cref="RemoteCertificateValidationCallback"/>.
-        /// </summary>
-        /// <param name="errorCorrectionLevel">The <see cref="ErrorCorrectionLevel"/> to use when generating QR codes.</param>
-        /// <param name="margin">The <see cref="Margin"/> to be used for the QR code.</param>
-        /// <param name="quietZone">The <see cref="QuietZone"/> to be used for the QR code.</param>
-        public QrServerQrCodeProvider(ErrorCorrectionLevel errorCorrectionLevel, int margin, int quietZone)
-            : this(errorCorrectionLevel, margin, quietZone, Color.White)
-        { }
-
-        /// <summary>
-        /// Initializes a new instance of a <see cref="QrServerQrCodeProvider"/> with the specified
-        /// <see cref="ErrorCorrectionLevel"/>, <see cref="Margin"/>, <see cref="QuietZone"/> and 
-        /// <see cref="BackgroundColor"/> and default <see cref="ForegroundColor"/> (<see cref="Color.Black"/>),
-        /// <see cref="QrServerImageFormat">ImageFormat</see> (<see cref="QrServerImageFormat.Png"/>) and 
-        /// <see cref="RemoteCertificateValidationCallback"/>.
-        /// </summary>
-        /// <param name="errorCorrectionLevel">The <see cref="ErrorCorrectionLevel"/> to use when generating QR codes.</param>
-        /// <param name="margin">The <see cref="Margin"/> to be used for the QR code.</param>
-        /// <param name="quietZone">The <see cref="QuietZone"/> to be used for the QR code.</param>
-        /// <param name="backgroundColor">The background color to be used for the QR code.</param>
-        public QrServerQrCodeProvider(ErrorCorrectionLevel errorCorrectionLevel, int margin, int quietZone, Color backgroundColor)
-            : this(errorCorrectionLevel, margin, quietZone, backgroundColor, Color.Black)
-        { }
-
-        /// <summary>
-        /// Initializes a new instance of a <see cref="QrServerQrCodeProvider"/> with the specified
-        /// <see cref="ErrorCorrectionLevel"/>, <see cref="Margin"/>, <see cref="QuietZone"/>, 
-        /// <see cref="BackgroundColor"/> and <see cref="ForegroundColor"/> and default
-        /// <see cref="QrServerImageFormat">ImageFormat</see> (<see cref="QrServerImageFormat.Png"/>) and 
-        /// <see cref="RemoteCertificateValidationCallback"/>.
-        /// </summary>
-        /// <param name="errorCorrectionLevel">The <see cref="ErrorCorrectionLevel"/> to use when generating QR codes.</param>
-        /// <param name="margin">The <see cref="Margin"/> to be used for the QR code.</param>
-        /// <param name="quietZone">The <see cref="QuietZone"/> to be used for the QR code.</param>
-        /// <param name="backgroundColor">The background color to be used for the QR code.</param>
-        /// <param name="foregroundColor">The foreground color to be used for the QR code.</param>
-        public QrServerQrCodeProvider(ErrorCorrectionLevel errorCorrectionLevel, int margin, int quietZone, Color backgroundColor, Color foregroundColor)
-            : this(errorCorrectionLevel, margin, quietZone, backgroundColor, foregroundColor, QrServerImageFormat.Png)
-        { }
-
-        /// <summary>
-        /// Initializes a new instance of a <see cref="QrServerQrCodeProvider"/> with the specified
-        /// <see cref="ErrorCorrectionLevel"/>, <see cref="Margin"/>, <see cref="QuietZone"/>, 
-        /// <see cref="BackgroundColor"/>, <see cref="ForegroundColor"/>,
-        /// <see cref="QrServerImageFormat">ImageFormat</see> and default 
-        /// <see cref="RemoteCertificateValidationCallback"/>.
-        /// </summary>
-        /// <param name="errorCorrectionLevel">The <see cref="ErrorCorrectionLevel"/> to use when generating QR codes.</param>
-        /// <param name="margin">The <see cref="Margin"/> to be used for the QR code.</param>
-        /// <param name="quietZone">The <see cref="QuietZone"/> to be used for the QR code.</param>
-        /// <param name="backgroundColor">The background color to be used for the QR code.</param>
-        /// <param name="foregroundColor">The foreground color to be used for the QR code.</param>
-        /// <param name="imageFormat">The <see cref="QrServerImageFormat"/> of the QR code.</param>
-        public QrServerQrCodeProvider(ErrorCorrectionLevel errorCorrectionLevel, int margin, int quietZone, Color backgroundColor, Color foregroundColor, QrServerImageFormat imageFormat)
-            :this(errorCorrectionLevel, margin, quietZone, backgroundColor, foregroundColor, imageFormat, null)
-        { }
-
-
-        /// <summary>
         /// Initializes a new instance of a <see cref="QrServerQrCodeProvider"/> with the specified
         /// <see cref="ErrorCorrectionLevel"/>, <see cref="Margin"/>, <see cref="QuietZone"/>, 
         /// <see cref="BackgroundColor"/>, <see cref="ForegroundColor"/>,
@@ -199,26 +99,34 @@ namespace TwoFactorAuthNet.Providers.Qr
         /// <paramref name="margin"/> is less than 0 or more than 50 or <paramref name="quietZone"/> is less than 0 or
         /// more than 100.
         /// </exception>
-        public QrServerQrCodeProvider(ErrorCorrectionLevel errorCorrectionLevel, int margin, int quietZone, Color backgroundColor, Color foregroundColor, QrServerImageFormat imageFormat, RemoteCertificateValidationCallback remoteCertificateValidationCallback)
+        public QrServerQrCodeProvider(
+            ErrorCorrectionLevel errorCorrectionLevel = ErrorCorrectionLevel.Low, 
+            int margin = 4, 
+            int quietZone = 1, 
+            Color? backgroundColor = null, 
+            Color? foregroundColor = null, 
+            QrServerImageFormat imageFormat = QrServerImageFormat.Png, 
+            RemoteCertificateValidationCallback remoteCertificateValidationCallback = null
+        )
             : base(baseuri, remoteCertificateValidationCallback)
         {
             if (!Enum.IsDefined(typeof(ErrorCorrectionLevel), errorCorrectionLevel))
-                throw new ArgumentOutOfRangeException("errorCorrectionLevel");
+                throw new ArgumentOutOfRangeException(nameof(errorCorrectionLevel));
             this.ErrorCorrectionLevel = errorCorrectionLevel;
 
             if (margin < 0 || margin > 50)
-                throw new ArgumentOutOfRangeException("margin");
+                throw new ArgumentOutOfRangeException(nameof(margin));
             this.Margin = margin;
 
             if (quietZone < 0 || quietZone > 100)
-                throw new ArgumentOutOfRangeException("quietZone");
+                throw new ArgumentOutOfRangeException(nameof(quietZone));
             this.QuietZone = quietZone;
 
-            this.BackgroundColor = backgroundColor;
-            this.ForegroundColor = foregroundColor;
+            this.BackgroundColor = backgroundColor ?? Color.White;
+            this.ForegroundColor = foregroundColor ?? Color.Black;
 
             if (!Enum.IsDefined(typeof(QrServerImageFormat), imageFormat))
-                throw new ArgumentOutOfRangeException("imageFormat");
+                throw new ArgumentOutOfRangeException(nameof(imageFormat));
             this.ImageFormat = imageFormat;
 
         }

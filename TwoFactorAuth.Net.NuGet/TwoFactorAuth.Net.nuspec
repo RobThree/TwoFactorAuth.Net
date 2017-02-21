@@ -3,7 +3,7 @@
   <metadata>
     <id>TwoFactorAuth.Net</id>
     <title>TwoFactorAuth.Net</title>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
     <authors>RobIII</authors>
     <owners>RobIII</owners>
     <projectUrl>https://github.com/RobThree/TwoFactorAuth.Net</projectUrl>
@@ -17,9 +17,8 @@
     </summary>
     <releaseNotes>
       <![CDATA[
-* SslPolicy dropped in favor of RemoteCertificateValidationCallback
-* Added a RequireSsl property on the BaseHttpQrCodeProvider class to allow you to force HTTPS for IQrCodeProviders that are derived from BaseHttpQrCodeProvider
-* Because of RemoteCertificateValidationCallback switched to .Net 4.5 minimum requirement
+* Implemented ITimeProviders
+* Got rid of constructor madness
       ]]>
     </releaseNotes>
     <tags>totp otp multi-factor two-factor 2fa 2factor mfa security oath security protection authentication oath</tags>

@@ -5,8 +5,10 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using TwoFactorAuthNet.Providers.Qr;
 using TwoFactorAuthNet.Providers.Rng;
+using TwoFactorAuthNet.Providers.Time;
 
 namespace TwoFactorAuthNet.Tests
 {
@@ -17,21 +19,21 @@ namespace TwoFactorAuthNet.Tests
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void ConstructorThrowsOnInvalidDigits()
         {
-            var target = new TwoFactorAuth(null, 0);
+            var target = new TwoFactorAuth(digits: 0);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void ConstructorThrowsOnInvalidPeriod()
         {
-            var target = new TwoFactorAuth(null, 6, 0);
+            var target = new TwoFactorAuth(period: 0);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void ConstructorThrowsOnInvalidAlgorithm()
         {
-            var target = new TwoFactorAuth(null, 6, 30, (Algorithm)999);
+            var target = new TwoFactorAuth(algorithm: (Algorithm)999);
         }
 
 
@@ -49,7 +51,7 @@ namespace TwoFactorAuthNet.Tests
         public void CreateSecretThrowsOnInsecureRNGProvider()
         {
             var rng = new TestRNGProvider();
-            var target = new TwoFactorAuth(null, 6, 30, Algorithm.SHA1, new TestQrProvider(), rng);
+            var target = new TwoFactorAuth(rngprovider: rng);
             target.CreateSecret();
         }
 
@@ -57,7 +59,7 @@ namespace TwoFactorAuthNet.Tests
         public void CreateSecretOverrideAllowInsecureDoesNotThrowOnInsecureRNG()
         {
             var rng = new TestRNGProvider(false);
-            var target = new TwoFactorAuth(null, 6, 30, Algorithm.SHA1, new TestQrProvider(), rng);
+            var target = new TwoFactorAuth(rngprovider: rng);
             var r = target.CreateSecret(80, CryptoSecureRequirement.AllowInsecure);
             Assert.AreEqual("ABCDEFGHIJKLMNOP", target.CreateSecret(80, CryptoSecureRequirement.AllowInsecure));
         }
@@ -66,7 +68,7 @@ namespace TwoFactorAuthNet.Tests
         public void CreateSecretOverrideAllowInsecureDoesNotThrowOnSecureRNG()
         {
             var rng = new TestRNGProvider(true);
-            var target = new TwoFactorAuth(null, 6, 30, Algorithm.SHA1, new TestQrProvider(), rng);
+            var target = new TwoFactorAuth(rngprovider: rng);
             var r = target.CreateSecret();
             Assert.AreEqual("ABCDEFGHIJKLMNOP", target.CreateSecret());
         }
@@ -75,7 +77,7 @@ namespace TwoFactorAuthNet.Tests
         public void CreateSecretGeneratesDesiredAmountOfEntropy()
         {
             var rng = new TestRNGProvider(true);
-            var target = new TwoFactorAuth(null, 6, 30, Algorithm.SHA1, new TestQrProvider(), rng);
+            var target = new TwoFactorAuth(rngprovider: rng);
 
 
             Assert.AreEqual("A", target.CreateSecret(5));
@@ -89,7 +91,7 @@ namespace TwoFactorAuthNet.Tests
         [TestMethod]
         public void VerifyCodeWorksCorrectly()
         {
-            var target = new TwoFactorAuth(null, 6, 30, Algorithm.SHA1);
+            var target = new TwoFactorAuth(digits: 6, period: 30, algorithm: Algorithm.SHA1);
             Assert.IsTrue(target.VerifyCode("VMR466AB62ZBOKHE", "543160", 1, 1426847190));
             Assert.IsTrue(target.VerifyCode("VMR466AB62ZBOKHE", "543160", 0, 1426847190 + 29));	    // Test discrepancy
             Assert.IsFalse(target.VerifyCode("VMR466AB62ZBOKHE", "543160", 0, 1426847190 + 30));	// Test discrepancy
@@ -98,7 +100,7 @@ namespace TwoFactorAuthNet.Tests
             Assert.IsTrue(target.VerifyCode("VMR466AB62ZBOKHE", "543160", 1, 1426847205 + 35));	    // Test discrepancy
             Assert.IsTrue(target.VerifyCode("VMR466AB62ZBOKHE", "543160", 1, 1426847205 - 35));	    // Test discrepancy
             Assert.IsFalse(target.VerifyCode("VMR466AB62ZBOKHE", "543160", 1, 1426847205 + 65));	// Test discrepancy
-            Assert.IsFalse(target.VerifyCode("VMR466AB62ZBOKHE", "543160", 1, 1426847205 - 65));	    // Test discrepancy
+            Assert.IsFalse(target.VerifyCode("VMR466AB62ZBOKHE", "543160", 1, 1426847205 - 65));	// Test discrepancy
             Assert.IsTrue(target.VerifyCode("VMR466AB62ZBOKHE", "543160", 2, 1426847205 + 65));	    // Test discrepancy
             Assert.IsTrue(target.VerifyCode("VMR466AB62ZBOKHE", "543160", 2, 1426847205 - 65));	    // Test discrepancy
         }
@@ -106,16 +108,40 @@ namespace TwoFactorAuthNet.Tests
         [TestMethod]
         public void VerifyCodeAllowsNegativeDiscrepancy()
         {
-            var target = new TwoFactorAuth(null, 6, 30, Algorithm.SHA1);
-            Assert.IsTrue(target.VerifyCode("VMR466AB62ZBOKHE", "543160", -2, 1426847205 - 65));	    // Test negative discrepancy
+            var target = new TwoFactorAuth(digits: 6, period: 30, algorithm: Algorithm.SHA1);
+            Assert.IsTrue(target.VerifyCode("VMR466AB62ZBOKHE", "543160", -2, 1426847205 - 65));    // Test negative discrepancy
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void VerifyCodeThrowsOnNullSecret()
+        {
+            new TwoFactorAuth().VerifyCode(null, "123456");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void VerifyCodeThrowsOnNullCode()
+        {
+            new TwoFactorAuth().VerifyCode("VMR466AB62ZBOKHE", null);
+        }
+
+        [TestMethod]
+        public void VerifyCodeReturnsFalseOnIncorrectCodes()
+        {
+            var target = new TwoFactorAuth();
+            Assert.IsTrue(target.VerifyCode("VMR466AB62ZBOKHE", "543160", 0, 1426847190));
+            Assert.IsFalse(target.VerifyCode("VMR466AB62ZBOKHE", "543161", 0, 1426847190));     //Incorrect code
+            Assert.IsFalse(target.VerifyCode("VMR466AB62ZBOKHE", "543159", 0, 1426847190));     //Incorrect code
+            Assert.IsFalse(target.VerifyCode("VMR466AB62ZBOKHE", "54316", 0, 1426847190));      //Incorrect length
+            Assert.IsFalse(target.VerifyCode("VMR466AB62ZBOKHE", "5431600", 0, 1426847190));    //Incorrect length
+        }
 
         [TestMethod]
         public void VerifyTotpUriIsCorrect()
         {
             var qr = new TestQrProvider();
-            var target = new TwoFactorAuth("Test&Issuer", 6, 30, Algorithm.SHA1, qr);
+            var target = new TwoFactorAuth(issuer: "Test&Issuer", qrcodeprovider: qr);
 
             var data = DecodeDataUri(target.GetQrCodeImageAsDataUri("Test&Label", "VMR466AB62ZBOKHE"));
             Assert.AreEqual("test/test", data["mimetype"]);
@@ -128,7 +154,7 @@ namespace TwoFactorAuthNet.Tests
         public void GetQrCodeImageAsDataUriThrowsOnInvalidSize()
         {
             var qr = new TestQrProvider();
-            var target = new TwoFactorAuth(null, 6, 30, Algorithm.SHA1, qr);
+            var target = new TwoFactorAuth(qrcodeprovider: qr);
 
             target.GetQrCodeImageAsDataUri("Test", "VMR466AB62ZBOKHE", 0);
         }
@@ -138,7 +164,7 @@ namespace TwoFactorAuthNet.Tests
         public void GetCodeThrowsOnInvalidBase32String1()
         {
             var target = new TwoFactorAuth();
-            
+
             target.GetCode("FOO1BAR8BAZ9"); // 1, 8 & 9 are invalid chars
         }
 
@@ -146,9 +172,77 @@ namespace TwoFactorAuthNet.Tests
         [ExpectedException(typeof(ArgumentException))]
         public void GetCodeThrowsOnInvalidBase32String2()
         {
-            var target = new TwoFactorAuth(); 
+            var target = new TwoFactorAuth();
 
             target.GetCode("mzxw6==="); // Lowercase
+        }
+
+        [TestMethod]
+        public void EnsureCorrectTimeDoesNotThrowOnCorrectTime()
+        {
+            var testdate = new DateTime(2017, 2, 18, 17, 15, 46);
+            var tp1 = new TestTimeProvider(testdate);
+            var tp2 = new TestTimeProvider(testdate);
+            var target = new TwoFactorAuth(timeprovider: tp1);
+
+            target.EnsureCorrectTime(new[] { tp2 }, 0);
+        }
+
+        [TestMethod]
+        public void EnsureCorrectTimeDoesNotThrowOnCorrectTimeWithinLeniency()
+        {
+            var testdate = new DateTime(2017, 2, 18, 17, 15, 46);
+            var tp1 = new TestTimeProvider(testdate);
+            var tp2 = new TestTimeProvider(testdate.AddSeconds(5));
+            var target = new TwoFactorAuth(timeprovider: tp1);
+
+            target.EnsureCorrectTime(new[] { tp2 }, 5);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TimeProviderException))]
+        public void EnsureCorrectTimeThrowsOnInCorrectTime1()
+        {
+            var testdate = new DateTime(2017, 2, 18, 17, 15, 46);
+            var tp1 = new TestTimeProvider(testdate);
+            var tp2 = new TestTimeProvider(testdate.AddSeconds(6));     //Positive 
+            var target = new TwoFactorAuth(null, 8, 30, Algorithm.SHA1, new TestQrProvider(), new TestRNGProvider(), tp1);
+
+            target.EnsureCorrectTime(new[] { tp2 }, 5);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TimeProviderException))]
+        public void EnsureCorrectTimeThrowsOnInCorrectTime2()
+        {
+            var testdate = new DateTime(2017, 2, 18, 17, 15, 46);
+            var tp1 = new TestTimeProvider(testdate);
+            var tp2 = new TestTimeProvider(testdate.AddSeconds(-6));    //Negative
+            var target = new TwoFactorAuth(timeprovider: tp1);
+
+            target.EnsureCorrectTime(new[] { tp2 }, 5);
+        }
+
+        [TestMethod]
+        public void EnsureCorrectTimeTimeIsCorrect()    
+        {
+            //Will throw during testing when time is off by too much or default time providers return incorrect time
+            new TwoFactorAuth().EnsureCorrectTime();
+        }
+
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void EnsureCorrectTimeThrowsOnNullTimeProviders()
+        {
+            new TwoFactorAuth().EnsureCorrectTime(null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void EnsureCorrectTimeThrowsOnNoTimeProviders()
+        {
+            new TwoFactorAuth().EnsureCorrectTime(Enumerable.Empty<ITimeProvider>());
         }
 
         [TestMethod]
@@ -156,7 +250,7 @@ namespace TwoFactorAuthNet.Tests
         {
             //Known test vectors for SHA1: https://tools.ietf.org/html/rfc6238#page-15
             var secret = "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ";    //== base32encode('12345678901234567890')
-            var target = new TwoFactorAuth(null, 8, 30, Algorithm.SHA1);
+            var target = new TwoFactorAuth(digits: 8, period: 30, algorithm: Algorithm.SHA1);
 
             // Test specific timestamps
             Assert.AreEqual("94287082", target.GetCode(secret, 59));
@@ -180,7 +274,7 @@ namespace TwoFactorAuthNet.Tests
         {
             //Known test vectors for SHA256: https://tools.ietf.org/html/rfc6238#page-15
             var secret = "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZA";   //== base32encode('12345678901234567890123456789012')
-            var target = new TwoFactorAuth(null, 8, 30, Algorithm.SHA256);
+            var target = new TwoFactorAuth(digits: 8, period: 30, algorithm: Algorithm.SHA256);
 
             // Test specific timestamps
             Assert.AreEqual("46119246", target.GetCode(secret, 59));
@@ -204,7 +298,7 @@ namespace TwoFactorAuthNet.Tests
         {
             //Known test vectors for SHA512: https://tools.ietf.org/html/rfc6238#page-15
             var secret = "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNA"; //== base32encode('1234567890123456789012345678901234567890123456789012345678901234')
-            var target = new TwoFactorAuth(null, 8, 30, Algorithm.SHA512);
+            var target = new TwoFactorAuth(digits: 8, period: 30, algorithm: Algorithm.SHA512);
 
             // Test specific timestamps
             Assert.AreEqual("90693936", target.GetCode(secret, 59));
@@ -230,7 +324,7 @@ namespace TwoFactorAuthNet.Tests
             var match = re.Match(dataUri);
             if (match.Success)
             {
-                return new Dictionary<string, string>() { 
+                return new Dictionary<string, string>() {
                     { "mimetype", match.Groups["mimetype"].Value },
                     { "encoding", match.Groups["encoding"].Value },
                     { "data", Encoding.ASCII.GetString(Convert.FromBase64String(match.Groups["data"].Value)) }
@@ -283,6 +377,7 @@ namespace TwoFactorAuthNet.Tests
             Assert.AreEqual("fooba", Encoding.ASCII.GetString(TwoFactorAuth.Base32.Decode("MZXW6YTB")));
             Assert.AreEqual("foobar", Encoding.ASCII.GetString(TwoFactorAuth.Base32.Decode("MZXW6YTBOI")));
         }
+
     }
 
 
@@ -319,6 +414,21 @@ namespace TwoFactorAuthNet.Tests
         public string GetMimeType()
         {
             return "test/test";
+        }
+    }
+
+    internal class TestTimeProvider : ITimeProvider
+    {
+        private DateTime _time;
+
+        public TestTimeProvider(DateTime time)
+        {
+            _time = time;
+        }
+
+        public Task<DateTime> GetTimeAsync()
+        {
+            return Task.FromResult(_time);
         }
     }
 }

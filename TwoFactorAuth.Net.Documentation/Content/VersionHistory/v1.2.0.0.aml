@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="fec666db-9ebb-4920-bb90-6553a066e5e0" revisionNumber="1">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction>
+      <para>
+        Version 1.2.0 was released on 2017-02-21.
+      </para>
+    </introduction>
+
+    <section>
+      <title>Changes in This Release</title>
+      <content>
+
+        <list class="bullet">
+          <listItem>
+            <para>
+              Implemented <codeEntityReference>T:TwoFactorAuthNet.Providers.Time.ITimeProvider</codeEntityReference>s
+              that can assist in assuring the correct time is used (see also 
+              <codeEntityReference>M:TwoFactorAuthNet.TwoFactorAuth.EnsureCorrectTime(System.Int32)</codeEntityReference>).
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              A lot of constructor overloads have been removed and replaced with a simpler constructor with optional
+              arguments.
+            </para>
+          </listItem>
+        </list>
+
+      </content>
+    </section>
+
+    <relatedTopics>
+      <link xlink:href="7fad766e-7156-4ec8-aed1-93303f5fc5bd" />
+    </relatedTopics>
+
+  </developerConceptualDocument>
+</topic>
