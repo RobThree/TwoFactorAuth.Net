@@ -10,9 +10,11 @@
 
 <pre>
     var tfa = new TwoFactorAuth("MyCompany");
-    var secret = tfa.CreateSecret();</pre>
+    // Though the default is an 80 bits secret (for backwards compatibility reasons) we 
+    // recommend creating 160+ bits secrets (see RFC 4226 - Algorithm Requirements)
+    var secret = tfa.CreateSecret(160);</pre>
 
-<p>The <code>CreateSecret()</code> method accepts two arguments: <code>bits</code> (default: <code>80</code>) and <code>cryptoSecureRequirement</code> (default: <code>RequireSecure</code>). The former is the number of bits generated for the shared secret. Make sure this argument is a multiple of 8 and, again, keep in mind that not all combinations may be supported by all apps. Google authenticator seems happy with 80 and 160, the default is set to 80 because that's what most sites (that I know of) currently use. The latter is used to ensure that the secret is cryptographically secure; if you don't care very much for cryptographically secure secrets you can specify <code>AllowInsecure</code> and use a non-cryptographically secure RNG provider.</p>
+<p>The <code>CreateSecret()</code> method accepts two arguments: <code>bits</code> (default: <code>80</code>) and <code>cryptoSecureRequirement</code> (default: <code>RequireSecure</code>). The former is the number of bits generated for the shared secret. Make sure this argument is a multiple of 8 and, again, keep in mind that not all combinations may be supported by all apps. Google authenticator seems happy with 80 and 160, the default is set to 80 because that's what most sites (that I know of) currently use; however a value of 160 or higher is recommended (see <a href="https://tools.ietf.org/html/rfc4226#section-4">RFC 4226 - Algorithm Requirements</a>). The latter is used to ensure that the secret is cryptographically secure; if you don't care very much for cryptographically secure secrets you can specify <code>AllowInsecure</code> and use a non-cryptographically secure RNG provider.</p>
 
 <pre>
     // Display shared secret
@@ -39,13 +41,15 @@
 <pre>
     // Display QR code to user
     &lt;p&gt;Scan the following image with your app:&lt;/p&gt;
-    &lt;p&gt;&lt;img src="@@tfa.GetQrCodeImageAsDataUri("Bob Ross", secret)"&gt;&lt;/p&gt;</pre>
+    &lt;p&gt;&lt;img src="@@tfa.GetQrCodeImageAsDataUri("Bob Ross", secret)"&gt;&lt;/p&gt;
+    &lt;p&gt;Or enter the following secret in your app: @@Session["secret"]&gt;&lt;/p&gt;</pre>
 
 <p>This results in:</p>
 
 <div class="well">
     <p>Scan the following image with your app:</p>
     <p><img src="@Model.GetQrCodeImageAsDataUri("Bob Ross", (string)Session["secret"])"></p>
+    <p>Or enter the following secret in your app: @Session["secret"]</p>
 </div>
 
 <p>Did you scan (or manually enter) the secret?</p>

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using TwoFactorAuthNet;
+﻿using System.Web.Mvc;
 using TwoFactorAuthNet.Demo.Models;
 
 namespace TwoFactorAuthNet.Demo.Controllers
@@ -20,7 +15,9 @@ namespace TwoFactorAuthNet.Demo.Controllers
         public ActionResult Step1()
         {
             if (string.IsNullOrEmpty((string)Session["secret"]))
-                Session.Add("secret", tfa.CreateSecret());
+                // Though the default is an 80 bits secret (for backwards compatibility reasons) we 
+                // recommend creating 160+ bits secrets (see RFC 4226 - Algorithm Requirements)
+                Session.Add("secret", tfa.CreateSecret(160));
 
             return View(tfa);
         }

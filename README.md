@@ -30,10 +30,12 @@ When a user wants to setup two-factor auth (or, more correctly, multi-factor aut
 
 ```c#
 var tfa = new TwoFactorAuth("MyCompany");
-var secret = tfa.CreateSecret();
+// Though the default is an 80 bits secret (for backwards compatibility reasons) we 
+// recommend creating 160+ bits secrets (see RFC 4226 - Algorithm Requirements)
+var secret = tfa.CreateSecret(160);
 ```
 
-The `CreateSecret()` method accepts two arguments: `bits` (default: `80`) and `cryptoSecureRequirement` (default: `RequireSecure`). The former is the number of bits generated for the shared secret. Make sure this argument is a multiple of 8 and, again, keep in mind that not all combinations may be supported by all apps. Google Authenticator seems happy with 80 and 160, the default is set to 80 because that's what most sites (that I know of) currently use. The latter is used to ensure that the secret is cryptographically secure; if you don't care very much for cryptographically secure secrets you can specify `AllowInsecure` and use a non-cryptographically secure RNG provider. 
+The `CreateSecret()` method accepts two arguments: `bits` (default: `80`) and `cryptoSecureRequirement` (default: `RequireSecure`). The former is the number of bits generated for the shared secret. Make sure this argument is a multiple of 8 and, again, keep in mind that not all combinations may be supported by all apps. Google Authenticator seems happy with 80 and 160, the default is set to 80 because that's what most sites (that I know of) currently use; however a value of 160 or higher is recommended (see [RFC 4226 - Algorithm Requirements](https://tools.ietf.org/html/rfc4226#section-4)). The latter is used to ensure that the secret is cryptographically secure; if you don't care very much for cryptographically secure secrets you can specify `AllowInsecure` and use a non-cryptographically secure RNG provider. 
 
 ```c#
 // Display shared secret
