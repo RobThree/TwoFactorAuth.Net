@@ -96,6 +96,7 @@ Simple as 1-2-3!
 
 * [How to implement your own QR Code provider](https://github.com/RobThree/TwoFactorAuth.Net/wiki/How-to-implement-your-own-QR-Code-provider)
 * [How to implement your own RNG provider](https://github.com/RobThree/TwoFactorAuth.Net/wiki/How-to-implement-your-own-RNG-provider)
+* [Time providers](https://github.com/RobThree/TwoFactorAuth.Net/wiki/Time-providers)
 * [PHP version of this library](https://github.com/RobThree/TwoFactorAuth)
 
 ## Building TwoFactorAuth.Net
