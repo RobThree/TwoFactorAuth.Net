@@ -50,11 +50,11 @@ namespace TwoFactorAuthNet.Providers.Qr
         {
             if (!Enum.IsDefined(typeof(ErrorCorrectionLevel), errorCorrectionLevel))
                 throw new ArgumentOutOfRangeException(nameof(errorCorrectionLevel));
-            this.ErrorCorrectionLevel = errorCorrectionLevel;
+            ErrorCorrectionLevel = errorCorrectionLevel;
 
             if (marginRows < 0)
                 throw new ArgumentOutOfRangeException(nameof(marginRows));
-            this.MarginRows = marginRows;
+            MarginRows = marginRows;
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace TwoFactorAuthNet.Providers.Qr
         /// <seealso cref="IQrCodeProvider"/>
         public byte[] GetQrCodeImage(string text, int size)
         {
-            return this.DownloadData(this.GetUri(text, size));
+            return DownloadData(GetUri(text, size));
         }
 
         /// <summary>
@@ -77,10 +77,10 @@ namespace TwoFactorAuthNet.Providers.Qr
         /// <returns>A <see cref="Uri"/> to the QR code.</returns>
         private Uri GetUri(string qrText, int size)
         {
-            return new Uri(this.BaseUri,
+            return new Uri(BaseUri,
                 "?cht=qr"
                 + "&chs=" + size + "x" + size
-                + "&chld=" + (char)this.ErrorCorrectionLevel + "|" + this.MarginRows
+                + "&chld=" + (char)ErrorCorrectionLevel + "|" + MarginRows
                 + "&chl=" + Uri.EscapeDataString(qrText)
             );
         }

@@ -68,10 +68,10 @@ namespace TwoFactorAuthNet.Providers.Qr
         {
             if (baseUri == null)
                 throw new ArgumentNullException(nameof(baseUri));
-            this.BaseUri = baseUri;
+            BaseUri = baseUri;
 
-            this.RemoteCertificateValidationCallback = remoteCertificateValidationCallback;
-            this.TimeOut = DEFAULTTIMEOUT;
+            RemoteCertificateValidationCallback = remoteCertificateValidationCallback;
+            TimeOut = DEFAULTTIMEOUT;
         }
 
         /// <summary>
@@ -81,10 +81,10 @@ namespace TwoFactorAuthNet.Providers.Qr
         /// <returns>A <see cref="byte"/> array containing the downloaded resource.</returns>
         protected virtual byte[] DownloadData(Uri address)
         {
-            if (this.RequireSsl && string.Compare(address.Scheme, Uri.UriSchemeHttps, StringComparison.OrdinalIgnoreCase) != 0)
+            if (RequireSsl && string.Compare(address.Scheme, Uri.UriSchemeHttps, StringComparison.OrdinalIgnoreCase) != 0)
                 throw new ProtocolViolationException("An SSL connection is required");
 
-            using (var wc = this.GetWebClient())
+            using (var wc = GetWebClient())
                 return wc.DownloadData(address);
         }
 
@@ -94,10 +94,10 @@ namespace TwoFactorAuthNet.Providers.Qr
         /// <returns>Returns an initialized <see cref="WebClient"/>.</returns>
         protected virtual WebClient GetWebClient()
         {
-            var wc = new ExtendedWebClient(this.TimeOut, this.RemoteCertificateValidationCallback);
-            wc.CachePolicy = this.CachePolicy;
-            wc.Credentials = this.Credentials;
-            wc.Proxy = this.Proxy;
+            var wc = new ExtendedWebClient(TimeOut, RemoteCertificateValidationCallback);
+            wc.CachePolicy = CachePolicy;
+            wc.Credentials = Credentials;
+            wc.Proxy = Proxy;
             wc.Headers.Add(HttpRequestHeader.UserAgent, USERAGENT);
             return wc;
         }

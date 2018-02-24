@@ -74,14 +74,14 @@ namespace TwoFactorAuthNet.Providers.Qr
         {
             if (!Enum.IsDefined(typeof(ErrorCorrectionLevel), errorCorrectionLevel))
                 throw new ArgumentOutOfRangeException(nameof(errorCorrectionLevel));
-            this.ErrorCorrectionLevel = errorCorrectionLevel;
+            ErrorCorrectionLevel = errorCorrectionLevel;
 
-            this.BackgroundColor = backgroundColor ?? Color.White;
-            this.ForegroundColor = foregroundColor ?? Color.Black;
+            BackgroundColor = backgroundColor ?? Color.White;
+            ForegroundColor = foregroundColor ?? Color.Black;
 
             if (!Enum.IsDefined(typeof(QRicketImageFormat), imageFormat))
                 throw new ArgumentOutOfRangeException(nameof(imageFormat));
-            this.ImageFormat = imageFormat;
+            ImageFormat = imageFormat;
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace TwoFactorAuthNet.Providers.Qr
         /// </exception>
         public string GetMimeType()
         {
-            switch (this.ImageFormat)
+            switch (ImageFormat)
             {
                 case QRicketImageFormat.Png:
                     return "image/png";
@@ -115,7 +115,7 @@ namespace TwoFactorAuthNet.Providers.Qr
         /// <seealso cref="IQrCodeProvider"/>
         public byte[] GetQrCodeImage(string text, int size)
         {
-            return this.DownloadData(this.GetUri(text, size));
+            return DownloadData(GetUri(text, size));
         }
 
         /// <summary>
@@ -126,12 +126,12 @@ namespace TwoFactorAuthNet.Providers.Qr
         /// <returns>A <see cref="Uri"/> to the QR code.</returns>
         private Uri GetUri(string qrText, int size)
         {
-            return new Uri(this.BaseUri,
+            return new Uri(BaseUri,
                 "?qrsize=" + size
-                + "&e=" + Char.ToLowerInvariant(((char)this.ErrorCorrectionLevel))
-                + "&bgdcolor=" + Color2Hex(this.BackgroundColor)
-                + "&fgdcolor=" + Color2Hex(this.ForegroundColor)
-                + "&t=" + (char)this.ImageFormat
+                + "&e=" + Char.ToLowerInvariant(((char)ErrorCorrectionLevel))
+                + "&bgdcolor=" + Color2Hex(BackgroundColor)
+                + "&fgdcolor=" + Color2Hex(ForegroundColor)
+                + "&t=" + (char)ImageFormat
                 + "&d=" + Uri.EscapeDataString(qrText)
             );
         }

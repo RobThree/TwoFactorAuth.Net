@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwoFactorAuth.Net", "TwoFactorAuth.Net\TwoFactorAuth.Net.csproj", "{1775B5FE-B8A0-44D4-9C8C-CB575578C4B9}"
 EndProject
@@ -10,7 +10,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		LICENSE = LICENSE
 		logo.png = logo.png
 		README.md = README.md
-		TwoFactorAuth.Net.NuGet\TwoFactorAuth.Net.nuspec = TwoFactorAuth.Net.NuGet\TwoFactorAuth.Net.nuspec
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwoFactorAuth.Net.Tests", "TwoFactorAuth.Net.Tests\TwoFactorAuth.Net.Tests.csproj", "{028BEDA6-4F58-429E-8253-4FE011AC650C}"
@@ -22,13 +21,6 @@ Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "TwoFactorAuth.Net.Documenta
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwoFactorAuth.Net.Demo", "TwoFactorAuth.Net.Demo\TwoFactorAuth.Net.Demo.csproj", "{5AD3B320-3901-417D-8A52-FBC2DC0B598E}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{C610556F-7DA9-445E-A4B2-257B3CC09474}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,5 +46,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FFBC04B5-4F5F-45AD-8246-763E22F6A18E}
 	EndGlobalSection
 EndGlobal

@@ -112,22 +112,22 @@ namespace TwoFactorAuthNet.Providers.Qr
         {
             if (!Enum.IsDefined(typeof(ErrorCorrectionLevel), errorCorrectionLevel))
                 throw new ArgumentOutOfRangeException(nameof(errorCorrectionLevel));
-            this.ErrorCorrectionLevel = errorCorrectionLevel;
+            ErrorCorrectionLevel = errorCorrectionLevel;
 
             if (margin < 0 || margin > 50)
                 throw new ArgumentOutOfRangeException(nameof(margin));
-            this.Margin = margin;
+            Margin = margin;
 
             if (quietZone < 0 || quietZone > 100)
                 throw new ArgumentOutOfRangeException(nameof(quietZone));
-            this.QuietZone = quietZone;
+            QuietZone = quietZone;
 
-            this.BackgroundColor = backgroundColor ?? Color.White;
-            this.ForegroundColor = foregroundColor ?? Color.Black;
+            BackgroundColor = backgroundColor ?? Color.White;
+            ForegroundColor = foregroundColor ?? Color.Black;
 
             if (!Enum.IsDefined(typeof(QrServerImageFormat), imageFormat))
                 throw new ArgumentOutOfRangeException(nameof(imageFormat));
-            this.ImageFormat = imageFormat;
+            ImageFormat = imageFormat;
 
         }
 
@@ -141,7 +141,7 @@ namespace TwoFactorAuthNet.Providers.Qr
         /// </exception>
         public string GetMimeType()
         {
-            switch (this.ImageFormat)
+            switch (ImageFormat)
             {
                 case QrServerImageFormat.Png:
                     return "image/png";
@@ -166,7 +166,7 @@ namespace TwoFactorAuthNet.Providers.Qr
         /// <seealso cref="IQrCodeProvider"/>
         public byte[] GetQrCodeImage(string text, int size)
         {
-            return this.DownloadData(this.GetUri(text, size));
+            return DownloadData(GetUri(text, size));
         }
 
         /// <summary>
@@ -177,14 +177,14 @@ namespace TwoFactorAuthNet.Providers.Qr
         /// <returns>A <see cref="Uri"/> to the QR code.</returns>
         private Uri GetUri(string qrText, int size)
         {
-            return new Uri(this.BaseUri,
+            return new Uri(BaseUri,
                 "?size=" + size + "x" + size
-                + "&ecc=" + Char.ToUpperInvariant(((char)this.ErrorCorrectionLevel))
-                + "&margin=" + this.Margin
-                + "&qzone=" + this.QuietZone
-                + "&bgcolor=" + Color2Hex(this.BackgroundColor)
-                + "&color=" + Color2Hex(this.ForegroundColor)
-                + "&format=" + Enum.GetName(typeof(QrServerImageFormat), this.ImageFormat).ToLowerInvariant()
+                + "&ecc=" + Char.ToUpperInvariant(((char)ErrorCorrectionLevel))
+                + "&margin=" + Margin
+                + "&qzone=" + QuietZone
+                + "&bgcolor=" + Color2Hex(BackgroundColor)
+                + "&color=" + Color2Hex(ForegroundColor)
+                + "&format=" + Enum.GetName(typeof(QrServerImageFormat), ImageFormat).ToLowerInvariant()
                 + "&data=" + Uri.EscapeDataString(qrText)
             );
         }

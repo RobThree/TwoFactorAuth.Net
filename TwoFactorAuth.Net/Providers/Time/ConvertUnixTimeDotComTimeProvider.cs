@@ -35,11 +35,10 @@ namespace TwoFactorAuthNet.Providers.Time
         {
             try
             {
-                using (var c = new HttpClient(new WebRequestHandler()
+                using (var c = new HttpClient(new HttpClientHandler()
                 {
-                    CachePolicy = this.CachePolicy,
-                    Proxy = this.Proxy,
-                    UseProxy = this.Proxy!=null,
+                    Proxy = Proxy,
+                    UseProxy = Proxy != null,
                     AllowAutoRedirect = false
                 }))
                 {

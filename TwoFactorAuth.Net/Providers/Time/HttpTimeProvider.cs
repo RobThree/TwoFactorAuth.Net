@@ -46,7 +46,7 @@ namespace TwoFactorAuthNet.Providers.Time
         /// <param name="uri"></param>
         public HttpTimeProvider(Uri uri)
         {
-            this.Uri = uri ?? new Uri(DEFAULTURI);
+            Uri = uri ?? new Uri(DEFAULTURI);
         }
 
         /// <summary>
@@ -57,15 +57,14 @@ namespace TwoFactorAuthNet.Providers.Time
         {
             try
             {
-                using (var c = new HttpClient(new WebRequestHandler()
+                using (var c = new HttpClient(new HttpClientHandler()
                 {
-                    CachePolicy = this.CachePolicy,
-                    Proxy = this.Proxy,
-                    UseProxy = this.Proxy != null,
+                    Proxy = Proxy,
+                    UseProxy = Proxy != null,
                     AllowAutoRedirect = false
                 }))
                 {
-                    using (var req = new HttpRequestMessage(HttpMethod.Head, this.Uri))
+                    using (var req = new HttpRequestMessage(HttpMethod.Head, Uri))
                     {
                         var response = await c.SendAsync(req).ConfigureAwait(false);
 
@@ -76,7 +75,7 @@ namespace TwoFactorAuthNet.Providers.Time
             }
             catch { }
 
-            throw new TimeProviderException($"Unable to retrieve time data from {this.Uri}");
+            throw new TimeProviderException($"Unable to retrieve time data from {Uri}");
         }
     }
 }

@@ -8,6 +8,9 @@ using TwoFactorAuthNet.Providers.Qr;
 using TwoFactorAuthNet.Providers.Rng;
 using TwoFactorAuthNet.Providers.Time;
 
+using System.Runtime.CompilerServices;
+[assembly: InternalsVisibleTo("TwoFactorAuth.Net.Tests")]
+
 namespace TwoFactorAuthNet
 {
     /// <summary>
@@ -130,23 +133,23 @@ namespace TwoFactorAuthNet
             IRngProvider rngprovider = null,
             ITimeProvider timeprovider = null)
         {
-            this.Issuer = issuer;
+            Issuer = issuer;
 
             if (digits <= 0)
                 throw new ArgumentOutOfRangeException(nameof(digits));
-            this.Digits = digits;
+            Digits = digits;
 
             if (period <= 0)
                 throw new ArgumentOutOfRangeException(nameof(period));
-            this.Period = period;
+            Period = period;
 
             if (!Enum.IsDefined(typeof(Algorithm), algorithm))
                 throw new ArgumentOutOfRangeException(nameof(algorithm));
-            this.Algorithm = algorithm;
+            Algorithm = algorithm;
 
-            this.QrCodeProvider = qrcodeprovider ?? DefaultProviders.DefaultQrCodeProvider;
-            this.RngProvider = rngprovider ?? DefaultProviders.DefaultRngProvider;
-            this.TimeProvider = timeprovider ?? DefaultProviders.DefaultTimeProvider;
+            QrCodeProvider = qrcodeprovider ?? DefaultProviders.DefaultQrCodeProvider;
+            RngProvider = rngprovider ?? DefaultProviders.DefaultRngProvider;
+            TimeProvider = timeprovider ?? DefaultProviders.DefaultTimeProvider;
         }
 
         /// <summary>
@@ -159,7 +162,7 @@ namespace TwoFactorAuthNet
         /// <seealso cref="DEFAULTSECRETBITS"/>
         public string CreateSecret()
         {
-            return this.CreateSecret(DEFAULTSECRETBITS, CryptoSecureRequirement.RequireSecure);
+            return CreateSecret(DEFAULTSECRETBITS, CryptoSecureRequirement.RequireSecure);
         }
 
         /// <summary>
@@ -173,7 +176,7 @@ namespace TwoFactorAuthNet
         /// </returns>
         public string CreateSecret(int bits)
         {
-            return this.CreateSecret(bits, CryptoSecureRequirement.RequireSecure);
+            return CreateSecret(bits, CryptoSecureRequirement.RequireSecure);
         }
 
         /// <summary>
@@ -192,7 +195,7 @@ namespace TwoFactorAuthNet
         /// </exception>
         public string CreateSecret(int bits, CryptoSecureRequirement cryptoSecureRequirement)
         {
-            if (cryptoSecureRequirement == CryptoSecureRequirement.RequireSecure && !this.RngProvider.IsCryptographicallySecure)
+            if (cryptoSecureRequirement == CryptoSecureRequirement.RequireSecure && !RngProvider.IsCryptographicallySecure)
                 throw new CryptographicException("RNG provider is not cryptographically secure");
 
             int bytes = (int)Math.Ceiling((double)bits / 5);    // We use 5 bits of each byte (since we have a
@@ -200,7 +203,7 @@ namespace TwoFactorAuthNet
 
             // Note that we DO NOT actually "base32 encode" the random bytes, we simply take 5 bits from each random 
             // byte and map these directly to letters from the base32 alphabet (effectively 'base32 encoding on the fly').
-            return string.Concat(this.RngProvider.GetRandomBytes(bytes).Select(v => Base32.Base32Alphabet[v & 31]));
+            return string.Concat(RngProvider.GetRandomBytes(bytes).Select(v => Base32.Base32Alphabet[v & 31]));
         }
 
         /// <summary>
@@ -210,7 +213,7 @@ namespace TwoFactorAuthNet
         /// <returns>Returns a TOTP code based on the specified secret for the current time.</returns>
         public string GetCode(string secret)
         {
-            return this.GetCode(secret, this.GetTime());
+            return GetCode(secret, GetTime());
         }
 
         /// <summary>
@@ -221,7 +224,7 @@ namespace TwoFactorAuthNet
         /// <returns>Returns a TOTP code based on the specified secret for the specified <see cref="DateTime"/>.</returns>
         public string GetCode(string secret, DateTime dateTime)
         {
-            return this.GetCode(secret, this.DateTimeToTimestamp(dateTime));
+            return GetCode(secret, DateTimeToTimestamp(dateTime));
         }
 
         /// <summary>
@@ -232,11 +235,11 @@ namespace TwoFactorAuthNet
         /// <returns>Returns a TOTP code based on the specified secret for the specified timestamp.</returns>
         public string GetCode(string secret, long timestamp)
         {
-            using (var algo = KeyedHashAlgorithm.Create("HMAC" + Enum.GetName(typeof(Algorithm), this.Algorithm)))
+            using (var algo = KeyedHashAlgorithm.Create("HMAC" + Enum.GetName(typeof(Algorithm), Algorithm)))
             {
 
                 algo.Key = Base32.Decode(secret);
-                var ts = BitConverter.GetBytes(this.GetTimeSlice(timestamp, 0));
+                var ts = BitConverter.GetBytes(GetTimeSlice(timestamp, 0));
                 var hashhmac = algo.ComputeHash(new byte[] { 0, 0, 0, 0, ts[3], ts[2], ts[1], ts[0] });
                 var offset = hashhmac[hashhmac.Length - 1] & 0x0F;
                 return (((
@@ -244,7 +247,7 @@ namespace TwoFactorAuthNet
                     hashhmac[offset + 1] << 16 |
                     hashhmac[offset + 2] << 8 |
                     hashhmac[offset + 3]
-                ) & 0x7FFFFFFF) % (long)Math.Pow(10, this.Digits)).ToString().PadLeft(this.Digits, '0');
+                ) & 0x7FFFFFFF) % (long)Math.Pow(10, Digits)).ToString().PadLeft(Digits, '0');
             }
         }
 
@@ -256,7 +259,7 @@ namespace TwoFactorAuthNet
         /// <returns>Returns true when the TOTP code is valid, false otherwise.</returns>
         public bool VerifyCode(string secret, string code)
         {
-            return this.VerifyCode(secret, code, DEFAULTDISCREPANCY);
+            return VerifyCode(secret, code, DEFAULTDISCREPANCY);
         }
 
         /// <summary>
@@ -268,7 +271,7 @@ namespace TwoFactorAuthNet
         /// <returns>Returns true when the TOTP code is valid, false otherwise.</returns>
         public bool VerifyCode(string secret, string code, int discrepancy)
         {
-            return this.VerifyCode(secret, code, discrepancy, this.GetTime());
+            return VerifyCode(secret, code, discrepancy, GetTime());
         }
 
         /// <summary>
@@ -282,7 +285,7 @@ namespace TwoFactorAuthNet
         /// <returns>Returns true when the TOTP code is valid, false otherwise.</returns>
         public bool VerifyCode(string secret, string code, int discrepancy, DateTime dateTime)
         {
-            return this.VerifyCode(secret, code, discrepancy, this.DateTimeToTimestamp(dateTime));
+            return VerifyCode(secret, code, discrepancy, DateTimeToTimestamp(dateTime));
         }
 
         /// <summary>
@@ -311,7 +314,7 @@ namespace TwoFactorAuthNet
             // To keep safe from timing-attachs we iterate *all* possible codes even though we already may have
             // verified a code is correct.
             for (int i = -discrepancy; i <= discrepancy; i++)
-                result |= CodeEquals(this.GetCode(secret, timestamp + (i * this.Period)), code);
+                result |= CodeEquals(GetCode(secret, timestamp + (i * Period)), code);
 
             return result;
         }
@@ -345,9 +348,9 @@ namespace TwoFactorAuthNet
                 throw new ArgumentOutOfRangeException(nameof(size));
 
             return "data:"
-                + this.QrCodeProvider.GetMimeType()
+                + QrCodeProvider.GetMimeType()
                 + ";base64,"
-                + Convert.ToBase64String(this.QrCodeProvider.GetQrCodeImage(this.GetQrText(label, secret), size));
+                + Convert.ToBase64String(QrCodeProvider.GetQrCodeImage(GetQrText(label, secret), size));
         }
 
         /// <summary>
@@ -365,7 +368,7 @@ namespace TwoFactorAuthNet
         /// </exception>
         public void EnsureCorrectTime(int leniency = DEFAULTLENIENCY)
         {
-            this.EnsureCorrectTime(new ITimeProvider[] {
+            EnsureCorrectTime(new ITimeProvider[] {
                 new ConvertUnixTimeDotComTimeProvider(),
                 new HttpTimeProvider()
             }, leniency);
@@ -387,7 +390,7 @@ namespace TwoFactorAuthNet
         /// </exception>
         public void EnsureCorrectTime(IEnumerable<ITimeProvider> timeproviders)
         {
-            this.EnsureCorrectTime(timeproviders, DEFAULTLENIENCY);
+            EnsureCorrectTime(timeproviders, DEFAULTLENIENCY);
         }
 
         /// <summary>
@@ -416,7 +419,7 @@ namespace TwoFactorAuthNet
 
             foreach (var t in timeproviders)
             {
-                if (TimeSpan.FromTicks(Math.Abs((t.GetTimeAsync().Result - this.GetTime()).Ticks)) > TimeSpan.FromSeconds(leniency))
+                if (TimeSpan.FromTicks(Math.Abs((t.GetTimeAsync().Result - GetTime()).Ticks)) > TimeSpan.FromSeconds(leniency))
                     throw new TimeProviderException($"Time for timeprovider is off by more than {leniency} seconds when compared to {t.GetType().Name}");
             }
         }
@@ -430,7 +433,7 @@ namespace TwoFactorAuthNet
         /// <returns>Returns the timeslice for a given timestamp and offset</returns>
         private long GetTimeSlice(long timestamp, int offset)
         {
-            return (timestamp / this.Period) + (offset * this.Period);
+            return (timestamp / Period) + (offset * Period);
         }
 
         /// <summary>
@@ -445,7 +448,7 @@ namespace TwoFactorAuthNet
 
         private DateTime GetTime()
         {
-            return this.TimeProvider.GetTimeAsync().Result;
+            return TimeProvider.GetTimeAsync().Result;
         }
 
         /// <summary>
@@ -478,10 +481,10 @@ namespace TwoFactorAuthNet
         {
             var x = "otpauth://totp/" + Uri.EscapeDataString(label)
                 + "?secret=" + Uri.EscapeDataString(secret)
-                + "&issuer=" + Uri.EscapeDataString(this.Issuer ?? string.Empty)
-                + "&period=" + this.Period
-                + "&algorithm=" + Uri.EscapeDataString(Enum.GetName(typeof(Algorithm), this.Algorithm).ToUpperInvariant())
-                + "&digits=" + this.Digits;
+                + "&issuer=" + Uri.EscapeDataString(Issuer ?? string.Empty)
+                + "&period=" + Period
+                + "&algorithm=" + Uri.EscapeDataString(Enum.GetName(typeof(Algorithm), Algorithm).ToUpperInvariant())
+                + "&digits=" + Digits;
             return x;
         }
 
