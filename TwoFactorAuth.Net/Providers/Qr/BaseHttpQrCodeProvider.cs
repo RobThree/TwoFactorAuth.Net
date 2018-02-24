@@ -66,9 +66,7 @@ namespace TwoFactorAuthNet.Providers.Qr
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="baseUri"/> is null.</exception>
         protected BaseHttpQrCodeProvider(Uri baseUri, RemoteCertificateValidationCallback remoteCertificateValidationCallback)
         {
-            if (baseUri == null)
-                throw new ArgumentNullException(nameof(baseUri));
-            BaseUri = baseUri;
+            BaseUri = baseUri ?? throw new ArgumentNullException(nameof(baseUri));
 
             RemoteCertificateValidationCallback = remoteCertificateValidationCallback;
             TimeOut = DEFAULTTIMEOUT;
@@ -94,10 +92,12 @@ namespace TwoFactorAuthNet.Providers.Qr
         /// <returns>Returns an initialized <see cref="WebClient"/>.</returns>
         protected virtual WebClient GetWebClient()
         {
-            var wc = new ExtendedWebClient(TimeOut, RemoteCertificateValidationCallback);
-            wc.CachePolicy = CachePolicy;
-            wc.Credentials = Credentials;
-            wc.Proxy = Proxy;
+            var wc = new ExtendedWebClient(TimeOut, RemoteCertificateValidationCallback)
+            {
+                CachePolicy = CachePolicy,
+                Credentials = Credentials,
+                Proxy = Proxy
+            };
             wc.Headers.Add(HttpRequestHeader.UserAgent, USERAGENT);
             return wc;
         }
