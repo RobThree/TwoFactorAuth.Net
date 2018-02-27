@@ -27,8 +27,8 @@
       <Argument Key="maxVersionParts" Value="" xmlns="" />
     </TransformComponentArguments>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\TwoFactorAuth.Net\bin\Release\TwoFactorAuth.Net.dll" xmlns="" />
-      <DocumentationSource sourceFile="..\TwoFactorAuth.Net\bin\Release\TwoFactorAuth.Net.xml" xmlns="" />
+      <DocumentationSource sourceFile="..\TwoFactorAuth.Net\bin\Release\net45\TwoFactorAuth.Net.dll" />
+      <DocumentationSource sourceFile="..\TwoFactorAuth.Net\bin\Release\net45\TwoFactorAuth.Net.xml" />
     </DocumentationSources>
     <HelpFileVersion>1.2.1.0</HelpFileVersion>
     <MaximumGroupParts>2</MaximumGroupParts>

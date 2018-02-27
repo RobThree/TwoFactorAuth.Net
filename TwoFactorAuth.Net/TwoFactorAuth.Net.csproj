@@ -22,6 +22,10 @@
     <DefineConstants>TRACE;RELEASE;NETSTANDARD2_0</DefineConstants>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
+    <DocumentationFile>bin\Release\net45\TwoFactorAuth.Net.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="System.Net.Http" Version="4.3.3" />
   </ItemGroup>
