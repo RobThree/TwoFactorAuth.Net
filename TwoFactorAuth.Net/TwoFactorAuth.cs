@@ -235,9 +235,8 @@ namespace TwoFactorAuthNet
         /// <returns>Returns a TOTP code based on the specified secret for the specified timestamp.</returns>
         public string GetCode(string secret, long timestamp)
         {
-            using (var algo = KeyedHashAlgorithm.Create("HMAC" + Enum.GetName(typeof(Algorithm), Algorithm)))
+            using (var algo = (KeyedHashAlgorithm)CryptoConfig.CreateFromName("HMAC" + Enum.GetName(typeof(Algorithm), Algorithm)))
             {
-
                 algo.Key = Base32.Decode(secret);
                 var ts = BitConverter.GetBytes(GetTimeSlice(timestamp, 0));
                 var hashhmac = algo.ComputeHash(new byte[] { 0, 0, 0, 0, ts[3], ts[2], ts[1], ts[0] });
