@@ -9,7 +9,7 @@
 </p>
 
 ## Requirements
-* [.NET Framework 4.5+](https://www.microsoft.com/en-us/download/details.aspx?id=17851), .Net Core 2.0, .Net Standard 2.0
+* [.NET Framework 4.5+](https://www.microsoft.com/en-us/download/details.aspx?id=17851), [.Net Core 2.0](https://www.microsoft.com/net/download/windows), [.Net Standard 2.0](https://docs.microsoft.com/en-us/dotnet/standard/net-standard)
 * Access to internet may be required if you use a [QrCodeProvider](https://github.com/RobThree/TwoFactorAuth.Net/tree/master/TwoFactorAuth.Net/Providers/Qr) that retrieves data/images from the web. 
 
 ## Installation
