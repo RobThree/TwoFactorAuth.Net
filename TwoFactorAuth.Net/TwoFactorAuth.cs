@@ -125,11 +125,11 @@ namespace TwoFactorAuthNet
         /// <paramref name="algorithm"/> is invalid.
         /// </exception>
         public TwoFactorAuth(
-            string issuer = null, 
-            int digits = DEFAULTDIGITS, 
-            int period = DEFAULTPERIOD, 
-            Algorithm algorithm = Algorithm.SHA1, 
-            IQrCodeProvider qrcodeprovider = null, 
+            string issuer = null,
+            int digits = DEFAULTDIGITS,
+            int period = DEFAULTPERIOD,
+            Algorithm algorithm = Algorithm.SHA1,
+            IQrCodeProvider qrcodeprovider = null,
             IRngProvider rngprovider = null,
             ITimeProvider timeprovider = null)
         {
@@ -258,7 +258,19 @@ namespace TwoFactorAuthNet
         /// <returns>Returns true when the TOTP code is valid, false otherwise.</returns>
         public bool VerifyCode(string secret, string code)
         {
-            return VerifyCode(secret, code, DEFAULTDISCREPANCY);
+            return VerifyCode(secret, code, DEFAULTDISCREPANCY, out _);
+        }
+
+        /// <summary>
+        /// Verifies a TOTP code with the shared secret for the current time and with a <see cref="DEFAULTDISCREPANCY"/>.
+        /// </summary>
+        /// <param name="secret">The shared secret.</param>
+        /// <param name="code">The TOTP code to verify.</param>
+        /// <param name="timeSlice">When this method returns, contains the timeslice that matched the code</param>
+        /// <returns>Returns true when the TOTP code is valid, false otherwise.</returns>
+        public bool VerifyCode(string secret, string code, out long timeSlice)
+        {
+            return VerifyCode(secret, code, DEFAULTDISCREPANCY, out timeSlice);
         }
 
         /// <summary>
@@ -270,7 +282,20 @@ namespace TwoFactorAuthNet
         /// <returns>Returns true when the TOTP code is valid, false otherwise.</returns>
         public bool VerifyCode(string secret, string code, int discrepancy)
         {
-            return VerifyCode(secret, code, discrepancy, GetTime());
+            return VerifyCode(secret, code, discrepancy, GetTime(), out _);
+        }
+
+        /// <summary>
+        /// Verifies a TOTP code with the shared secret for the current time and with a specified discrepancy.
+        /// </summary>
+        /// <param name="secret">The shared secret.</param>
+        /// <param name="code">The TOTP code to verify.</param>
+        /// <param name="discrepancy">The allowed time discrepancy (in both directions)  in number of <see cref="Period"/>s.</param>
+        /// <param name="timeSlice">When this method returns, contains the timeslice that matched the code</param>
+        /// <returns>Returns true when the TOTP code is valid, false otherwise.</returns>
+        public bool VerifyCode(string secret, string code, int discrepancy, out long timeSlice)
+        {
+            return VerifyCode(secret, code, discrepancy, GetTime(), out timeSlice);
         }
 
         /// <summary>
@@ -284,7 +309,22 @@ namespace TwoFactorAuthNet
         /// <returns>Returns true when the TOTP code is valid, false otherwise.</returns>
         public bool VerifyCode(string secret, string code, int discrepancy, DateTime dateTime)
         {
-            return VerifyCode(secret, code, discrepancy, DateTimeToTimestamp(dateTime));
+            return VerifyCode(secret, code, discrepancy, DateTimeToTimestamp(dateTime), out _);
+        }
+
+        /// <summary>
+        /// Verifies a TOTP code with the shared secret for the specified <see cref="DateTime"/> and with a specified
+        /// discrepancy.
+        /// </summary>
+        /// <param name="secret">The shared secret.</param>
+        /// <param name="code">The TOTP code to verify.</param>
+        /// <param name="discrepancy">The allowed time discrepancy (in both directions)  in number of <see cref="Period"/>s.</param>
+        /// <param name="dateTime">The <see cref="DateTime"/> for wich to verify the TOTP code.</param>
+        /// <param name="timeSlice">When this method returns, contains the timeslice that matched the code</param>
+        /// <returns>Returns true when the TOTP code is valid, false otherwise.</returns>
+        public bool VerifyCode(string secret, string code, int discrepancy, DateTime dateTime, out long timeSlice)
+        {
+            return VerifyCode(secret, code, discrepancy, DateTimeToTimestamp(dateTime), out timeSlice);
         }
 
         /// <summary>
@@ -300,6 +340,23 @@ namespace TwoFactorAuthNet
         /// </exception>
         public bool VerifyCode(string secret, string code, int discrepancy, long timestamp)
         {
+            return VerifyCode(secret, code, discrepancy, timestamp, out _);
+        }
+
+        /// <summary>
+        /// Verifies a TOTP code with the shared secret for the specified timestamp and with a specified discrepancy.
+        /// </summary>
+        /// <param name="secret">The shared secret.</param>
+        /// <param name="code">The TOTP code to verify.</param>
+        /// <param name="discrepancy">The allowed time discrepancy (in both directions) in number of <see cref="Period"/>s.</param>
+        /// <param name="timestamp">The timestamp for wich to verify the TOTP code.</param>
+        /// <param name="timeSlice">When this method returns, contains the timeslice that matched the code</param>
+        /// <returns>Returns true when the TOTP code is valid, false otherwise.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when <paramref name="secret"/> or <paramref name="code"/> is null.
+        /// </exception>
+        public bool VerifyCode(string secret, string code, int discrepancy, long timestamp, out long timeSlice)
+        {
             if (secret == null)
                 throw new ArgumentNullException(nameof(secret));
             if (code == null)
@@ -308,14 +365,19 @@ namespace TwoFactorAuthNet
             // Make sure discrepancy is always positive
             discrepancy = Math.Abs(discrepancy);
 
-            var result = false;
+            timeSlice = -1;
 
             // To keep safe from timing-attachs we iterate *all* possible codes even though we already may have
-            // verified a code is correct.
+            // verified a code is correct. We use the timeSlice variable to hold either 0 (no match) or the timeslice
+            // of the match. Each iteration we add either 0 (no match) or the timeslice. Since only one timeslice
+            // will match we will always have either 0 or the timeslice where the code matched after iterating.
             for (int i = -discrepancy; i <= discrepancy; i++)
-                result |= CodeEquals(GetCode(secret, timestamp + (i * Period)), code);
+            {
+                var ts = timestamp + (i * Period);
+                timeSlice += CodeEquals(GetCode(secret, ts), code) ? ts : 0;
+            }
 
-            return result;
+            return timeSlice >= 0;
         }
 
         /// <summary>
