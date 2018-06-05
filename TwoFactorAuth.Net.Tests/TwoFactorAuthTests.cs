@@ -383,7 +383,7 @@ namespace TwoFactorAuthNet.Tests
 
     internal class TestRNGProvider : IRngProvider
     {
-        private bool _issecure;
+        private readonly bool _issecure;
 
         public TestRNGProvider()
             : this(false) { }
@@ -419,7 +419,7 @@ namespace TwoFactorAuthNet.Tests
 
     internal class TestTimeProvider : ITimeProvider
     {
-        private DateTime _time;
+        private readonly DateTime _time;
 
         public TestTimeProvider(DateTime time)
         {
