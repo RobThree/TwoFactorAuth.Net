@@ -13,7 +13,7 @@ namespace TwoFactorAuthNet.Providers.Time
         /// <summary>
         /// The default host used to query.
         /// </summary>
-        public const string DEFAULTHOST = "ntp.pool.org";
+        public const string DEFAULTHOST = "pool.ntp.org;
 
         /// <summary>
         /// The default port used to query.
