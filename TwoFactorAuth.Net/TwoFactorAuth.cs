@@ -430,8 +430,8 @@ namespace TwoFactorAuthNet
         public void EnsureCorrectTime(int leniency = DEFAULTLENIENCY)
         {
             EnsureCorrectTime(new ITimeProvider[] {
-                new ConvertUnixTimeDotComTimeProvider(),
-                new HttpTimeProvider()
+                new NTPTimeProvider(),
+                new HttpTimeProvider(),
             }, leniency);
         }
 
