@@ -365,9 +365,9 @@ namespace TwoFactorAuthNet
             // Make sure discrepancy is always positive
             discrepancy = Math.Abs(discrepancy);
 
-            timeSlice = -1;
+            timeSlice = 0;
 
-            // To keep safe from timing-attachs we iterate *all* possible codes even though we already may have
+            // To keep safe from timing-attacks we iterate *all* possible codes even though we already may have
             // verified a code is correct. We use the timeSlice variable to hold either 0 (no match) or the timeslice
             // of the match. Each iteration we add either 0 (no match) or the timeslice. Since only one timeslice
             // will match we will always have either 0 or the timeslice where the code matched after iterating.
@@ -377,7 +377,7 @@ namespace TwoFactorAuthNet
                 timeSlice += CodeEquals(GetCode(secret, ts), code) ? ts : 0;
             }
 
-            return timeSlice >= 0;
+            return timeSlice > 0;
         }
 
         /// <summary>

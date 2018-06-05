@@ -138,6 +138,29 @@ namespace TwoFactorAuthNet.Tests
         }
 
         [TestMethod]
+        public void VerifyCorrectTimeSliceIsReturned()
+        {
+            var target = new TwoFactorAuth();
+
+            // We test with discrapancy 3 (so total of 7 codes: c-3, c-2, c-1, c, c+1, c+2, c+3
+            // Ensure each corresponding timeslice is returned correctly
+            Assert.IsTrue(target.VerifyCode("VMR466AB62ZBOKHE", "534113", 3, 1426847190, out long timeslice1));
+            Assert.AreEqual(1426847100, timeslice1);
+            Assert.IsTrue(target.VerifyCode("VMR466AB62ZBOKHE", "819652", 3, 1426847190, out long timeslice2));
+            Assert.AreEqual(1426847130, timeslice2);
+            Assert.IsTrue(target.VerifyCode("VMR466AB62ZBOKHE", "915954", 3, 1426847190, out long timeslice3));
+            Assert.AreEqual(1426847160, timeslice3);
+            Assert.IsTrue(target.VerifyCode("VMR466AB62ZBOKHE", "543160", 3, 1426847190, out long timeslice4));
+            Assert.AreEqual(1426847190, timeslice4);
+            Assert.IsTrue(target.VerifyCode("VMR466AB62ZBOKHE", "348401", 3, 1426847190, out long timeslice5));
+            Assert.AreEqual(1426847220, timeslice5);
+            Assert.IsTrue(target.VerifyCode("VMR466AB62ZBOKHE", "648525", 3, 1426847190, out long timeslice6));
+            Assert.AreEqual(1426847250, timeslice6);
+            Assert.IsTrue(target.VerifyCode("VMR466AB62ZBOKHE", "170645", 3, 1426847190, out long timeslice7));
+            Assert.AreEqual(1426847280, timeslice7);
+        }
+
+        [TestMethod]
         public void VerifyTotpUriIsCorrect()
         {
             var qr = new TestQrProvider();
