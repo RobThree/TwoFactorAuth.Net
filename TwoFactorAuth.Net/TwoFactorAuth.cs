@@ -374,7 +374,8 @@ namespace TwoFactorAuthNet
             for (int i = -discrepancy; i <= discrepancy; i++)
             {
                 var ts = timestamp + (i * Period);
-                timeSlice += CodeEquals(GetCode(secret, ts), code) ? ts : 0;
+                var slice = GetTimeSlice(ts, 0);
+                timeSlice += CodeEquals(GetCode(secret, ts), code) ? slice : 0;
             }
 
             return timeSlice > 0;
