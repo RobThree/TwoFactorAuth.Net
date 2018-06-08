@@ -369,13 +369,13 @@ namespace TwoFactorAuthNet
 
             // To keep safe from timing-attacks we iterate *all* possible codes even though we already may have
             // verified a code is correct. We use the timeSlice variable to hold either 0 (no match) or the timeslice
-            // of the match. Each iteration we add either 0 (no match) or the timeslice. Since only one timeslice
-            // will match we will always have either 0 or the timeslice where the code matched after iterating.
+            // of the match. Each iteration we either set the timeslice variable to the timeslice of the match
+            // or set the value to itself.  This is an effort to maintain constant execution time for the code.
             for (int i = -discrepancy; i <= discrepancy; i++)
             {
                 var ts = timestamp + (i * Period);
                 var slice = GetTimeSlice(ts, 0);
-                timeSlice += CodeEquals(GetCode(secret, ts), code) ? slice : 0;
+                timeSlice = CodeEquals(GetCode(secret, ts), code) ? slice : timeSlice;
             }
 
             return timeSlice > 0;
