@@ -158,6 +158,11 @@ namespace TwoFactorAuthNet.Tests
             Assert.AreEqual(47561575, timeslice6);
             Assert.IsTrue(target.VerifyCode("VMR466AB62ZBOKHE", "170645", 3, 1426847190, out long timeslice7));
             Assert.AreEqual(47561576, timeslice7);
+
+            // Incorrect code should return false and a 0 timeslice
+            Assert.IsFalse(target.VerifyCode("VMR466AB62ZBOKHE", "111111", 3, 1426847190, out long timeslice8));
+            Assert.AreEqual(0, timeslice8);
+
         }
 
         [TestMethod]
