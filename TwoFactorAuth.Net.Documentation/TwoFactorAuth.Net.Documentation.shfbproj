@@ -7,7 +7,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>7ba8061f-0bf1-4b16-b32b-92e6ca5eafe5</ProjectGuid>
-    <SHFBSchemaVersion>2015.6.5.0</SHFBSchemaVersion>
+    <SHFBSchemaVersion>2017.9.26.0</SHFBSchemaVersion>
     <!-- AssemblyName, Name, and RootNamespace are not used by SHFB but Visual Studio adds them anyway -->
     <AssemblyName>TwoFactorAuth.Net.Documentation</AssemblyName>
     <RootNamespace>TwoFactorAuth.Net.Documentation</RootNamespace>
