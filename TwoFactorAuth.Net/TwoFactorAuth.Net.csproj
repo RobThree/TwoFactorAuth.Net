@@ -9,7 +9,7 @@
     <Product>TwoFactorAuth.Net</Product>
     <Copyright>(C) 2015 - 2019 Devcorner.nl</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/RobThree/TwoFactorAuth.Net/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/RobThree/TwoFactorAuth.Net</PackageProjectUrl>
     <PackageTags>totp otp multi-factor two-factor 2fa 2factor mfa security oath security protection authentication oath</PackageTags>
     <PackageReleaseNotes>* Google image charts went dark; changed to replacement image-charts.com</PackageReleaseNotes>
