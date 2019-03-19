@@ -118,7 +118,7 @@ namespace TwoFactorAuthNet.Providers.Qr
         private class ExtendedWebClient : WebClient
         {
             private TimeSpan _timeout;
-            private RemoteCertificateValidationCallback _remotecertificatevalidationcallback;
+            private readonly RemoteCertificateValidationCallback _remotecertificatevalidationcallback;
 
             public ExtendedWebClient(TimeSpan timeOut, RemoteCertificateValidationCallback remoteCertificateValidationCallback)
             {
