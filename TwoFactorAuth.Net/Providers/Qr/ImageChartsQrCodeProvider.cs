@@ -79,7 +79,7 @@ namespace TwoFactorAuthNet.Providers.Qr
         {
             return new Uri(BaseUri,
                 "?cht=qr"
-                + "&chs=" + size + "x" + size
+                + "&chs=" + (size/2) + "x" + (size/2)   // Size isn't really reliable; 100 gives an image of 172, 200 gives an image of 387 and 300 gives an image of 602...
                 + "&chld=" + (char)ErrorCorrectionLevel + "|" + MarginRows
                 + "&chl=" + Uri.EscapeDataString(qrText)
             );

@@ -52,7 +52,7 @@
     <HelpKeywords>
       <HelpKeyword index="K" term="version, history" />
     </HelpKeywords>
-    <Topic id="6a5dae71-93b4-4879-b484-819a46d29b18" visible="True" isSelected="true" title="Version 1.0.0">
+    <Topic id="6a5dae71-93b4-4879-b484-819a46d29b18" visible="True" title="Version 1.0.0">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 1.0.0" />
       </HelpKeywords>
@@ -75,6 +75,31 @@
     <Topic id="917ed95f-e8cb-4c64-b7a6-633b3e494652" visible="True" title="Version 1.2.1">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 1.2.1" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="7cdacdb2-ce99-4309-afd8-7f01c2779cff" visible="True" isSelected="true" title="Version 1.3.0">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="version, 1.3.0" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="87aed4c9-375b-4201-a328-923cea8e3464" visible="True" title="Version 1.3.1">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="version, 1.3.1" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="8f481c4c-d77e-4056-b824-df0fc2f05723" visible="True" title="Version 1.3.3">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="version, 1.3.3" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="1d19999b-eee2-4ecb-bf06-60a6e7473ff7" visible="True" title="Version 1.3.4">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="version, 1.3.4" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="82a59fe9-151c-41f1-8df6-80cee5cb5c48" visible="True" title="Version 1.3.6">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="version, 1.3.6" />
       </HelpKeywords>
     </Topic>
   </Topic>
