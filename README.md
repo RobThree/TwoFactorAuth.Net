@@ -50,7 +50,7 @@ Please enter the following secret in your app: XANIK3POC23RCRYN
 
 Another, more user-friendly, way to get the shared secret into the app is to generate a [QR-code](https://en.wikipedia.org/wiki/QR_code) which can be scanned by the app. To generate these QR codes you can use any one of the built-in QRProvider classes: 
 
-* [GoogleQrCodeProvider](TwoFactorAuth.Net/Providers/Qr/GoogleQrCodeProvider.cs) (Default) 
+* [ImageChartsQrCodeProvider](TwoFactorAuth.Net/Providers/Qr/ImageChartsQrCodeProvider.cs) (Default) 
 * [QrServerQrCodeProvider](TwoFactorAuth.Net/Providers/Qr/QrServerQrCodeProvider.cs)
 * [QRicketQrCodeProvider](TwoFactorAuth.Net/Providers/Qr/QRicketQrCodeProvider.cs)
 

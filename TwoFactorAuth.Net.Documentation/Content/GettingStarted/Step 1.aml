@@ -52,7 +52,7 @@ var secret = tfa.CreateSecret();
       <list class="ordered">
         <listItem>
           <para>
-            <codeEntityReference>T:TwoFactorAuthNet.Providers.Qr.GoogleQrCodeProvider</codeEntityReference>
+            <codeEntityReference>T:TwoFactorAuthNet.Providers.Qr.ImageChartsQrCodeProvider</codeEntityReference>
             (Default)
           </para>
         </listItem>
@@ -72,7 +72,7 @@ var secret = tfa.CreateSecret();
         implement your own provider all you need to do is implement the
         <codeEntityReference>T:TwoFactorAuthNet.Providers.Qr.IQrCodeProvider</codeEntityReference>
         interface. You can use the built-in providers mentioned before to serve as an example or read the next
-        chapter in this file. The built-in classes all use a 3rd (e.g. external) party (Google, QRServer and
+        chapter in this file. The built-in classes all use a 3rd (e.g. external) party (ImageCharts, QRServer and
         QRicket) for the hard work of generating QR-codes (note: each of these services might at some point not
         be available or impose limitations to the number of codes generated per day, hour etc.). You could,
         however, easily use <externalLink>

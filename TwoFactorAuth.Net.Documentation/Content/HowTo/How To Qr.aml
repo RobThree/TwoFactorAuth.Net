@@ -16,10 +16,10 @@
       </para>
       <para>
         The default provider is the
-        <codeEntityReference>T:TwoFactorAuthNet.Providers.Qr.GoogleQrCodeProvider</codeEntityReference> which uses the
+        <codeEntityReference>T:TwoFactorAuthNet.Providers.Qr.ImageChartsQrCodeProvider</codeEntityReference> which uses the
         <externalLink>
-          <linkText>Google Chart Tools</linkText>
-          <linkUri>https://developers.google.com/chart/infographics/docs/qr_codes</linkUri>
+          <linkText>Google Chart Tools replacement by image-charts.com</linkText>
+          <linkUri>https://image-charts.com/</linkUri>
         </externalLink> to render QR-codes. Then we have the
         <codeEntityReference>T:TwoFactorAuthNet.Providers.Qr.QrServerQrCodeProvider</codeEntityReference> which uses the
         <externalLink>
