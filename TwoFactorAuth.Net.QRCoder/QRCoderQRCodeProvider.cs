@@ -3,7 +3,7 @@ using System;
 using System.Drawing;
 using TwoFactorAuthNet.Providers.Qr;
 
-namespace TwoFactorAuth.Net.QRCoder
+namespace TwoFactorAuthNet.QRCoder
 {
     public class QRCoderQRCodeProvider : IQrCodeProvider
     {
