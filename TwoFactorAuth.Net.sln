@@ -22,6 +22,8 @@ Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "TwoFactorAuth.Net.Documenta
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwoFactorAuth.Net.Demo", "TwoFactorAuth.Net.Demo\TwoFactorAuth.Net.Demo.csproj", "{5AD3B320-3901-417D-8A52-FBC2DC0B598E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwoFactorAuth.Net.QRCoder", "TwoFactorAuth.Net.QRCoder\TwoFactorAuth.Net.QRCoder.csproj", "{C9A8A142-5B62-4216-9E6E-D5020BADE5DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{5AD3B320-3901-417D-8A52-FBC2DC0B598E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5AD3B320-3901-417D-8A52-FBC2DC0B598E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5AD3B320-3901-417D-8A52-FBC2DC0B598E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9A8A142-5B62-4216-9E6E-D5020BADE5DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9A8A142-5B62-4216-9E6E-D5020BADE5DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9A8A142-5B62-4216-9E6E-D5020BADE5DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9A8A142-5B62-4216-9E6E-D5020BADE5DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

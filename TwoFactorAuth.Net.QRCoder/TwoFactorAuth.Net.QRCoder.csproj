@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <RootNamespace>TwoFactorAuthNet.QRCoder</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Authors>RobIII</Authors>
+    <Company>RobIII</Company>
+    <Copyright>(C) 2019 Devcorner.nl</Copyright>
+    <PackageTags>totp otp multi-factor two-factor 2fa 2factor mfa security oath security protection authentication oath qrcoder</PackageTags>
+    <PackageProjectUrl>https://github.com/RobThree/TwoFactorAuth.Net/master/TwoFactorAuth.Net.QRCoder</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/RobThree/TwoFactorAuth.Net/master/TwoFactorAuth.Net.QRCoder/logo.png</PackageIconUrl>
+    <PackageReleaseNotes>* Initial release</PackageReleaseNotes>
+    <Description>QR code provider for TwoFactorAuth.Net using the excellent QRCoder library (https://github.com/codebude/QRCoder/)</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="QRCoder" Version="1.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TwoFactorAuth.Net\TwoFactorAuth.Net.csproj" />
+  </ItemGroup>
+
+</Project>
