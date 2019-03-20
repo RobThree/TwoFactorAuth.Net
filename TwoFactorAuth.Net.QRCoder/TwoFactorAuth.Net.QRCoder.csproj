@@ -11,8 +11,9 @@
     <PackageTags>totp otp multi-factor two-factor 2fa 2factor mfa security oath security protection authentication oath qrcoder</PackageTags>
     <PackageProjectUrl>https://github.com/RobThree/TwoFactorAuth.Net/tree/master/TwoFactorAuth.Net.QRCoder</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/RobThree/TwoFactorAuth.Net/master/TwoFactorAuth.Net.QRCoder/logo.png</PackageIconUrl>
-    <PackageReleaseNotes>* Initial release</PackageReleaseNotes>
+    <PackageReleaseNotes>* Swapped foreground and background colors</PackageReleaseNotes>
     <Description>QR code provider for TwoFactorAuth.Net using the excellent QRCoder library (https://github.com/codebude/QRCoder/)</Description>
+    <Version>1.0.2</Version>
   </PropertyGroup>
 
   <ItemGroup>

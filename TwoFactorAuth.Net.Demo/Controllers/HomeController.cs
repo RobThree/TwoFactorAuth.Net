@@ -5,7 +5,7 @@ namespace TwoFactorAuthNet.Demo.Controllers
 {
     public class HomeController : Controller
     {
-        private TwoFactorAuth tfa = new TwoFactorAuth("MyCompany");
+        private TwoFactorAuth tfa = new TwoFactorAuth("MyCompany", qrcodeprovider: new QRCoder.QRCoderQRCodeProvider(backgroundColor: System.Drawing.Color.Red));
 
         public ActionResult Index()
         {

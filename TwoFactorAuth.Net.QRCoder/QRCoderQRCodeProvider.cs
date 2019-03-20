@@ -82,8 +82,8 @@ namespace TwoFactorAuthNet.QRCoder
             using (var qrcode = new PngByteQRCode(qrcodedata))
                 return qrcode.GetGraphic(
                     (int)Math.Ceiling(size / (double)qrcodedata.ModuleMatrix.Count),
-                    new[] { BackgroundColor.R, BackgroundColor.G, BackgroundColor.B },
-                    new[] { ForegroundColor.R, ForegroundColor.G, ForegroundColor.B }
+                    new[] { ForegroundColor.R, ForegroundColor.G, ForegroundColor.B },
+                    new[] { BackgroundColor.R, BackgroundColor.G, BackgroundColor.B }
                 );
         }
 
