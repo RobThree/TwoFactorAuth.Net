@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2036
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9E8DC588-CB19-4BD3-AE12-1EE8B9FCBD87}"
 	ProjectSection(SolutionItems) = preProject
@@ -16,13 +16,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwoFactorAuth.Net.Tests", "
 EndProject
 Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "TwoFactorAuth.Net.Documentation", "TwoFactorAuth.Net.Documentation\TwoFactorAuth.Net.Documentation.shfbproj", "{7BA8061F-0BF1-4B16-B32B-92E6CA5EAFE5}"
 	ProjectSection(ProjectDependencies) = postProject
-		{028BEDA6-4F58-429E-8253-4FE011AC650C} = {028BEDA6-4F58-429E-8253-4FE011AC650C}
 		{1775B5FE-B8A0-44D4-9C8C-CB575578C4B9} = {1775B5FE-B8A0-44D4-9C8C-CB575578C4B9}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwoFactorAuth.Net.Demo", "TwoFactorAuth.Net.Demo\TwoFactorAuth.Net.Demo.csproj", "{5AD3B320-3901-417D-8A52-FBC2DC0B598E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwoFactorAuth.Net.QRCoder", "TwoFactorAuth.Net.QRCoder\TwoFactorAuth.Net.QRCoder.csproj", "{C9A8A142-5B62-4216-9E6E-D5020BADE5DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwoFactorAuth.Net.QRCoder", "TwoFactorAuth.Net.QRCoder\TwoFactorAuth.Net.QRCoder.csproj", "{C9A8A142-5B62-4216-9E6E-D5020BADE5DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
