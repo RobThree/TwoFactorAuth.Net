@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="3dbc8ab2-f284-4e49-b332-3bf7048ed89c" revisionNumber="1">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction>
+      <para>
+        Version 1.3.8 was released on 2019-06-21.
+      </para>
+    </introduction>
+
+    <section>
+      <title>Changes in This Release</title>
+      <content>
+
+        <list class="bullet">
+          <listItem>
+            <para>
+              This is a rebuilt, republished release of 1.3.7.
+            </para>
+          </listItem>
+        </list>
+
+      </content>
+    </section>
+
+    <relatedTopics>
+      <link xlink:href="7fad766e-7156-4ec8-aed1-93303f5fc5bd" />
+    </relatedTopics>
+
+  </developerConceptualDocument>
+</topic>
