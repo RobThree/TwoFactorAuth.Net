@@ -77,7 +77,7 @@
         <HelpKeyword index="K" term="version, 1.2.1" />
       </HelpKeywords>
     </Topic>
-    <Topic id="7cdacdb2-ce99-4309-afd8-7f01c2779cff" visible="True" isSelected="true" title="Version 1.3.0">
+    <Topic id="7cdacdb2-ce99-4309-afd8-7f01c2779cff" visible="True" title="Version 1.3.0">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 1.3.0" />
       </HelpKeywords>
@@ -100,6 +100,11 @@
     <Topic id="82a59fe9-151c-41f1-8df6-80cee5cb5c48" visible="True" title="Version 1.3.6">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 1.3.6" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="03bfb505-16d2-4d5a-9b37-5a32d2768ef1" visible="True" isSelected="true" title="Version 1.3.7">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="version, 1.3.7" />
       </HelpKeywords>
     </Topic>
   </Topic>

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45;net451;net452;net46;net461;net462;net47;net471;netstandard2.0;netcoreapp2.0</TargetFrameworks>
+    <TargetFrameworks>net45;netstandard2.0;netcoreapp2.0</TargetFrameworks>
     <Authors>RobIII</Authors>
     <Company>RobIII</Company>
     <PackageId>TwoFactorAuth.Net</PackageId>
@@ -15,7 +15,7 @@
     <PackageReleaseNotes>* Google image charts went dark; changed to replacement image-charts.com</PackageReleaseNotes>
     <Description>.Net library for two-factor (or multi-factor) authentication using TOTP and QR-codes.</Description>
     <PackageIconUrl>https://raw.githubusercontent.com/RobThree/TwoFactorAuth.Net/master/logo.png</PackageIconUrl>
-    <Version>1.3.6</Version>
+    <Version>1.3.7</Version>
     <RootNamespace>TwoFactorAuthNet</RootNamespace>
   </PropertyGroup>
 

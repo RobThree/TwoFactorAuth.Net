@@ -19,7 +19,7 @@ namespace TwoFactorAuthNet
         /// Gets the default QR Code provider
         /// </summary>
         /// <seealso cref="IQrCodeProvider"/>
-        public static IQrCodeProvider DefaultQrCodeProvider { get { return new ImageChartsQrCodeProvider(); } }
+        public static IQrCodeProvider DefaultQrCodeProvider { get { return new QrServerQrCodeProvider(); } }
 
         /// <summary>
         /// Gets the default Time provider
