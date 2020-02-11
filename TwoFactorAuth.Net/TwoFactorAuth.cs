@@ -539,7 +539,7 @@ namespace TwoFactorAuthNet
         /// <param name="label">The label for the TOTP Uri.</param>
         /// <param name="secret">The secret for the TOTP Uri.</param>
         /// <returns>Returns a TOTP Uri with specified label and secret.</returns>
-        private string GetQrText(string label, string secret)
+        public string GetQrText(string label, string secret)
         {
             var x = "otpauth://totp/" + Uri.EscapeDataString(label)
                 + "?secret=" + Uri.EscapeDataString(secret)

@@ -168,6 +168,14 @@ namespace TwoFactorAuthNet.Tests
         [TestMethod]
         public void VerifyTotpUriIsCorrect()
         {
+            var target = new TwoFactorAuth(issuer: "Test&Issuer");
+            var data = target.GetQrText("Test&Label", "VMR466AB62ZBOKHE");
+            Assert.AreEqual("otpauth://totp/Test%26Label?secret=VMR466AB62ZBOKHE&issuer=Test%26Issuer&period=30&algorithm=SHA1&digits=6", data);
+        }
+        
+        [TestMethod]
+        public void VerifyTotpUriInQrCodeIsCorrect()
+        {
             var qr = new TestQrProvider();
             var target = new TwoFactorAuth(issuer: "Test&Issuer", qrcodeprovider: qr);
 
