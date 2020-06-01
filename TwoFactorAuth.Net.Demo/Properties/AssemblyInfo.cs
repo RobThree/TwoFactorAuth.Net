@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Devcorner.nl")]
 [assembly: AssemblyProduct("TwoFactorAuth.Net.Demo")]
-[assembly: AssemblyCopyright("Copyright © 2015 - 2017 Devcorner.nl")]
+[assembly: AssemblyCopyright("Copyright © 2015 - 2020 Devcorner.nl")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
