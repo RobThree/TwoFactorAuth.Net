@@ -60,7 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TwoFactorAuth.Net\TwoFactorAuth.Net.csproj">
-      <Project>{1775b5fe-b8a0-44d4-9c8c-cb575578c4b9}</Project>
+      <Project>{97d727f6-be64-4c2d-98ee-a2cb2868e578}</Project>
       <Name>TwoFactorAuth.Net</Name>
     </ProjectReference>
   </ItemGroup>

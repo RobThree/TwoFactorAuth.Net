@@ -7,15 +7,15 @@
     <PackageId>TwoFactorAuth.Net</PackageId>
     <NoPackageAnalysis>true</NoPackageAnalysis>
     <Product>TwoFactorAuth.Net</Product>
-    <Copyright>(C) 2015 - 2019 Devcorner.nl</Copyright>
+    <Copyright>(C) 2015 - 2020 Devcorner.nl</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/RobThree/TwoFactorAuth.Net</PackageProjectUrl>
     <PackageTags>totp otp multi-factor two-factor 2fa 2factor mfa security oath security protection authentication oath</PackageTags>
-    <PackageReleaseNotes>* Switched from ImageChartsQrCodeProvider as default to QrServerQrCodeProvider</PackageReleaseNotes>
+    <PackageReleaseNotes>* GetQrText() is now public</PackageReleaseNotes>
     <Description>.Net library for two-factor (or multi-factor) authentication using TOTP and QR-codes.</Description>
-    <PackageIconUrl>https://raw.githubusercontent.com/RobThree/TwoFactorAuth.Net/master/logo.png</PackageIconUrl>
-    <Version>1.3.8</Version>
+    <PackageIcon>logo.png</PackageIcon>
+    <Version>1.3.9</Version>
     <RootNamespace>TwoFactorAuthNet</RootNamespace>
   </PropertyGroup>
 
@@ -29,5 +29,12 @@
 
   <ItemGroup>
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 </Project>
