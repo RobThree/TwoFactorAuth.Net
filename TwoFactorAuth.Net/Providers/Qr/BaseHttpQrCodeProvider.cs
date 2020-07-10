@@ -49,7 +49,7 @@ namespace TwoFactorAuthNet.Providers.Qr
         /// <summary>
         /// Gets the useragent string used to identify when downloading QR codes.
         /// </summary>
-        public static readonly string USERAGENT = string.Format("{0} v{1}", typeof(BaseHttpQrCodeProvider).Assembly.GetName().Name, typeof(BaseHttpQrCodeProvider).Assembly.GetName().Version.ToString());
+        public static readonly string USERAGENT = $"{typeof(BaseHttpQrCodeProvider).Assembly.GetName().Name} v{typeof(BaseHttpQrCodeProvider).Assembly.GetName().Version}";
 
         /// <summary>
         /// Gets the default timeout for downloading QR codes.
@@ -79,8 +79,13 @@ namespace TwoFactorAuthNet.Providers.Qr
         /// <returns>A <see cref="byte"/> array containing the downloaded resource.</returns>
         protected virtual byte[] DownloadData(Uri address)
         {
+            if (address == null)
+                throw new ArgumentNullException(nameof(address));
+
             if (RequireSsl && string.Compare(address.Scheme, Uri.UriSchemeHttps, StringComparison.OrdinalIgnoreCase) != 0)
+#pragma warning disable CA1303 // Do not pass literals as localized parameters
                 throw new ProtocolViolationException("An SSL connection is required");
+#pragma warning restore CA1303 // Do not pass literals as localized parameters
 
             using (var wc = GetWebClient())
                 return wc.DownloadData(address);
@@ -109,7 +114,7 @@ namespace TwoFactorAuthNet.Providers.Qr
         /// <returns>Returns the hexadecimal value for an RGB (<see cref="Color"/>) value.</returns>
         protected static string Color2Hex(Color value)
         {
-            return value.R.ToString("X2") + value.G.ToString("X2") + value.B.ToString("X2");
+            return $"{value.R:X2}{value.G:X2}{value:B:X2}";
         }
 
         /// <summary>

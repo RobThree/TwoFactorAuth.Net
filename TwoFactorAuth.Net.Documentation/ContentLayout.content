@@ -107,7 +107,7 @@
         <HelpKeyword index="K" term="version, 1.3.7" />
       </HelpKeywords>
     </Topic>
-    <Topic id="3dbc8ab2-f284-4e49-b332-3bf7048ed89c" visible="True" isSelected="true" title="Version 1.3.8">
+    <Topic id="3dbc8ab2-f284-4e49-b332-3bf7048ed89c" visible="True" title="Version 1.3.8">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 1.3.8" />
       </HelpKeywords>
@@ -117,5 +117,6 @@
         <HelpKeyword index="K" term="version, 1.3.9" />
       </HelpKeywords>
     </Topic>
+    <Topic id="df56464c-237e-41a9-9252-1c1261e01d60" visible="True" isSelected="true" />
   </Topic>
 </Topics>

@@ -103,7 +103,9 @@ namespace TwoFactorAuthNet.Providers.Qr
                 case QRicketImageFormat.Jpeg:
                     return "image/jpeg";
             }
+#pragma warning disable CA1303 // Do not pass literals as localized parameters
             throw new InvalidOperationException("Unknown imageformat");
+#pragma warning restore CA1303 // Do not pass literals as localized parameters
         }
 
         /// <summary>

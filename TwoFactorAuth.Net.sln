@@ -14,6 +14,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwoFactorAuth.Net", "TwoFac
 EndProject
 Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "TwoFactorAuth.Net.Documentation", "TwoFactorAuth.Net.Documentation\TwoFactorAuth.Net.Documentation.shfbproj", "{7BA8061F-0BF1-4B16-B32B-92E6CA5EAFE5}"
 	ProjectSection(ProjectDependencies) = postProject
+		{27D322AA-FE45-4E0B-ADBF-74D6AD0DCBF7} = {27D322AA-FE45-4E0B-ADBF-74D6AD0DCBF7}
 		{97D727F6-BE64-4C2D-98EE-A2CB2868E578} = {97D727F6-BE64-4C2D-98EE-A2CB2868E578}
 	EndProjectSection
 EndProject

@@ -15,7 +15,7 @@ namespace TwoFactorAuthNet.Providers.Time
         /// The default Uri used to 'query'.
         /// </summary>
         public const string DEFAULTURI = "https://google.com";
-        
+
         /// <summary>
         /// Gets the Uri to be queried.
         /// </summary>
@@ -56,12 +56,13 @@ namespace TwoFactorAuthNet.Providers.Time
         {
             try
             {
-                using (var c = new HttpClient(new HttpClientHandler()
+                using (var ch = new HttpClientHandler()
                 {
                     Proxy = Proxy,
                     UseProxy = Proxy != null,
                     AllowAutoRedirect = false
-                }))
+                })
+                using (var c = new HttpClient(ch))
                 {
                     using (var req = new HttpRequestMessage(HttpMethod.Head, Uri))
                     {
@@ -72,7 +73,8 @@ namespace TwoFactorAuthNet.Providers.Time
                     }
                 }
             }
-            catch { }
+            catch (HttpRequestException) { }
+            catch (TaskCanceledException) { }
 
             throw new TimeProviderException($"Unable to retrieve time data from {Uri}");
         }

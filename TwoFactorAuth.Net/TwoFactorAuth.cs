@@ -25,7 +25,6 @@ namespace TwoFactorAuthNet
     /// <seealso href="https://github.com/google/google-authenticator/wiki/Key-Uri-Format"/>
     public class TwoFactorAuth
     {
-        private readonly Encoding ENCODING = Encoding.ASCII;
         private readonly DateTime EPOCH = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
         /// <summary>
@@ -196,7 +195,9 @@ namespace TwoFactorAuthNet
         public string CreateSecret(int bits, CryptoSecureRequirement cryptoSecureRequirement)
         {
             if (cryptoSecureRequirement == CryptoSecureRequirement.RequireSecure && !RngProvider.IsCryptographicallySecure)
+#pragma warning disable CA1303 // Do not pass literals as localized parameters
                 throw new CryptographicException("RNG provider is not cryptographically secure");
+#pragma warning restore CA1303 // Do not pass literals as localized parameters
 
             int bytes = (int)Math.Ceiling((double)bits / 5);    // We use 5 bits of each byte (since we have a
                                                                 // 32-character 'alphabet' / base32)
@@ -241,12 +242,12 @@ namespace TwoFactorAuthNet
                 var ts = BitConverter.GetBytes(GetTimeSlice(timestamp, 0));
                 var hashhmac = algo.ComputeHash(new byte[] { 0, 0, 0, 0, ts[3], ts[2], ts[1], ts[0] });
                 var offset = hashhmac[hashhmac.Length - 1] & 0x0F;
-                return (((
+                return $@"{(((
                     hashhmac[offset + 0] << 24 |
                     hashhmac[offset + 1] << 16 |
                     hashhmac[offset + 2] << 8 |
                     hashhmac[offset + 3]
-                ) & 0x7FFFFFFF) % (long)Math.Pow(10, Digits)).ToString().PadLeft(Digits, '0');
+                ) &0x7FFFFFFF) % (long)Math.Pow(10, Digits))}".PadLeft(Digits, '0');
             }
         }
 
@@ -389,7 +390,9 @@ namespace TwoFactorAuthNet
         /// <param name="secret">The shared secret.</param>
         /// <returns>Returns an image encoded as data uri.</returns>
         /// <see href="https://en.wikipedia.org/wiki/Data_URI_scheme"/>
+#pragma warning disable CA1055 // Uri return values should not be strings
         public string GetQrCodeImageAsDataUri(string label, string secret)
+#pragma warning restore CA1055 // Uri return values should not be strings
         {
             return GetQrCodeImageAsDataUri(label, secret, DEFAULTQRCODESIZE);
         }
@@ -404,7 +407,9 @@ namespace TwoFactorAuthNet
         /// <returns>Returns an image encoded as data uri.</returns>
         /// <see href="https://en.wikipedia.org/wiki/Data_URI_scheme"/>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="size"/> is less than 0</exception>
+#pragma warning disable CA1055 // Uri return values should not be strings
         public string GetQrCodeImageAsDataUri(string label, string secret, int size)
+#pragma warning restore CA1055 // Uri return values should not be strings
         {
             if (size <= 0)
                 throw new ArgumentOutOfRangeException(nameof(size));
@@ -474,11 +479,9 @@ namespace TwoFactorAuthNet
         /// </exception>
         public void EnsureCorrectTime(IEnumerable<ITimeProvider> timeproviders, int leniency)
         {
-            if (timeproviders == null)
+            if (timeproviders == null || !timeproviders.Any())
                 throw new ArgumentNullException(nameof(timeproviders));
-            if (!timeproviders.Any())
-                throw new ArgumentException(nameof(timeproviders));
-
+            
             foreach (var t in timeproviders)
             {
                 if (TimeSpan.FromTicks(Math.Abs((t.GetTimeAsync().Result - GetTime()).Ticks)) > TimeSpan.FromSeconds(leniency))
@@ -569,14 +572,16 @@ namespace TwoFactorAuthNet
                 value = value.TrimEnd('=');
 
                 // Quick-exit if nothing to decode
-                if (value == string.Empty)
-                    return new byte[0];
+                if (string.IsNullOrEmpty(value))
+                    return Array.Empty<byte>();
 
                 // Make sure string contains only chars from Base32 "alphabet"
                 if (_b32re.IsMatch(value))
+#pragma warning disable CA1303 // Do not pass literals as localized parameters
                     throw new ArgumentException("Invalid base32 string", nameof(value));
+#pragma warning restore CA1303 // Do not pass literals as localized parameters
 
-                // Decode Base32 value (not world's most efficient or beatiful code but it gets the job done.
+                    // Decode Base32 value (not world's most efficient or beatiful code but it gets the job done.
                 var bits = string.Concat(value.Select(c => Convert.ToString(_base32lookup[c], 2).PadLeft(5, '0')));
                 return Enumerable.Range(0, bits.Length / 8).Select(i => Convert.ToByte(bits.Substring(i * 8, 8), 2)).ToArray();
             }

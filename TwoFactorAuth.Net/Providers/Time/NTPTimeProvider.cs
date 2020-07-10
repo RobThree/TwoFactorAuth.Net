@@ -13,17 +13,17 @@ namespace TwoFactorAuthNet.Providers.Time
         /// <summary>
         /// The default host used to query.
         /// </summary>
-        public const string DEFAULTHOST = "pool.ntp.org";
+        public static string DefaultHost => "pool.ntp.org";
 
         /// <summary>
         /// The default port used to query.
         /// </summary>
-        public const int DEFAULTPORT = 123;
+        public static int DefaultPort => 123;
 
         /// <summary>
         /// The default send- and receive timeout used when querying NTP host.
         /// </summary>
-        public readonly TimeSpan DEFAULTTIMEOUT = TimeSpan.FromSeconds(3);
+        public static TimeSpan DefaultTimeout => TimeSpan.FromSeconds(3);
 
         /// <summary>
         /// Gets the host to be queried.
@@ -50,24 +50,24 @@ namespace TwoFactorAuthNet.Providers.Time
         /// <summary>
         /// Initializes a new instance of a <see cref="NTPTimeProvider"/>.
         /// </summary>
-        /// <param name="host">The host to query; defaults to <see cref="DEFAULTHOST"/>.</param>
-        /// <param name="port">The port to query; defaults to <see cref="DEFAULTPORT"/>.</param>
+        /// <param name="host">The host to query; defaults to <see cref="DefaultHost"/>.</param>
+        /// <param name="port">The port to query; defaults to <see cref="DefaultPort"/>.</param>
         /// <param name="sendTimeout">The send timeout when querying NTP host.</param>
         /// <param name="receiveTimeout">The receive timeout when querying NTP host.</param>
-        public NTPTimeProvider(string host = DEFAULTHOST, int port = 123, TimeSpan? sendTimeout = null, TimeSpan? receiveTimeout = null)
+        public NTPTimeProvider(string host = null, int port = 123, TimeSpan? sendTimeout = null, TimeSpan? receiveTimeout = null)
         {
-            Host = host ?? throw new ArgumentNullException(nameof(host));
+            Host = host ?? DefaultHost;
 
             if (port <= 0 || port > 65535)
                 throw new ArgumentOutOfRangeException(nameof(port));
             Port = port;
 
-            sendTimeout = sendTimeout ?? DEFAULTTIMEOUT;
+            sendTimeout = sendTimeout ?? DefaultTimeout;
             if (sendTimeout <= TimeSpan.Zero)
                 throw new ArgumentOutOfRangeException(nameof(sendTimeout));
             SendTimeout = sendTimeout.Value;
 
-            receiveTimeout = receiveTimeout ?? DEFAULTTIMEOUT;
+            receiveTimeout = receiveTimeout ?? DefaultTimeout; ;
             if (receiveTimeout <= TimeSpan.Zero)
                 throw new ArgumentOutOfRangeException(nameof(receiveTimeout));
             ReceiveTimeout = receiveTimeout.Value;
@@ -110,7 +110,9 @@ namespace TwoFactorAuthNet.Providers.Time
                     }
                 }
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch { }
+#pragma warning restore CA1031 // Do not catch general exception types
             throw new TimeProviderException($"Unable to retrieve time data from {Host}");
         }
     }

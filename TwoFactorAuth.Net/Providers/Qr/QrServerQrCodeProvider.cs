@@ -154,7 +154,9 @@ namespace TwoFactorAuthNet.Providers.Qr
                 case QrServerImageFormat.Eps:
                     return "application/postscript";
             }
+#pragma warning disable CA1303 // Do not pass literals as localized parameters
             throw new InvalidOperationException("Unknown imageformat");
+#pragma warning restore CA1303 // Do not pass literals as localized parameters
         }
 
         /// <summary>
@@ -184,7 +186,9 @@ namespace TwoFactorAuthNet.Providers.Qr
                 + "&qzone=" + QuietZone
                 + "&bgcolor=" + Color2Hex(BackgroundColor)
                 + "&color=" + Color2Hex(ForegroundColor)
+#pragma warning disable CA1308 // Normalize strings to uppercase
                 + "&format=" + Enum.GetName(typeof(QrServerImageFormat), ImageFormat).ToLowerInvariant()
+#pragma warning restore CA1308 // Normalize strings to uppercase
                 + "&data=" + Uri.EscapeDataString(qrText)
             );
         }

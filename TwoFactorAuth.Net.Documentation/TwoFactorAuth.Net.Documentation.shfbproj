@@ -13,7 +13,7 @@
     <RootNamespace>TwoFactorAuth.Net.Documentation</RootNamespace>
     <Name>TwoFactorAuth.Net.Documentation</Name>
     <!-- SHFB properties -->
-    <FrameworkVersion>.NET Framework 4.5</FrameworkVersion>
+    <FrameworkVersion>.NET Framework 4.6</FrameworkVersion>
     <OutputPath>.\Help\</OutputPath>
     <HtmlHelpName>TwoFactorAuth.Net.Documentation</HtmlHelpName>
     <Language>en-US</Language>
@@ -27,8 +27,8 @@
       <Argument Key="maxVersionParts" Value="" xmlns="" />
     </TransformComponentArguments>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\TwoFactorAuth.Net\bin\Release\net45\TwoFactorAuth.Net.dll" />
-      <DocumentationSource sourceFile="..\TwoFactorAuth.Net\bin\Release\net45\TwoFactorAuth.Net.xml" />
+      <DocumentationSource sourceFile="..\TwoFactorAuth.Net\bin\Release\net46\TwoFactorAuth.Net.dll" />
+      <DocumentationSource sourceFile="..\TwoFactorAuth.Net\bin\Release\net46\TwoFactorAuth.Net.xml" />
     </DocumentationSources>
     <HelpFileVersion>1.2.1.0</HelpFileVersion>
     <MaximumGroupParts>2</MaximumGroupParts>
@@ -116,6 +116,7 @@
     <None Include="Content\VersionHistory\v1.3.7.0.aml" />
     <None Include="Content\VersionHistory\v1.3.8.0.aml" />
     <None Include="Content\VersionHistory\v1.3.9.0.aml" />
+    <None Include="Content\VersionHistory\v1.4.0.0.aml" />
     <None Include="Content\VersionHistory\VersionHistory.aml" />
     <None Include="Content\Welcome.aml" />
   </ItemGroup>

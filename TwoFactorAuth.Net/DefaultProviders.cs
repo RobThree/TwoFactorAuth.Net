@@ -7,7 +7,7 @@ namespace TwoFactorAuthNet
     /// <summary>
     /// Provides default values for providers required by <see cref="TwoFactorAuth"/> instances.
     /// </summary>
-    public class DefaultProviders
+    public static class DefaultProviders
     {
         /// <summary>
         /// Gets the default RNG provider

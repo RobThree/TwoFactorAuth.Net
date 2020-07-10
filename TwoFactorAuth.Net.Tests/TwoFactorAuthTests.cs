@@ -19,21 +19,21 @@ namespace TwoFactorAuthNet.Tests
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void ConstructorThrowsOnInvalidDigits()
         {
-            var target = new TwoFactorAuth(digits: 0);
+            new TwoFactorAuth(digits: 0);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void ConstructorThrowsOnInvalidPeriod()
         {
-            var target = new TwoFactorAuth(period: 0);
+            new TwoFactorAuth(period: 0);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void ConstructorThrowsOnInvalidAlgorithm()
         {
-            var target = new TwoFactorAuth(algorithm: (Algorithm)999);
+            new TwoFactorAuth(algorithm: (Algorithm)999);
         }
 
 
@@ -60,7 +60,7 @@ namespace TwoFactorAuthNet.Tests
         {
             var rng = new TestRNGProvider(false);
             var target = new TwoFactorAuth(rngprovider: rng);
-            var r = target.CreateSecret(80, CryptoSecureRequirement.AllowInsecure);
+            target.CreateSecret(80, CryptoSecureRequirement.AllowInsecure);
             Assert.AreEqual("ABCDEFGHIJKLMNOP", target.CreateSecret(80, CryptoSecureRequirement.AllowInsecure));
         }
 
@@ -69,7 +69,7 @@ namespace TwoFactorAuthNet.Tests
         {
             var rng = new TestRNGProvider(true);
             var target = new TwoFactorAuth(rngprovider: rng);
-            var r = target.CreateSecret();
+            target.CreateSecret();
             Assert.AreEqual("ABCDEFGHIJKLMNOP", target.CreateSecret());
         }
 
@@ -275,7 +275,7 @@ namespace TwoFactorAuthNet.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentNullException))]
         public void EnsureCorrectTimeThrowsOnNoTimeProviders()
         {
             new TwoFactorAuth().EnsureCorrectTime(Enumerable.Empty<ITimeProvider>());
@@ -444,7 +444,7 @@ namespace TwoFactorAuthNet.Tests
     {
         public byte[] GetQrCodeImage(string text, int size)
         {
-            return Encoding.ASCII.GetBytes(string.Format("{0}@{1}", text, size));
+            return Encoding.ASCII.GetBytes($"{text}@{size}");
         }
 
         public string GetMimeType()
