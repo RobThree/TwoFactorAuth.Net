@@ -147,4 +147,7 @@
     </PostBuildEvent>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'ReleaseWithDocumentation' ">
+    <OutputPath>bin\ReleaseWithDocumentation\</OutputPath>
+  </PropertyGroup>
 </Project>

@@ -15,6 +15,7 @@
     <Description>QR code provider for TwoFactorAuth.Net using the excellent QRCoder library (https://github.com/codebude/QRCoder/)</Description>
     <Version>1.0.2</Version>
     <PackageIcon>logo.png</PackageIcon>
+    <Configurations>Debug;Release;ReleaseWithDocumentation</Configurations>
   </PropertyGroup>
 
   <ItemGroup>
