@@ -13,7 +13,7 @@
     <RootNamespace>TwoFactorAuth.Net.Documentation</RootNamespace>
     <Name>TwoFactorAuth.Net.Documentation</Name>
     <!-- SHFB properties -->
-    <FrameworkVersion>Cross-platform (.NET Core/.NET Standard)</FrameworkVersion>
+    <FrameworkVersion>.NET Core/.NET Standard/.NET 5.0+</FrameworkVersion>
     <OutputPath>.\Help\</OutputPath>
     <HtmlHelpName>TwoFactorAuth.Net.Documentation</HtmlHelpName>
     <Language>en-US</Language>
@@ -41,7 +41,7 @@
     <HelpTitle>TwoFactorAuth.Net Documentation</HelpTitle>
     <FeedbackEMailLinkText>Rob Janssen</FeedbackEMailLinkText>
     <FeedbackEMailAddress>rob%40devcorner.nl</FeedbackEMailAddress>
-    <CopyrightText>Copyright &amp;#169%3b 2015 - 2017 Devcorner.nl</CopyrightText>
+    <CopyrightText>Copyright &amp;#169%3b 2015 - 2022 Devcorner.nl</CopyrightText>
     <CopyrightHref>http://devcorner.nl</CopyrightHref>
     <ContentPlacement>AboveNamespaces</ContentPlacement>
     <RootNamespaceTitle>TwoFactorAuth.Net Documentation</RootNamespaceTitle>

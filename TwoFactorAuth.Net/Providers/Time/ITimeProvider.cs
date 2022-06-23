@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace TwoFactorAuthNet.Providers.Time
+namespace TwoFactorAuthNet.Providers.Time;
+
+/// <summary>
+/// Provides the interface for time providers.
+/// </summary>
+public interface ITimeProvider
 {
     /// <summary>
-    /// Provides the interface for time providers.
+    /// Gets the time from the time provider.
     /// </summary>
-    public interface ITimeProvider
-    {
-        /// <summary>
-        /// Gets the time from the time provider.
-        /// </summary>
-        /// <returns>The task object representing the asynchronous operation.</returns>
-        Task<DateTime> GetTimeAsync();
-    }
+    /// <returns>The task object representing the asynchronous operation.</returns>
+    Task<DateTime> GetTimeAsync();
 }

@@ -1,20 +1,16 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace TwoFactorAuthNet.Providers.Time
+namespace TwoFactorAuthNet.Providers.Time;
+
+/// <summary>
+/// Provides time information from the local machine.
+/// </summary>
+public class LocalMachineTimeProvider : ITimeProvider
 {
     /// <summary>
-    /// Provides time information from the local machine.
+    /// Gets the time from the local machine.
     /// </summary>
-    public class LocalMachineTimeProvider : ITimeProvider
-    {
-        /// <summary>
-        /// Gets the time from the local machine.
-        /// </summary>
-        /// <returns>The task object representing the asynchronous operation.</returns>
-        public Task<DateTime> GetTimeAsync()
-        {
-            return Task.FromResult(DateTime.UtcNow);
-        }
-    }
+    /// <returns>The task object representing the asynchronous operation.</returns>
+    public Task<DateTime> GetTimeAsync() => Task.FromResult(DateTime.UtcNow);
 }
