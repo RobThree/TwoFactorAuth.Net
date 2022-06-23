@@ -54,7 +54,7 @@ public class NTPTimeProvider : ITimeProvider
     /// <param name="port">The port to query; defaults to <see cref="DefaultPort"/>.</param>
     /// <param name="sendTimeout">The send timeout when querying NTP host.</param>
     /// <param name="receiveTimeout">The receive timeout when querying NTP host.</param>
-    public NTPTimeProvider(string host = null, int port = 123, TimeSpan? sendTimeout = null, TimeSpan? receiveTimeout = null)
+    public NTPTimeProvider(string? host = null, int port = 123, TimeSpan? sendTimeout = null, TimeSpan? receiveTimeout = null)
     {
         Host = host ?? DefaultHost;
 

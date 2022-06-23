@@ -28,7 +28,7 @@ public class TwoFactorAuth
     /// <summary>
     /// Gets a string value indicating the provider or service this account is associated with.
     /// </summary>
-    public string Issuer { get; private set; }
+    public string? Issuer { get; private set; }
 
     /// <summary>
     /// Gets the number of digits to display to the user.
@@ -122,13 +122,13 @@ public class TwoFactorAuth
     /// <paramref name="algorithm"/> is invalid.
     /// </exception>
     public TwoFactorAuth(
-        string issuer = null,
+        string? issuer = null,
         int digits = DEFAULTDIGITS,
         int period = DEFAULTPERIOD,
         Algorithm algorithm = Algorithm.SHA1,
-        IQrCodeProvider qrcodeprovider = null,
-        IRngProvider rngprovider = null,
-        ITimeProvider timeprovider = null)
+        IQrCodeProvider? qrcodeprovider = null,
+        IRngProvider? rngprovider = null,
+        ITimeProvider? timeprovider = null)
     {
         Issuer = issuer;
 

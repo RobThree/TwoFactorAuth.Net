@@ -18,7 +18,7 @@ public class HashRngProvider : IRngProvider
     /// Initializes a new instance of the <see cref="HashRngProvider"/> with a specified <see cref="HashAlgorithm"/>.
     /// </summary>
     /// <param name="algorithm">The <see cref="HashAlgorithm"/> to use when generating random number sequences.</param>
-    public HashRngProvider(HashAlgorithm algorithm = null) => _algorithm = algorithm ?? HashAlgorithm.Create("HMACSHA256");
+    public HashRngProvider(HashAlgorithm? algorithm = null) => _algorithm = algorithm ?? HashAlgorithm.Create("HMACSHA256");
 
     /// <summary>
     /// Gets whether the provider is cryptographically secure.

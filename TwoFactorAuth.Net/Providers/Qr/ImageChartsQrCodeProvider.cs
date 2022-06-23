@@ -43,7 +43,7 @@ public class ImageChartsQrCodeProvider : BaseHttpQrCodeProvider, IQrCodeProvider
     public ImageChartsQrCodeProvider(
         ErrorCorrectionLevel errorCorrectionLevel = ErrorCorrectionLevel.Low,
         int marginRows = 1,
-        RemoteCertificateValidationCallback remoteCertificateValidationCallback = null
+        RemoteCertificateValidationCallback? remoteCertificateValidationCallback = null
     )
         : base(_baseuri, remoteCertificateValidationCallback)
     {

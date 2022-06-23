@@ -29,7 +29,7 @@ public class HttpTimeProvider : ITimeProvider
     /// <summary>
     /// Gets/sets the <see cref="IWebProxy"/> to use when performing requests.
     /// </summary>
-    public IWebProxy Proxy { get; set; }
+    public IWebProxy? Proxy { get; set; }
 
 
     /// <summary>

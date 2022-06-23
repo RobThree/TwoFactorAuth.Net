@@ -106,7 +106,7 @@ public class QrServerQrCodeProvider : BaseHttpQrCodeProvider, IQrCodeProvider
         Color? backgroundColor = null,
         Color? foregroundColor = null,
         QrServerImageFormat imageFormat = QrServerImageFormat.Png,
-        RemoteCertificateValidationCallback remoteCertificateValidationCallback = null
+        RemoteCertificateValidationCallback? remoteCertificateValidationCallback = null
     )
         : base(_baseuri, remoteCertificateValidationCallback)
     {

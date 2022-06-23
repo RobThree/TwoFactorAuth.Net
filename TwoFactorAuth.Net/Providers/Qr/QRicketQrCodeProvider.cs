@@ -68,7 +68,7 @@ public class QRicketQrCodeProvider : BaseHttpQrCodeProvider, IQrCodeProvider
         Color? backgroundColor = null,
         Color? foregroundColor = null,
         QRicketImageFormat imageFormat = QRicketImageFormat.Png,
-        RemoteCertificateValidationCallback remoteCertificateValidationCallback = null
+        RemoteCertificateValidationCallback? remoteCertificateValidationCallback = null
     )
         : base(_baseuri, remoteCertificateValidationCallback)
     {

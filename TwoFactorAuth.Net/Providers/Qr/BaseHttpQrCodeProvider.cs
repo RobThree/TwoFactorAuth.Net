@@ -14,7 +14,7 @@ public abstract class BaseHttpQrCodeProvider
     /// <summary>
     /// Gets a callback function to validate the server certificate.
     /// </summary>
-    protected RemoteCertificateValidationCallback RemoteCertificateValidationCallback { get; private set; }
+    protected RemoteCertificateValidationCallback? RemoteCertificateValidationCallback { get; private set; }
 
     /// <summary>
     /// Gets the base URI to use when downloading files.
@@ -24,17 +24,17 @@ public abstract class BaseHttpQrCodeProvider
     /// <summary>
     /// Gets/sets the application's cache policy for any resources obtained by this instance.
     /// </summary>
-    public RequestCachePolicy CachePolicy { get; set; }
+    public RequestCachePolicy? CachePolicy { get; set; }
 
     /// <summary>
     /// Gets/sets the network credentials that are sent to the host and used to authenticate the request.
     /// </summary>
-    public ICredentials Credentials { get; set; }
+    public ICredentials? Credentials { get; set; }
 
     /// <summary>
     /// Gets/sets the proxy used by this instance.
     /// </summary>
-    public IWebProxy Proxy { get; set; }
+    public IWebProxy? Proxy { get; set; }
 
     /// <summary>
     /// Gets/sets the default timeout.
@@ -64,7 +64,7 @@ public abstract class BaseHttpQrCodeProvider
     /// The <see cref="RemoteCertificateValidationCallback"/> to be used by the QR code provider.
     /// </param>
     /// <exception cref="ArgumentNullException">Thrown when <paramref name="baseUri"/> is null.</exception>
-    protected BaseHttpQrCodeProvider(Uri baseUri, RemoteCertificateValidationCallback remoteCertificateValidationCallback)
+    protected BaseHttpQrCodeProvider(Uri baseUri, RemoteCertificateValidationCallback? remoteCertificateValidationCallback)
     {
         BaseUri = baseUri ?? throw new ArgumentNullException(nameof(baseUri));
 
@@ -122,9 +122,9 @@ public abstract class BaseHttpQrCodeProvider
     private class ExtendedWebClient : WebClient
     {
         private TimeSpan _timeout;
-        private readonly RemoteCertificateValidationCallback _remotecertificatevalidationcallback;
+        private readonly RemoteCertificateValidationCallback? _remotecertificatevalidationcallback;
 
-        public ExtendedWebClient(TimeSpan timeOut, RemoteCertificateValidationCallback remoteCertificateValidationCallback)
+        public ExtendedWebClient(TimeSpan timeOut, RemoteCertificateValidationCallback? remoteCertificateValidationCallback)
         {
             _timeout = timeOut;
             _remotecertificatevalidationcallback = remoteCertificateValidationCallback;
