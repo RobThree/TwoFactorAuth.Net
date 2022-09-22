@@ -19,10 +19,7 @@ To install TwoFactorAuth.Net, run the following command in the [Package Manager 
 PM> Install-Package TwoFactorAuth.Net
 ```
 
-## Quickstart / Demo
-If you want to hit the ground running then have a look at the [demo project](TwoFactorAuth.Net.Demo). It's very simple and easy! Also, if you're already familiar with the well known [TwoFactorAuth](https://github.com/RobThree/TwoFactorAuth) library for PHP then you should have no problem switching / using this .Net port. 
-
-## Getting started
+## Quickstart
 
 ### Step 1: Set up secret shared key
 
